@@ -11,7 +11,7 @@ function setDay({
       obj.date = moment(thisMonth).subtract(firstDayOfTheMonth - i, 'd').format('YYYY-MM-DD');
       break;
     case 'nextMonth':
-      obj.date = moment(thisMonth).add(i - firstDayOfTheMonth - daysInMonth, 'd').format('YYYY-MM-DD');
+      obj.date = moment(thisMonth).add(1, 'M').add(i - firstDayOfTheMonth - daysInMonth, 'd').format('YYYY-MM-DD');
       break;
     case 'currentMonth':
       obj.date = moment(thisMonth).add(i - firstDayOfTheMonth, 'd').format('YYYY-MM-DD');
@@ -75,6 +75,7 @@ function getTable(date, firstDayOfTheWeek) {
       date: lastDay.add(1, 'd').format('YYYY-MM-DD'),
       day: lastDay.format('D'),
     });
+    console.log(lastDay.format('YYYY-MM-DD'));
   }
   for (let t = 0; t < 6; t += 1) {
     table.push(

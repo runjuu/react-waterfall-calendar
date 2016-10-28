@@ -43,7 +43,7 @@ render(
         selectedClassName={style.selected}
         clickCallback={onClick}
         config={{
-          firstDayOfTheWeek: 0,
+          firstDayOfTheWeek: 1,
           weekNamed,
         }}
       />
