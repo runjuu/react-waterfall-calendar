@@ -1,8 +1,11 @@
 import { connect } from 'react-redux';
 import DateTable from '../component/DateTable';
+import { getDateTable } from '../actions';
+
 
 const mapDate = state => ({
-  data: state.dateTable,
+  date: state.date,
+  dateTable: state.dateTable,
 });
 
 const VisibleDateTable = connect(

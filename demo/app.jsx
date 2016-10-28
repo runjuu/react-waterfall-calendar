@@ -23,7 +23,7 @@ render(
         />
         <button type="button" onClick={goNextMonth}>next</button>
       </header>
-      <VisibleDateTable />
+      <VisibleDateTable classname={style.dateTable} />
     </div>
   </Provider>,
   document.getElementById('root')

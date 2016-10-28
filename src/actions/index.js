@@ -11,13 +11,24 @@ export const formatTitle = format => ({
   format,
 });
 
+export const getDateTable = date => ({
+  type: 'GET_DATE_TABLE',
+  date,
+});
+
 export default function actions(store) {
   return {
     goLastMonth: () => {
       store.dispatch(goLastMonth());
+      store.dispatch(
+        getDateTable(store.getState().date)
+      );
     },
     goNextMonth: () => {
       store.dispatch(goNextMonth());
+      store.dispatch(
+        getDateTable(store.getState().date)
+      );
     },
   };
 }
