@@ -12,18 +12,28 @@ const {
   goNextMonth,
 } = Calendar;
 
+function onClick({ date }) {
+  console.log('onClick', date);
+}
+
 render(
   <Provider store={store}>
     <div>
       <header>
         <button type="button" onClick={goLastMonth}>last</button>
+        <button type="button" onClick={goNextMonth}>next</button>
         <Title
           format="YYYY年MM月"
           classname={style.title}
         />
-        <button type="button" onClick={goNextMonth}>next</button>
       </header>
-      <VisibleDateTable classname={style.dateTable} />
+      <VisibleDateTable
+        classname={style.dateTable}
+        todayClassName={style.today}
+        otherMonthClassName={style.otherMonth}
+        selectedClassName={style.selected}
+        clickCallback={onClick}
+      />
     </div>
   </Provider>,
   document.getElementById('root')

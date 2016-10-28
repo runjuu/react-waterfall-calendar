@@ -1,2 +1,5 @@
 # react-module-calendar
-模块化React日历组件
+
+To Start:
+  * npm install
+  * npm run dev

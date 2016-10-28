@@ -1,3 +1,18 @@
+export const formatTitle = format => ({
+  type: 'TITLE_FORMAT',
+  format,
+});
+
+export const setSelectType = theType => ({
+  type: 'SET_SELECT_TYPE',
+  theType,
+});
+
+export const getDateTable = date => ({
+  type: 'GET_DATE_TABLE',
+  date,
+});
+
 export const goNextMonth = () => ({
   type: 'GO_NEXT_MONTH',
 });
@@ -6,13 +21,9 @@ export const goLastMonth = () => ({
   type: 'GO_LAST_MONTH',
 });
 
-export const formatTitle = format => ({
-  type: 'TITLE_FORMAT',
-  format,
-});
-
-export const getDateTable = date => ({
-  type: 'GET_DATE_TABLE',
+export const onClickDate = (date, callback) => ({
+  type: 'ON_CLICK_DATE',
+  callback,
   date,
 });
 

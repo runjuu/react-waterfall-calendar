@@ -8,10 +8,6 @@ module.exports = {
             "jsx": true
         }
     },
-    "rules": {
-        "semi": "error",
-        "indent": 0
-    },
     "env": {
         "browser": true,
         "node": true
