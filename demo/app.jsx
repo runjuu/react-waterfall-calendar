@@ -12,6 +12,15 @@ const {
   goNextMonth,
 } = Calendar;
 
+const weekNamed = {
+  Su: '日',
+  Mo: '月',
+  Tu: '火',
+  We: '水',
+  Th: '木',
+  Fr: '金',
+  Sa: '土',
+};
 function onClick({ date }) {
   console.log('onClick', date);
 }
@@ -33,6 +42,10 @@ render(
         otherMonthClassName={style.otherMonth}
         selectedClassName={style.selected}
         clickCallback={onClick}
+        config={{
+          firstDayOfTheWeek: 0,
+          weekNamed,
+        }}
       />
     </div>
   </Provider>,

@@ -8,9 +8,10 @@ export const setSelectType = theType => ({
   theType,
 });
 
-export const getDateTable = date => ({
+export const getDateTable = (date, config) => ({
   type: 'GET_DATE_TABLE',
   date,
+  config,
 });
 
 export const goNextMonth = () => ({

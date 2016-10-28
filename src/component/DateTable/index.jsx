@@ -9,7 +9,7 @@ class DateTable extends Component {
     this.onClickDate = this.onClickDate.bind(this);
   }
   componentDidMount() {
-    this.props.dispatch(getDateTable(this.props.date));
+    this.props.dispatch(getDateTable(this.props.date, this.props.config));
     this.props.dispatch(setSelectType(this.props.selectType || 'single'));
   }
   onClickDate(e) {
@@ -36,7 +36,14 @@ class DateTable extends Component {
   render() {
     return (
       <div className={this.props.classname}>
-        {this.props.dateTable.map((column, c) => (
+        <section className={this.props.weekClassName}>
+          {this.props.dateTable.weekTitle.map((title, t) => (
+            <div key={t}>
+              {title}
+            </div>
+          ))}
+        </section>
+        {this.props.dateTable.table.map((column, c) => (
           <section key={c}>
             {column.map((row, r) => (
               <div
@@ -62,23 +69,24 @@ class DateTable extends Component {
 }
 
 DateTable.propTypes = {
-  dateTable: PropTypes.arrayOf(
-    PropTypes.arrayOf(
-      PropTypes.shape({
-        date: PropTypes.string,
-        day: PropTypes.string,
-      }))
-  ),
+  dateTable: PropTypes.shape({
+    table: PropTypes.array,
+    weekTitle: PropTypes.array,
+  }),
   date: PropTypes.string,
   events: PropTypes.shape({
     isSelected: PropTypes.objectOf(PropTypes.bool),
   }),
-  onClickDate: PropTypes.func,
   clickCallback: PropTypes.func,
   dispatch: PropTypes.func,
   classname: PropTypes.string,
+  weekClassName: PropTypes.string,
   otherMonthClassName: PropTypes.string,
   selectType: PropTypes.string,
+  config: PropTypes.shape({
+    firstDayOfTheWeek: PropTypes.number,
+    weekNamed: PropTypes.objectOf(PropTypes.string),
+  }),
 };
 
 export default DateTable;
