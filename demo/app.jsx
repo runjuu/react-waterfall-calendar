@@ -21,6 +21,21 @@ const weekNamed = {
   Fr: '金',
   Sa: '土',
 };
+
+const customize = {
+  '2016-10-30': {
+    data: 'test',
+    classname: style.tag,
+  },
+  '2016-10-31': {
+    data: 'test',
+    classname: style.tag,
+  },
+  '2016-11-01': {
+    data: 'test',
+    classname: style.tag,
+  },
+};
 function onClick({ date }) {
   console.log('onClick', date);
 }
@@ -42,8 +57,9 @@ render(
         otherMonthClassName={style.otherMonth}
         selectedClassName={style.selected}
         clickCallback={onClick}
+        customize={customize}
         config={{
-          firstDayOfTheWeek: 1,
+          firstDayOfTheWeek: 0,
           weekNamed,
         }}
       />

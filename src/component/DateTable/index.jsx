@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import moment from 'moment';
 import classNames from 'classnames';
 import { getDateTable, setSelectType, onClickDate } from '../../actions';
 
@@ -16,7 +17,7 @@ class DateTable extends Component {
     const date = e.target.parentNode.getAttribute('data-date');
     this.props.dispatch(onClickDate(date, this.props.clickCallback));
   }
-  typeClassName(type, date) {
+  typeClassName(type, date, customize) {
     const className = [];
     switch (type) {
       case 'lastMonth':
@@ -30,7 +31,12 @@ class DateTable extends Component {
       default:
         break;
     }
-    if (this.props.events.isSelected[date]) className.push(this.props.otherMonthClassName);
+    if (this.props.events.totalTimes === 0 && date === moment().format('YYYY-MM-DD')) {
+      className.push(this.props.otherMonthClassName);
+    } else if (this.props.events.isSelected[date]) {
+      className.push(this.props.otherMonthClassName);
+    }
+    if (customize[date]) className.push(customize[date].classname);
     return classNames(...className);
   }
   render() {
@@ -50,8 +56,9 @@ class DateTable extends Component {
                 data-column={c}
                 data-row={r}
                 data-date={row.date}
+                data-customize={this.props.customize[row.date] && this.props.customize[row.date].data}
                 key={row.date}
-                className={this.typeClassName(row.type, row.date)}
+                className={this.typeClassName(row.type, row.date, this.props.customize)}
               >
                 <a
                   onClick={this.onClickDate}
@@ -76,6 +83,7 @@ DateTable.propTypes = {
   date: PropTypes.string,
   events: PropTypes.shape({
     isSelected: PropTypes.objectOf(PropTypes.bool),
+    totalTimes: PropTypes.number,
   }),
   clickCallback: PropTypes.func,
   dispatch: PropTypes.func,
@@ -87,6 +95,10 @@ DateTable.propTypes = {
     firstDayOfTheWeek: PropTypes.number,
     weekNamed: PropTypes.objectOf(PropTypes.string),
   }),
+  customize: PropTypes.objectOf(PropTypes.shape({
+    data: PropTypes.string,
+    classname: PropTypes.string,
+  })),
 };
 
 export default DateTable;

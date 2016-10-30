@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export default function events(
   state = {
     isSelected: {},
@@ -17,7 +19,7 @@ export default function events(
       }
       return {
         isSelected,
-        customize: {},
+        customize: action.customize || {},
         clickDate: action.date,
         totalTimes: state.totalTimes + 1,
       };
