@@ -2,8 +2,8 @@
 
 
 ### To Do:
-* -Basic date display-
-* -Month switch-
+* ~~Basic date display~~
+* ~~Month switch~~
 * Customize individual date styles
 * Date click events
 * Multi-month display
