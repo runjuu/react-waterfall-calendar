@@ -1,5 +1,15 @@
 # react-module-calendar
 
-To Start:
-  * npm install
-  * npm run demo
+
+### To Do:
+* -Basic date display-
+* -Month switch-
+* Customize individual date styles
+* Date click events
+* Multi-month display
+* Date selectable
+
+
+### To Start:
+* npm install
+* npm run demo
