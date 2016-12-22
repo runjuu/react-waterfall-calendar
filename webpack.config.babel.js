@@ -1,7 +1,5 @@
 import path from 'path';
 import webpack from 'webpack';
-import precss from 'precss';
-import autoprefixer from 'autoprefixer';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 export default {
@@ -16,36 +14,38 @@ export default {
     filename: '[name].[hash].js',
   },
   resolve: {
-    extensions: ['', '.js', '.jsx', '.css', '.sass', '.ejs', '.png', '.jpg', 'svg'],
+    extensions: ['.js', '.jsx', '.css', '.sass', '.ejs', '.png', '.jpg', 'svg'],
   },
   module: {
     loaders: [{
       test: /\.js[x]?$/,
       exclude: /node_modules/,
-      loaders: ['babel?presets[]=es2015'],
+      loaders: ['babel-loader?presets[]=es2015'],
     }, {
       test: /\.css$/,
-      loaders: ['style', 'css', 'postcss'],
+      loaders: ['style-loader', 'css-loader', 'postcss-loader'],
     }, {
       test: /\.svg/,
       loader: 'svg-url-loader',
     }, {
       test: /\.(png|jpg)$/,
-      loader: 'url?limit=25000',
+      loader: 'url-loader?limit=25000',
     }, {
       test: /\.sass$/,
-      loaders: ['style', 'css?modules', 'postcss', 'sass'],
+      loaders: ['style-loader', 'css-loader?modules', 'postcss-loader', 'sass-loader'],
     }],
   },
-  postcss: function postcss() {
-    return [precss, autoprefixer];
-  },
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin('common', 'bundle.js'),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+    }),
     new HtmlWebpackPlugin({
       title: 'react-module-calendar',
       template: './demo/template.html',
       inject: 'body',
     }),
   ],
+  performance: {
+    hints: false,
+  },
 };
