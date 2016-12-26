@@ -4,8 +4,9 @@
 ### To Do:
 * ~~Basic date display~~
 * ~~Month switch~~
-* Customize individual date styles
-* Date click events
+* Customize Week Named
+* ~~Customize individual date styles~~
+* ~~Date click events~~
 * Multi-month display
 * Date selectable
 
