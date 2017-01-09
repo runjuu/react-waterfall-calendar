@@ -6,7 +6,7 @@ export default {
   entry: [
     'webpack-dev-server/client?http://0.0.0.0:9797',
     'webpack/hot/only-dev-server',
-    './demo/app.jsx',
+    './example/app.jsx',
   ],
   output: {
     path: path.join(__dirname, '/build'),
@@ -41,7 +41,7 @@ export default {
     }),
     new HtmlWebpackPlugin({
       title: 'react-module-calendar',
-      template: './demo/template.html',
+      template: './example/template.html',
       inject: 'body',
     }),
   ],
