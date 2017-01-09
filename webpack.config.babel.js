@@ -1,6 +1,5 @@
 import path from 'path';
 import webpack from 'webpack';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 export default {
   entry: [
@@ -38,11 +37,6 @@ export default {
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
-    }),
-    new HtmlWebpackPlugin({
-      title: 'react-module-calendar',
-      template: './example/template.html',
-      inject: 'body',
     }),
   ],
   performance: {
