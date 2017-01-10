@@ -5,7 +5,9 @@ import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import reducer from './reducers';
 import Calendar from './Calendar/';
+import MultipleCalendar from './MultipleCalendar/';
 import { initCalendar } from './Calendar/CalendarActions';
+import { initMultipleCalendar } from './MultipleCalendar/MultipleCalendarActions';
 
 const middleware = [thunk];
 
@@ -17,19 +19,30 @@ const store = createStore(
   reducer,
   applyMiddleware(...middleware));
 
-store.dispatch(initCalendar());
-
 const ReactModuleCalendar = ({
+  multiple,
   event,
-  textColor,
-}) => (
-  <Provider store={store}>
-    <Calendar
-      event={event}
-      textColor={textColor}
-    />
-  </Provider>
-);
+}) => {
+  if (multiple) {
+    store.dispatch(initMultipleCalendar());
+    return (
+      <Provider store={store}>
+        <MultipleCalendar
+          multiple={multiple}
+          event={event}
+        />
+      </Provider>
+    );
+  }
+  store.dispatch(initCalendar());
+  return (
+    <Provider store={store}>
+      <Calendar
+        event={event}
+      />
+    </Provider>
+  );
+};
 
 ReactModuleCalendar.propTypes = {
   event: PropTypes.arrayOf(PropTypes.shape({
@@ -38,7 +51,10 @@ ReactModuleCalendar.propTypes = {
     onClick: PropTypes.func,
     dataAttr: PropTypes.object,
   })),
-  textColor: PropTypes.string,
+  multiple: PropTypes.shape({
+    from: PropTypes.string,
+    to: PropTypes.string,
+  }),
 };
 
 

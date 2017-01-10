@@ -3,7 +3,7 @@ import {
   INIT_CALENDAR,
 } from './CalendarActions';
 
-export const calendar = (state = {}, action) => {
+const calendar = (state = {}, action) => {
   switch (action.type) {
     case INIT_CALENDAR:
       return {
@@ -13,3 +13,5 @@ export const calendar = (state = {}, action) => {
       return state;
   }
 };
+
+export default calendar;

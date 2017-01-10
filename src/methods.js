@@ -14,7 +14,7 @@ export const getDateArray = ({ daysInMonth, month, year }) => {
   return dateArray;
 };
 
-export const splitArray = ({ each, array = [] }) => {
+export const splitArray = ({ each = 0, array = [] }) => {
   if (!Number(each)) return [];
 
   let verticalArray = [];
@@ -39,13 +39,11 @@ export const filterDate = (dateString) => {
     year: date.getFullYear(),
     month: date.getMonth(),
     day: date.getDate(),
+    date,
   };
 };
 
-export const whichMonth = ({
-  date,
-  refer,
-}) => {
+export const whichMonth = ({ date, refer }) => {
   let which;
   const LAST_MONTH = 'LAST_MONTH';
   const NEXT_MONTH = 'NEXT_MONTH';
@@ -68,4 +66,13 @@ export const whichMonth = ({
   }
 
   return which;
+};
+
+export const isToday = (d) => {
+  const today = new Date();
+  const date = d instanceof Date ? d : new Date(d);
+  if (date) {
+    return date.toDateString() === today.toDateString();
+  }
+  return false;
 };

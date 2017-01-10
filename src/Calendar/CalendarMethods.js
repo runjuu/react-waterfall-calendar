@@ -68,3 +68,13 @@ export const initCalendar = (date = new Date()) => {
     calendarArray,
   };
 };
+
+export const filterEvents = (eventsArray = []) => {
+  const events = {};
+
+  eventsArray.forEach(((event) => {
+    events[event.date] = event;
+  }));
+
+  return events;
+};
