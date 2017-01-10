@@ -33,11 +33,39 @@ export const splitArray = ({ each, array = [] }) => {
   return horizontalArray;
 };
 
-export const dateFilter = (dateString) => {
+export const filterDate = (dateString) => {
   const date = new Date(dateString);
   return {
     year: date.getFullYear(),
-    month: date.getMonth() + 1,
+    month: date.getMonth(),
     day: date.getDate(),
   };
+};
+
+export const whichMonth = ({
+  date,
+  refer,
+}) => {
+  let which;
+  const LAST_MONTH = 'LAST_MONTH';
+  const NEXT_MONTH = 'NEXT_MONTH';
+  const CURRENT_MONTH = 'CURRENT_MONTH';
+  const dateFilter = filterDate(date);
+  const referFilter = filterDate(refer);
+
+  if (dateFilter.year === referFilter.year) {
+    if (dateFilter.month < referFilter.month) {
+      which = LAST_MONTH;
+    } else if (dateFilter.month > referFilter.month) {
+      which = NEXT_MONTH;
+    } else {
+      which = CURRENT_MONTH;
+    }
+  } else if (dateFilter.year < referFilter.year) {
+    which = LAST_MONTH;
+  } else if (dateFilter.year > referFilter.year) {
+    which = NEXT_MONTH;
+  }
+
+  return which;
 };

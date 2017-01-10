@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import style from './style.sass';
-import { dateFilter } from '../methods';
+import { filterDate, whichMonth } from '../methods';
 
 class Calendar extends Component {
   constructor(props) {
@@ -12,7 +12,7 @@ class Calendar extends Component {
     // console.log(this.state);
   }
   render() {
-    const { calendarArray, textColor } = this.props;
+    const { calendarArray, month, year } = this.props;
     return (
       <div>
         {calendarArray.map((horizontal, index) => (
@@ -21,15 +21,14 @@ class Calendar extends Component {
             className={style.horizontal}
           >
             {horizontal.map((vertical) => {
-              const date = dateFilter(vertical.date);
+              const date = filterDate(vertical.date);
               return (
                 <div
                   key={vertical.date}
                   className={style.vertical}
+                  data-which-month={whichMonth({ date: vertical.date, refer: `${year}-${month + 1}` })}
                 >
-                  <a
-                    data-color={textColor}
-                  >
+                  <a>
                     {date.day}
                   </a>
                 </div>
@@ -49,7 +48,6 @@ Calendar.propTypes = {
     onClick: PropTypes.func,
     dataAttr: PropTypes.object,
   })),
-  textColor: PropTypes.string,
   calendarArray: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.shape({
     date: PropTypes.string.isRequired,
     weekDay: PropTypes.number.isRequired,
