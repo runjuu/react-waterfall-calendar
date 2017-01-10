@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
 import Calendar from '../Calendar/';
+import style from './style.sass';
 import { filterEvents } from '../methods';
 
 class MultipleCalendar extends Component {
@@ -11,16 +13,16 @@ class MultipleCalendar extends Component {
     };
   }
   render() {
-    const { multipleSelect, listOfCalendar } = this.props;
-    console.log(listOfCalendar);
+    const { multipleSelect, listOfCalendar, classNameOf } = this.props;
     return (
-      <div>
+      <div className={classNames(style.root, classNameOf.root)}>
         {listOfCalendar.map(month => (
           <Calendar
             {...month.calendar}
             key={month.monthWithYear}
             event={this.state.events}
             multipleSelect={multipleSelect}
+            classNameOf={classNameOf}
           />
         ))}
       </div>
@@ -46,6 +48,9 @@ MultipleCalendar.propTypes = {
     dataAttr: PropTypes.object,
   })),
   multipleSelect: PropTypes.bool,
+  classNameOf: PropTypes.shape({
+    root: PropTypes.string,
+  }),
 };
 
 export default connect(state => ({

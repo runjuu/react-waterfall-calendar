@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
 import style from './style.sass';
 import { filterDate, whichMonth, isToday, filterEvents } from '../methods';
 
@@ -43,20 +44,21 @@ class Calendar extends Component {
     }
   }
   render() {
-    const { calendarArray, month, year } = this.props;
+    const { calendarArray, month, year, classNameOf } = this.props;
     const { selected } = this.state;
     return (
-      <div>
+      <div className={classNames(style.root, classNameOf.calendar)}>
         <h3
           data-year={year}
           data-month={month + 1}
+          className={classNameOf.title}
         >
           <span>{`${year}-${month + 1}`}</span>
         </h3>
         {calendarArray.map((horizontal, index) => (
           <section
             key={index}
-            className={style.horizontal}
+            className={classNames(style.horizontal, classNameOf.week)}
           >
             {horizontal.map((vertical) => {
               const date = filterDate(vertical.date);
@@ -64,7 +66,7 @@ class Calendar extends Component {
                 <a
                   key={vertical.date}
                   href={`#${vertical.date}`}
-                  className={style.vertical}
+                  className={classNames(style.vertical, classNameOf.day)}
                   onClick={this.handleClickEvent}
                   data-date={vertical.date}
                   data-selected={selected[vertical.date]}
@@ -90,11 +92,21 @@ Calendar.propTypes = {
     onClick: PropTypes.func,
     dataAttr: PropTypes.object,
   })),
-  event: PropTypes.object,
+  event: PropTypes.objectOf(PropTypes.shape({
+    date: PropTypes.string,
+    onClick: PropTypes.func,
+    dataAttr: PropTypes.object,
+  })),
   calendarArray: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.shape({
     date: PropTypes.string.isRequired,
     weekDay: PropTypes.number.isRequired,
   }))),
+  classNameOf: PropTypes.shape({
+    calendar: PropTypes.string,
+    title: PropTypes.string,
+    week: PropTypes.string,
+    day: PropTypes.string,
+  }),
   multipleSelect: PropTypes.bool,
   month: PropTypes.number,
   year: PropTypes.number,

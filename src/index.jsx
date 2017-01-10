@@ -20,6 +20,7 @@ const store = createStore(
   applyMiddleware(...middleware));
 
 const ReactModuleCalendar = ({
+  classNameOf = {},
   multiple,
   event,
 }) => {
@@ -30,7 +31,8 @@ const ReactModuleCalendar = ({
       <Provider store={store}>
         <MultipleCalendar
           multiple={multiple}
-          event={event}
+          events={event}
+          classNameOf={classNameOf}
         />
       </Provider>
     );
@@ -39,7 +41,8 @@ const ReactModuleCalendar = ({
   return (
     <Provider store={store}>
       <Calendar
-        event={event}
+        events={event}
+        classNameOf={classNameOf}
       />
     </Provider>
   );
@@ -55,6 +58,13 @@ ReactModuleCalendar.propTypes = {
   multiple: PropTypes.shape({
     from: PropTypes.date,
     to: PropTypes.date,
+  }),
+  classNameOf: PropTypes.shape({
+    root: PropTypes.string,
+    calendar: PropTypes.string,
+    title: PropTypes.string,
+    week: PropTypes.string,
+    day: PropTypes.string,
   }),
 };
 

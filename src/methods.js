@@ -34,7 +34,17 @@ export const splitArray = ({ each = 0, array = [] }) => {
 };
 
 export const filterDate = (d) => {
-  const date = d instanceof Date ? d : new Date(d);
+  let date;
+  if (d instanceof Date) {
+    date = d;
+  } else {
+    const dateReg = /(\w{4})-(\w{1,2})-(\w{1,2})|(\w{4})-(\w{1,2})/g;
+    const regDate = d instanceof Date || dateReg.exec(d);
+    const year = regDate[1] || regDate[4];
+    const month = regDate[2] || regDate[5];
+    const day = regDate[3] || 1;
+    date = new Date(year, month + 1, day);
+  }
   return {
     year: date.getFullYear(),
     month: date.getMonth(),
