@@ -49,9 +49,9 @@ class Calendar extends Component {
       <div>
         <h3
           data-year={year}
-          data-month={month}
+          data-month={month + 1}
         >
-          <span>{`${year}-${month}`}</span>
+          <span>{`${year}-${month + 1}`}</span>
         </h3>
         {calendarArray.map((horizontal, index) => (
           <section
