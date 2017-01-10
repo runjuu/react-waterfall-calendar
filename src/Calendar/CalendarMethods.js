@@ -53,7 +53,8 @@ export const getCalendarArray = (dateArray) => {
   });
 };
 
-export const initCalendar = (date = new Date()) => {
+export const initCalendar = (d) => {
+  const date = d instanceof Date ? d : new Date(d);
   const year = date.getFullYear();
   const month = date.getMonth();
   const { daysInMonth, dayOfFirstDayOfMonth } = getMonthData({ year, month });
@@ -67,14 +68,4 @@ export const initCalendar = (date = new Date()) => {
     dateArray,
     calendarArray,
   };
-};
-
-export const filterEvents = (eventsArray = []) => {
-  const events = {};
-
-  eventsArray.forEach(((event) => {
-    events[event.date] = event;
-  }));
-
-  return events;
 };

@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import style from './style.sass';
-import { filterEvents } from './CalendarMethods';
-import { filterDate, whichMonth, isToday } from '../methods';
+import { filterDate, whichMonth, isToday, filterEvents } from '../methods';
 
 class Calendar extends Component {
   constructor(props) {
@@ -10,7 +9,7 @@ class Calendar extends Component {
     this.handleClickEvent = this.handleClickEvent.bind(this);
     this.setSelected = this.setSelected.bind(this);
     this.state = {
-      events: filterEvents(this.props.events),
+      events: this.props.event ? this.props.event : filterEvents(this.props.events),
       selected: {},
     };
   }
@@ -48,6 +47,12 @@ class Calendar extends Component {
     const { selected } = this.state;
     return (
       <div>
+        <h3
+          data-year={year}
+          data-month={month}
+        >
+          <span>{`${year}-${month}`}</span>
+        </h3>
         {calendarArray.map((horizontal, index) => (
           <section
             key={index}
@@ -85,6 +90,7 @@ Calendar.propTypes = {
     onClick: PropTypes.func,
     dataAttr: PropTypes.object,
   })),
+  event: PropTypes.object,
   calendarArray: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.shape({
     date: PropTypes.string.isRequired,
     weekDay: PropTypes.number.isRequired,

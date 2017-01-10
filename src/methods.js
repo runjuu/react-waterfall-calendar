@@ -33,14 +33,24 @@ export const splitArray = ({ each = 0, array = [] }) => {
   return horizontalArray;
 };
 
-export const filterDate = (dateString) => {
-  const date = new Date(dateString);
+export const filterDate = (d) => {
+  const date = d instanceof Date ? d : new Date(d);
   return {
     year: date.getFullYear(),
     month: date.getMonth(),
     day: date.getDate(),
     date,
   };
+};
+
+export const filterEvents = (eventsArray = []) => {
+  const events = {};
+
+  eventsArray.forEach(((event) => {
+    events[event.date] = event;
+  }));
+
+  return events;
 };
 
 export const whichMonth = ({ date, refer }) => {
@@ -75,4 +85,12 @@ export const isToday = (d) => {
     return date.toDateString() === today.toDateString();
   }
   return false;
+};
+
+export const monthDiff = (d1, d2) => {
+  let months;
+  months = (d2.getFullYear() - d1.getFullYear()) * 12;
+  months -= d1.getMonth() + 1;
+  months += d2.getMonth() + 1;
+  return months <= 0 ? 0 : months;
 };

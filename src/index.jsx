@@ -24,7 +24,8 @@ const ReactModuleCalendar = ({
   event,
 }) => {
   if (multiple) {
-    store.dispatch(initMultipleCalendar());
+    const { from, to } = multiple;
+    store.dispatch(initMultipleCalendar({ from, to }));
     return (
       <Provider store={store}>
         <MultipleCalendar
@@ -52,8 +53,8 @@ ReactModuleCalendar.propTypes = {
     dataAttr: PropTypes.object,
   })),
   multiple: PropTypes.shape({
-    from: PropTypes.string,
-    to: PropTypes.string,
+    from: PropTypes.date,
+    to: PropTypes.date,
   }),
 };
 
