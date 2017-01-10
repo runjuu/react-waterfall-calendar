@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
@@ -19,34 +19,36 @@ const store = createStore(
   reducer,
   applyMiddleware(...middleware));
 
-const ReactModuleCalendar = ({
-  classNameOf = {},
-  multiple,
-  event,
-}) => {
-  if (multiple) {
-    const { from, to } = multiple;
+class ReactModuleCalendar extends Component {
+  static setMonthDiff({ from, to }) {
     store.dispatch(initMultipleCalendar({ from, to }));
+  }
+  render() {
+    const { classNameOf, multiple, event } = this.props;
+    if (multiple) {
+      const { from, to } = multiple;
+      store.dispatch(initMultipleCalendar({ from, to }));
+      return (
+        <Provider store={store}>
+          <MultipleCalendar
+            multiple={multiple}
+            events={event}
+            classNameOf={classNameOf}
+          />
+        </Provider>
+      );
+    }
+    store.dispatch(initCalendar());
     return (
       <Provider store={store}>
-        <MultipleCalendar
-          multiple={multiple}
+        <Calendar
           events={event}
           classNameOf={classNameOf}
         />
       </Provider>
     );
   }
-  store.dispatch(initCalendar());
-  return (
-    <Provider store={store}>
-      <Calendar
-        events={event}
-        classNameOf={classNameOf}
-      />
-    </Provider>
-  );
-};
+}
 
 ReactModuleCalendar.propTypes = {
   event: PropTypes.arrayOf(PropTypes.shape({

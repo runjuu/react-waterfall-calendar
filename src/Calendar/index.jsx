@@ -62,16 +62,20 @@ class Calendar extends Component {
           >
             {horizontal.map((vertical) => {
               const date = filterDate(vertical.date);
+              const data = {};
+              data['data-day'] = date.day;
+              data['data-date'] = vertical.date;
+              data['data-weekDay'] = vertical.weekDay;
+              data['data-which-month'] = whichMonth({ date: vertical.date, refer: `${year}-${month + 1}` });
+              data['data-is-today'] = isToday(vertical.date) || undefined;
+              data['data-selected'] = selected[vertical.date];
               return (
                 <a
+                  {...data}
                   key={vertical.date}
                   href={`#${vertical.date}`}
                   className={classNames(style.vertical, classNameOf.day)}
                   onClick={this.handleClickEvent}
-                  data-date={vertical.date}
-                  data-selected={selected[vertical.date]}
-                  data-is-today={isToday(vertical.date) || undefined}
-                  data-which-month={whichMonth({ date: vertical.date, refer: `${year}-${month + 1}` })}
                 >
                   <span>
                     {date.day}

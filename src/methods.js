@@ -98,9 +98,12 @@ export const isToday = (d) => {
 };
 
 export const monthDiff = (d1, d2) => {
-  let months;
-  months = (d2.getFullYear() - d1.getFullYear()) * 12;
-  months -= d1.getMonth() + 1;
-  months += d2.getMonth() + 1;
-  return months <= 0 ? 0 : months;
+  if (d1 instanceof Date && d1 instanceof Date) {
+    let months;
+    months = (d2.getFullYear() - d1.getFullYear()) * 12;
+    months -= d1.getMonth() + 1;
+    months += d2.getMonth() + 1;
+    return months <= 0 ? 0 : months;
+  }
+  throw new Error('need Date type');
 };
