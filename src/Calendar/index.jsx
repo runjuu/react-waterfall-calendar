@@ -31,7 +31,7 @@ class Calendar extends Component {
     }
   }
   render() {
-    const { calendarArray, month, year, classNameOf, selected } = this.props;
+    const { calendarArray, month, year, classNameOf, selected, defaultSelectedToday } = this.props;
     return (
       <div className={classNames(style.root, classNameOf.calendar)}>
         <h3
@@ -54,7 +54,7 @@ class Calendar extends Component {
               data['data-weekDay'] = vertical.weekDay;
               data['data-which-month'] = whichMonth({ date: vertical.date, refer: `${year}-${month + 1}` });
               data['data-is-today'] = isToday(vertical.date) || undefined;
-              data['data-selected'] = selected[vertical.date];
+              data['data-selected'] = (defaultSelectedToday && Object.getOwnPropertyNames(selected).length === 0 && isToday(vertical.date)) || selected[vertical.date];
               return (
                 <a
                   {...data}
@@ -99,6 +99,7 @@ Calendar.propTypes = {
   }),
   dispatch: PropTypes.func,
   selected: PropTypes.objectOf(PropTypes.bool),
+  defaultSelectedToday: PropTypes.bool,
   multipleSelect: PropTypes.bool,
   month: PropTypes.number,
   year: PropTypes.number,

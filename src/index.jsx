@@ -24,7 +24,7 @@ class ReactModuleCalendar extends Component {
     store.dispatch(initMultipleCalendar({ from, to }));
   }
   render() {
-    const { classNameOf, multiple, event } = this.props;
+    const { multiple, ...props } = this.props;
     if (multiple) {
       const { from, to } = multiple;
       store.dispatch(initMultipleCalendar({ from, to }));
@@ -32,8 +32,7 @@ class ReactModuleCalendar extends Component {
         <Provider store={store}>
           <MultipleCalendar
             multiple={multiple}
-            events={event}
-            classNameOf={classNameOf}
+            {...props}
           />
         </Provider>
       );
@@ -42,8 +41,8 @@ class ReactModuleCalendar extends Component {
     return (
       <Provider store={store}>
         <Calendar
-          events={event}
-          classNameOf={classNameOf}
+          multiple={multiple}
+          {...props}
         />
       </Provider>
     );

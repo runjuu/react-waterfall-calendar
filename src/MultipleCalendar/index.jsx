@@ -13,15 +13,15 @@ class MultipleCalendar extends Component {
     };
   }
   render() {
-    const { multipleSelect, listOfCalendar, classNameOf } = this.props;
+    const { listOfCalendar, classNameOf, ...props } = this.props;
     return (
       <div className={classNames(style.root, classNameOf.root)}>
         {listOfCalendar.map(month => (
           <Calendar
             {...month.calendar}
+            {...props}
             key={month.monthWithYear}
             event={this.state.events}
-            multipleSelect={multipleSelect}
             classNameOf={classNameOf}
           />
         ))}
