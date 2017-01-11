@@ -16,18 +16,15 @@ class Calendar extends Component {
   handleClickEvent(e) {
     e.preventDefault();
     const { target, type } = e;
-    const { multipleSelect, dispatch, enableTouchTap } = this.props;
+    const { multipleSelect, dispatch, enableTouchTap, onClick } = this.props;
     const date = target.getAttribute('data-date');
 
     if ((enableTouchTap && type === 'click') || (!enableTouchTap && type !== 'click')) return;
 
     dispatch(setSelected({ date, multipleSelect }));
-    // if (events[date] && typeof events[date].onClick === 'function') {
-    //   events[date].onClick({
-    //     date,
-    //     target,
-    //   });
-    // }
+    if (typeof onClick === 'function') {
+      onClick({ date, target });
+    }
   }
   render() {
     const {
@@ -106,6 +103,7 @@ Calendar.propTypes = {
     day: PropTypes.string,
   }),
   dispatch: PropTypes.func,
+  onClick: PropTypes.func,
   selected: PropTypes.objectOf(PropTypes.bool),
   defaultSelectedToday: PropTypes.bool,
   enableTouchTap: PropTypes.bool,
