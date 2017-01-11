@@ -1,6 +1,6 @@
 {
   "name": "react-module-calendar",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "模块化React日历组件",
   "main": "app.js",
   "babel": {
