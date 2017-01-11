@@ -94,6 +94,17 @@ export const whichMonth = ({ date, refer }) => {
   return which;
 };
 
+export const whichDay = (d) => {
+  const today = (new Date()).setHours(0,0,0,0);
+  const date = newDate(d).setHours(0,0,0,0);
+  if (date < today) {
+    return 'PAST';
+  } else if (date > today) {
+    return 'FUTURE';
+  }
+  return 'TODAY';
+};
+
 export const isToday = (d) => {
   const today = new Date();
   const date = newDate(d);

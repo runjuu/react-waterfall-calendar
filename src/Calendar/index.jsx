@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 import style from './style.sass';
 import { setSelected } from './CalendarActions';
-import { filterDate, whichMonth, isToday, filterEvents } from '../methods';
+import { filterDate, whichMonth, whichDay, isToday, filterEvents } from '../methods';
 
 class Calendar extends Component {
   constructor(props) {
@@ -16,11 +16,12 @@ class Calendar extends Component {
   }
   handleClickEvent(e) {
     e.preventDefault();
-
-    const { target } = e;
+    const { target, type } = e;
     const { events } = this.state;
-    const { multipleSelect, dispatch } = this.props;
+    const { multipleSelect, dispatch, enableTouchTap } = this.props;
     const date = target.getAttribute('data-date');
+
+    if ((enableTouchTap && type === 'click') || (!enableTouchTap && type !== 'click')) return;
 
     dispatch(setSelected({ date, multipleSelect }));
     if (events[date] && typeof events[date].onClick === 'function') {
@@ -31,7 +32,19 @@ class Calendar extends Component {
     }
   }
   render() {
-    const { calendarArray, month, year, classNameOf, selected, defaultSelectedToday } = this.props;
+    const {
+      month, year,
+      enableTouchTap,
+      defaultSelectedToday,
+      classNameOf, selected, calendarArray,
+    } = this.props;
+    const onClick = {};
+
+    if (enableTouchTap) {
+      onClick.onTouchTap = this.handleClickEvent;
+    } else {
+      onClick.onClick = this.handleClickEvent;
+    }
     return (
       <div className={classNames(style.root, classNameOf.calendar)}>
         <h3
@@ -53,15 +66,16 @@ class Calendar extends Component {
               data['data-date'] = vertical.date;
               data['data-weekDay'] = vertical.weekDay;
               data['data-which-month'] = whichMonth({ date: vertical.date, refer: `${year}-${month + 1}` });
+              data['data-which-day'] = whichDay(vertical.date);
               data['data-is-today'] = isToday(vertical.date) || undefined;
               data['data-selected'] = (defaultSelectedToday && Object.getOwnPropertyNames(selected).length === 0 && isToday(vertical.date)) || selected[vertical.date];
               return (
                 <a
                   {...data}
+                  {...onClick}
                   key={vertical.date}
                   href={`#${vertical.date}`}
                   className={classNames(style.vertical, classNameOf.day)}
-                  onClick={this.handleClickEvent}
                 >
                   <span>
                     {date.day}
@@ -100,6 +114,7 @@ Calendar.propTypes = {
   dispatch: PropTypes.func,
   selected: PropTypes.objectOf(PropTypes.bool),
   defaultSelectedToday: PropTypes.bool,
+  enableTouchTap: PropTypes.bool,
   multipleSelect: PropTypes.bool,
   month: PropTypes.number,
   year: PropTypes.number,
