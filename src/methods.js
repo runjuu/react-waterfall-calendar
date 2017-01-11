@@ -61,9 +61,10 @@ export const filterDate = (d) => {
 
 export const filterEvents = (eventsArray = []) => {
   const events = {};
-
   eventsArray.forEach(((event) => {
-    events[event.date] = event;
+    const { year, month, day } = filterDate(event.date);
+    const date = `${year}-${month + 1}-${day}`;
+    events[date] = event;
   }));
 
   return events;
@@ -123,4 +124,14 @@ export const monthDiff = (d1, d2) => {
     return months <= 0 ? 0 : months;
   }
   throw new Error('need Date type');
+};
+
+export const filterDataAttr = (attrObj) => {
+  const attr = {};
+  const attrArray = Object.keys(attrObj);
+  attrArray.forEach((item) => {
+    attr[`data-${item}`] = attrObj[item];
+  });
+
+  return attr;
 };

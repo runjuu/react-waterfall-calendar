@@ -3,15 +3,8 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 import Calendar from '../Calendar/';
 import style from './style.sass';
-import { filterEvents } from '../methods';
 
 class MultipleCalendar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      events: filterEvents(this.props.events),
-    };
-  }
   render() {
     const { listOfCalendar, classNameOf, ...props } = this.props;
     return (
@@ -21,7 +14,6 @@ class MultipleCalendar extends Component {
             {...month.calendar}
             {...props}
             key={month.monthWithYear}
-            event={this.state.events}
             classNameOf={classNameOf}
           />
         ))}

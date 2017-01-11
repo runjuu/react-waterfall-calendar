@@ -3,40 +3,38 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 import style from './style.sass';
 import { setSelected } from './CalendarActions';
-import { filterDate, whichMonth, whichDay, isToday, filterEvents } from '../methods';
+import { filterDate, whichMonth, whichDay, isToday, filterDataAttr } from '../methods';
 
 class Calendar extends Component {
   constructor(props) {
     super(props);
     this.handleClickEvent = this.handleClickEvent.bind(this);
     this.state = {
-      events: this.props.event ? this.props.event : filterEvents(this.props.events),
       selected: {},
     };
   }
   handleClickEvent(e) {
     e.preventDefault();
     const { target, type } = e;
-    const { events } = this.state;
     const { multipleSelect, dispatch, enableTouchTap } = this.props;
     const date = target.getAttribute('data-date');
 
     if ((enableTouchTap && type === 'click') || (!enableTouchTap && type !== 'click')) return;
 
     dispatch(setSelected({ date, multipleSelect }));
-    if (events[date] && typeof events[date].onClick === 'function') {
-      events[date].onClick({
-        date,
-        target,
-      });
-    }
+    // if (events[date] && typeof events[date].onClick === 'function') {
+    //   events[date].onClick({
+    //     date,
+    //     target,
+    //   });
+    // }
   }
   render() {
     const {
       month, year,
       enableTouchTap,
       defaultSelectedToday,
-      classNameOf, selected, calendarArray,
+      classNameOf, selected, calendarArray, dateEvents,
     } = this.props;
     const onClick = {};
 
@@ -61,7 +59,8 @@ class Calendar extends Component {
           >
             {horizontal.map((vertical) => {
               const date = filterDate(vertical.date);
-              const data = {};
+              const dateEvent = dateEvents[vertical.date];
+              const data = dateEvent ? filterDataAttr(dateEvent.dataAttr) : {};
               data['data-day'] = date.day;
               data['data-date'] = vertical.date;
               data['data-weekDay'] = vertical.weekDay;
@@ -91,12 +90,7 @@ class Calendar extends Component {
 }
 
 Calendar.propTypes = {
-  events: PropTypes.arrayOf(PropTypes.shape({
-    date: PropTypes.string,
-    onClick: PropTypes.func,
-    dataAttr: PropTypes.object,
-  })),
-  event: PropTypes.objectOf(PropTypes.shape({
+  dateEvents: PropTypes.objectOf(PropTypes.shape({
     date: PropTypes.string,
     onClick: PropTypes.func,
     dataAttr: PropTypes.object,
@@ -123,4 +117,5 @@ Calendar.propTypes = {
 export default connect(state => ({
   ...state.calendar,
   selected: state.selected,
+  dateEvents: state.dateEvents,
 }))(Calendar);

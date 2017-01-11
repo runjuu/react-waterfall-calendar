@@ -6,7 +6,7 @@ import createLogger from 'redux-logger';
 import reducer from './reducers';
 import Calendar from './Calendar/';
 import MultipleCalendar from './MultipleCalendar/';
-import { initCalendar } from './Calendar/CalendarActions';
+import { initCalendar, initDateEvents } from './Calendar/CalendarActions';
 import { initMultipleCalendar } from './MultipleCalendar/MultipleCalendarActions';
 
 const middleware = [thunk];
@@ -22,6 +22,9 @@ const store = createStore(
 class ReactModuleCalendar extends Component {
   static setMonthDiff({ from, to }) {
     store.dispatch(initMultipleCalendar({ from, to }));
+  }
+  static setEvents(events) {
+    store.dispatch(initDateEvents(events));
   }
   render() {
     const { multiple, ...props } = this.props;
