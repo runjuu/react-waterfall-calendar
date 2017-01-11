@@ -1,3 +1,19 @@
+export const newDate = (d) => {
+  let date;
+  if (d instanceof Date) {
+    date = d;
+  } else {
+    const dateReg = /(\w{4})-(\w{1,2})-(\w{1,2})|(\w{4})-(\w{1,2})/g;
+    const regDate = d instanceof Date || dateReg.exec(d);
+    const year = regDate[1] || regDate[4];
+    const month = regDate[2] || regDate[5];
+    const day = regDate[3] || 1;
+    date = new Date(year, month - 1, day);
+  }
+
+  return date;
+};
+
 export const getMonthData = ({ year, month }) => ({
   daysInMonth: new Date(year, month + 1, 0).getDate(),
   dayOfFirstDayOfMonth: new Date(year, month, 1).getDay(),
@@ -34,17 +50,7 @@ export const splitArray = ({ each = 0, array = [] }) => {
 };
 
 export const filterDate = (d) => {
-  let date;
-  if (d instanceof Date) {
-    date = d;
-  } else {
-    const dateReg = /(\w{4})-(\w{1,2})-(\w{1,2})|(\w{4})-(\w{1,2})/g;
-    const regDate = d instanceof Date || dateReg.exec(d);
-    const year = regDate[1] || regDate[4];
-    const month = regDate[2] || regDate[5];
-    const day = regDate[3] || 1;
-    date = new Date(year, month + 1, day);
-  }
+  const date = newDate(d);
   return {
     year: date.getFullYear(),
     month: date.getMonth(),
@@ -90,7 +96,7 @@ export const whichMonth = ({ date, refer }) => {
 
 export const isToday = (d) => {
   const today = new Date();
-  const date = d instanceof Date ? d : new Date(d);
+  const date = newDate(d);
   if (date) {
     return date.toDateString() === today.toDateString();
   }
