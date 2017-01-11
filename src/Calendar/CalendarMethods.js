@@ -1,4 +1,4 @@
-import { getMonthData, getDateArray, splitArray } from '../methods';
+import { getMonthData, getDateArray, splitArray, newDate } from '../methods';
 
 export const getCalendarArray = (dateArray) => {
   let calendarArray = [];
@@ -54,7 +54,7 @@ export const getCalendarArray = (dateArray) => {
 };
 
 export const initCalendar = (d) => {
-  const date = d instanceof Date ? d : new Date(d);
+  const date = newDate(d);
   const year = date.getFullYear();
   const month = date.getMonth();
   const { daysInMonth, dayOfFirstDayOfMonth } = getMonthData({ year, month });
@@ -68,4 +68,13 @@ export const initCalendar = (d) => {
     dateArray,
     calendarArray,
   };
+};
+
+export const setSelected = ({ date, state, multipleSelect }) => {
+  const selected = {};
+  selected[date] = !state[date];
+  if (multipleSelect) {
+    return Object.assign({}, this.state.selected, selected);
+  }
+  return selected;
 };

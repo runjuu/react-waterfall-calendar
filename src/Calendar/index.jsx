@@ -2,40 +2,27 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import style from './style.sass';
+import { setSelected } from './CalendarActions';
 import { filterDate, whichMonth, isToday, filterEvents } from '../methods';
 
 class Calendar extends Component {
   constructor(props) {
     super(props);
     this.handleClickEvent = this.handleClickEvent.bind(this);
-    this.setSelected = this.setSelected.bind(this);
     this.state = {
       events: this.props.event ? this.props.event : filterEvents(this.props.events),
       selected: {},
     };
-  }
-  setSelected(date) {
-    // selected change should had a middleware
-    const selected = {};
-    selected[date] = !this.state.selected[date];
-    if (this.props.multipleSelect) {
-      this.setState({
-        selected: Object.assign({}, this.state.selected, selected),
-      });
-    } else {
-      this.setState({
-        selected,
-      });
-    }
   }
   handleClickEvent(e) {
     e.preventDefault();
 
     const { target } = e;
     const { events } = this.state;
+    const { multipleSelect, dispatch } = this.props;
     const date = target.getAttribute('data-date');
 
-    this.setSelected(date);
+    dispatch(setSelected({ date, multipleSelect }));
     if (events[date] && typeof events[date].onClick === 'function') {
       events[date].onClick({
         date,
@@ -44,8 +31,7 @@ class Calendar extends Component {
     }
   }
   render() {
-    const { calendarArray, month, year, classNameOf } = this.props;
-    const { selected } = this.state;
+    const { calendarArray, month, year, classNameOf, selected } = this.props;
     return (
       <div className={classNames(style.root, classNameOf.calendar)}>
         <h3
@@ -111,6 +97,8 @@ Calendar.propTypes = {
     week: PropTypes.string,
     day: PropTypes.string,
   }),
+  dispatch: PropTypes.func,
+  selected: PropTypes.objectOf(PropTypes.bool),
   multipleSelect: PropTypes.bool,
   month: PropTypes.number,
   year: PropTypes.number,
@@ -118,4 +106,5 @@ Calendar.propTypes = {
 
 export default connect(state => ({
   ...state.calendar,
+  selected: state.selected,
 }))(Calendar);
