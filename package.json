@@ -1,5 +1,5 @@
 {
-  "name": "react-module-calendar",
+  "name": "react-waterfall-calendar",
   "version": "0.0.1",
   "description": "模块化React日历组件",
   "main": "app.js",
@@ -15,15 +15,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Runjuu/react-module-calendar.git"
+    "url": "git+https://github.com/Runjuu/react-waterfall-calendar.git"
   },
   "keywords": [],
   "author": "Runjuu",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Runjuu/react-module-calendar/issues"
+    "url": "https://github.com/Runjuu/react-waterfall-calendar/issues"
   },
-  "homepage": "https://github.com/Runjuu/react-module-calendar#readme",
+  "homepage": "https://github.com/Runjuu/react-waterfall-calendar#readme",
   "dependencies": {
     "classnames": "^2.2.5",
     "react": "^15.4.2",
