@@ -7,11 +7,11 @@ const MultipleCalendar = ({ listOfCalendar, classNameOf, defaultStyle, ...props 
   <div className={classNames(defaultStyle.root, classNameOf.root)}>
     {listOfCalendar.map(month => (
       <Calendar
-        {...month.calendar}
         {...props}
-        defaultStyle={defaultStyle}
+        {...month.calendar}
         key={month.monthWithYear}
         classNameOf={classNameOf}
+        defaultStyle={defaultStyle}
       />
     ))}
   </div>
