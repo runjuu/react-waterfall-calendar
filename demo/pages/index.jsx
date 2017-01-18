@@ -7,7 +7,7 @@ class Demo extends Component {
     return (
       <div>
         <Calendar
-          style={style}
+          defaultStyle={style}
         />
       </div>
     );

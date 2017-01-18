@@ -26,14 +26,14 @@ class Calendar extends Component {
     }
   }
   render() {
+    const onClick = {};
     const {
-      style = {},
+      defaultStyle,
       month, year,
       enableTouchTap,
       defaultSelectedToday,
       classNameOf, selected, calendarArray, dateEvents,
     } = this.props;
-    const onClick = {};
 
     if (enableTouchTap) {
       onClick.onTouchTap = this.handleClickEvent;
@@ -41,7 +41,7 @@ class Calendar extends Component {
       onClick.onClick = this.handleClickEvent;
     }
     return (
-      <div className={classNames(style.root, classNameOf.calendar)}>
+      <div className={classNames(defaultStyle.root, classNameOf.calendar)}>
         <h3
           data-year={year}
           data-month={month + 1}
@@ -52,7 +52,7 @@ class Calendar extends Component {
         {calendarArray.map((horizontal, index) => (
           <section
             key={index}
-            className={classNames(style.horizontal, classNameOf.week)}
+            className={classNames(defaultStyle.horizontal, classNameOf.week)}
           >
             {horizontal.map((vertical) => {
               const date = filterDate(vertical.date);
@@ -71,7 +71,7 @@ class Calendar extends Component {
                   {...onClick}
                   key={vertical.date}
                   href={`#${vertical.date}`}
-                  className={classNames(style.vertical, classNameOf.day)}
+                  className={classNames(defaultStyle.vertical, classNameOf.day)}
                 >
                   <span>
                     {date.day}
@@ -87,7 +87,7 @@ class Calendar extends Component {
 }
 
 Calendar.defaultProps = {
-  style: {},
+  defaultStyle: {},
   dateEvents: {},
   calendarArray: [],
   classNameOf: {},
@@ -96,12 +96,10 @@ Calendar.defaultProps = {
   defaultSelectedToday: true,
   enableTouchTap: false,
   multipleSelect: false,
-  month: 0,
-  year: 2017,
 };
 
 Calendar.propTypes = {
-  style: PropTypes.objectOf(PropTypes.string),
+  defaultStyle: PropTypes.objectOf(PropTypes.string),
   dateEvents: PropTypes.objectOf(PropTypes.shape({
     date: PropTypes.string,
     onClick: PropTypes.func,
@@ -123,8 +121,8 @@ Calendar.propTypes = {
   defaultSelectedToday: PropTypes.bool,
   enableTouchTap: PropTypes.bool,
   multipleSelect: PropTypes.bool,
-  month: PropTypes.number,
-  year: PropTypes.number,
+  month: PropTypes.number.isRequired,
+  year: PropTypes.number.isRequired,
 };
 
 export default connect(state => ({

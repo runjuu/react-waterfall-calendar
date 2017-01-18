@@ -57,7 +57,7 @@ WaterfallCalendar.propTypes = {
     week: PropTypes.string,
     day: PropTypes.string,
   }),
-  style: PropTypes.objectOf(PropTypes.string).isRequired,
+  defaultStyle: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 WaterfallCalendar.defaultProps = {

@@ -5,14 +5,14 @@ import Calendar from '../Calendar/';
 
 class MultipleCalendar extends Component {
   render() {
-    const { listOfCalendar, classNameOf, style, ...props } = this.props;
+    const { listOfCalendar, classNameOf, defaultStyle, ...props } = this.props;
     return (
-      <div className={classNames(style.root, classNameOf.root)}>
+      <div className={classNames(defaultStyle.root, classNameOf.root)}>
         {listOfCalendar.map(month => (
           <Calendar
             {...month.calendar}
             {...props}
-            style={style}
+            style={defaultStyle}
             key={month.monthWithYear}
             classNameOf={classNameOf}
           />
@@ -23,7 +23,7 @@ class MultipleCalendar extends Component {
 }
 
 MultipleCalendar.propTypes = {
-  style: PropTypes.objectOf(PropTypes.string),
+  defaultStyle: PropTypes.objectOf(PropTypes.string),
   listOfCalendar: PropTypes.arrayOf(PropTypes.shape({
     monthWithYear: PropTypes.string,
     calendar: PropTypes.shape({
