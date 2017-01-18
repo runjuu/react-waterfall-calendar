@@ -19,7 +19,7 @@ const store = createStore(
   reducer,
   applyMiddleware(...middleware));
 
-class ReactModuleCalendar extends Component {
+class WaterfallCalendar extends Component {
   static setMonthDiff({ from, to }) {
     store.dispatch(initMultipleCalendar({ from, to }));
   }
@@ -28,12 +28,9 @@ class ReactModuleCalendar extends Component {
   }
   componentWillMount() {
     const { multiple } = this.props;
-    const { from, to } = multiple;
     if (multiple) {
-      store.dispatch(initMultipleCalendar({ from, to }));
-    } else {
-      store.dispatch(initCalendar());
-    }
+      store.dispatch(initMultipleCalendar(multiple));
+    } else store.dispatch(initCalendar());
   }
   render() {
     const { multiple, ...props } = this.props;
@@ -58,7 +55,7 @@ class ReactModuleCalendar extends Component {
   }
 }
 
-ReactModuleCalendar.propTypes = {
+WaterfallCalendar.propTypes = {
   event: PropTypes.arrayOf(PropTypes.shape({
     date: PropTypes.string,
     className: PropTypes.string,
@@ -79,4 +76,4 @@ ReactModuleCalendar.propTypes = {
 };
 
 
-export default ReactModuleCalendar;
+export default WaterfallCalendar;

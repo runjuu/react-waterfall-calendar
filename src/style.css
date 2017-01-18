@@ -1,0 +1,18 @@
+.root {
+  overflow: hidden;
+}
+
+.horizontal {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.vertical {
+  flex: 1;
+  text-align: center;
+  color: #000;
+}
+.vertical > * {
+  pointer-events: none;
+}

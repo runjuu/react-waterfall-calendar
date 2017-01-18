@@ -1,1 +1,7 @@
-example/
+demo/
+src/
+yarn.lock
+README.md
+.gitignore
+.eslintrc.js
+webpack.config.babel.js

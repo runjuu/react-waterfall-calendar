@@ -53,7 +53,7 @@ export const getCalendarArray = (dateArray) => {
   });
 };
 
-export const initCalendar = (d) => {
+export const initCalendar = (d = new Date()) => {
   const date = newDate(d);
   const year = date.getFullYear();
   const month = date.getMonth();

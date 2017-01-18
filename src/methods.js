@@ -4,7 +4,7 @@ export const newDate = (d) => {
     date = d;
   } else {
     const dateReg = /(\w{4})-(\w{1,2})-(\w{1,2})|(\w{4})-(\w{1,2})/g;
-    const regDate = d instanceof Date || dateReg.exec(d);
+    const regDate = d instanceof Date || dateReg.exec(d); if (!regDate) return false;
     const year = regDate[1] || regDate[4];
     const month = regDate[2] || regDate[5];
     const day = regDate[3] || 1;

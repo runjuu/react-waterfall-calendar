@@ -1,3 +1,3 @@
-import ReactModuleCalendar from './src/';
+const WaterfallCalendar = require('./build/');
 
-export default ReactModuleCalendar;
+module.exports = WaterfallCalendar;

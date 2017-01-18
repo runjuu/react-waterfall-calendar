@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
-import style from './style.sass';
 import { setSelected } from './CalendarActions';
 import { filterDate, whichMonth, whichDay, isToday, filterDataAttr } from '../methods';
 
@@ -28,6 +27,7 @@ class Calendar extends Component {
   }
   render() {
     const {
+      style = {},
       month, year,
       enableTouchTap,
       defaultSelectedToday,
@@ -86,7 +86,22 @@ class Calendar extends Component {
   }
 }
 
+Calendar.defaultProps = {
+  style: {},
+  dateEvents: {},
+  calendarArray: [],
+  classNameOf: {},
+  selected: {},
+  onClick: () => {},
+  defaultSelectedToday: true,
+  enableTouchTap: false,
+  multipleSelect: false,
+  month: 0,
+  year: 2017,
+};
+
 Calendar.propTypes = {
+  style: PropTypes.objectOf(PropTypes.string),
   dateEvents: PropTypes.objectOf(PropTypes.shape({
     date: PropTypes.string,
     onClick: PropTypes.func,
@@ -102,7 +117,7 @@ Calendar.propTypes = {
     week: PropTypes.string,
     day: PropTypes.string,
   }),
-  dispatch: PropTypes.func,
+  dispatch: PropTypes.func.isRequired,
   onClick: PropTypes.func,
   selected: PropTypes.objectOf(PropTypes.bool),
   defaultSelectedToday: PropTypes.bool,

@@ -2,17 +2,17 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import Calendar from '../Calendar/';
-import style from './style.sass';
 
 class MultipleCalendar extends Component {
   render() {
-    const { listOfCalendar, classNameOf, ...props } = this.props;
+    const { listOfCalendar, classNameOf, style, ...props } = this.props;
     return (
       <div className={classNames(style.root, classNameOf.root)}>
         {listOfCalendar.map(month => (
           <Calendar
             {...month.calendar}
             {...props}
+            style={style}
             key={month.monthWithYear}
             classNameOf={classNameOf}
           />
@@ -23,6 +23,7 @@ class MultipleCalendar extends Component {
 }
 
 MultipleCalendar.propTypes = {
+  style: PropTypes.objectOf(PropTypes.string),
   listOfCalendar: PropTypes.arrayOf(PropTypes.shape({
     monthWithYear: PropTypes.string,
     calendar: PropTypes.shape({
