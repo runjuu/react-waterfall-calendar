@@ -31,29 +31,13 @@ class WaterfallCalendar extends Component {
 }
 
 WaterfallCalendar.propTypes = {
-  // event: PropTypes.arrayOf(PropTypes.shape({
-  //   date: PropTypes.string,
-  //   className: PropTypes.string,
-  //   onClick: PropTypes.func,
-  //   dataAttr: PropTypes.object,
-  // })),
   multiple: PropTypes.shape({
     from: PropTypes.date,
     to: PropTypes.date,
   }),
-  // classNameOf: PropTypes.shape({
-  //   root: PropTypes.string,
-  //   calendar: PropTypes.string,
-  //   title: PropTypes.string,
-  //   week: PropTypes.string,
-  //   day: PropTypes.string,
-  // }),
-  // defaultStyle: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 WaterfallCalendar.defaultProps = {
-  event: [],
-  classNameOf: {},
   multiple: {
     from: new Date(),
     to: new Date(),

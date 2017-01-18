@@ -1,29 +1,24 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import Calendar from '../Calendar/';
 
-class MultipleCalendar extends Component {
-  render() {
-    const { listOfCalendar, classNameOf, defaultStyle, ...props } = this.props;
-    return (
-      <div className={classNames(defaultStyle.root, classNameOf.root)}>
-        {listOfCalendar.map(month => (
-          <Calendar
-            {...month.calendar}
-            {...props}
-            defaultStyle={defaultStyle}
-            key={month.monthWithYear}
-            classNameOf={classNameOf}
-          />
-        ))}
-      </div>
-    );
-  }
-}
+const MultipleCalendar = ({ listOfCalendar, classNameOf, defaultStyle, ...props }) => (
+  <div className={classNames(defaultStyle.root, classNameOf.root)}>
+    {listOfCalendar.map(month => (
+      <Calendar
+        {...month.calendar}
+        {...props}
+        defaultStyle={defaultStyle}
+        key={month.monthWithYear}
+        classNameOf={classNameOf}
+      />
+    ))}
+  </div>
+);
 
 MultipleCalendar.propTypes = {
-  defaultStyle: PropTypes.objectOf(PropTypes.string),
+  defaultStyle: PropTypes.objectOf(PropTypes.string).isRequired,
   listOfCalendar: PropTypes.arrayOf(PropTypes.shape({
     monthWithYear: PropTypes.string,
     calendar: PropTypes.shape({
@@ -34,7 +29,7 @@ MultipleCalendar.propTypes = {
       month: PropTypes.number,
       year: PropTypes.number,
     }),
-  })),
+  })).isRequired,
   events: PropTypes.arrayOf(PropTypes.shape({
     date: PropTypes.string,
     onClick: PropTypes.func,
@@ -46,6 +41,10 @@ MultipleCalendar.propTypes = {
   }),
 };
 
-export default connect(state => ({
-  ...state.multipleCalendar,
-}))(MultipleCalendar);
+MultipleCalendar.defaultProps = {
+  events: [],
+  classNameOf: {},
+  multipleSelect: false,
+};
+
+export default connect(state => ({ ...state.multipleCalendar }))(MultipleCalendar);

@@ -11,7 +11,6 @@
 .vertical {
   flex: 1;
   text-align: center;
-  color: #000;
 }
 .vertical > * {
   pointer-events: none;
