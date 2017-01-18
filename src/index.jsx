@@ -9,15 +9,8 @@ import MultipleCalendar from './MultipleCalendar/';
 import { initCalendar, initDateEvents } from './Calendar/CalendarActions';
 import { initMultipleCalendar } from './MultipleCalendar/MultipleCalendarActions';
 
-const middleware = [thunk];
-
-if (process.env.NODE_ENV !== 'production') {
-  middleware.push(createLogger());
-}
-
-const store = createStore(
-  reducer,
-  applyMiddleware(...middleware));
+const middleware = [thunk]; if (process.env.NODE_ENV !== 'production') middleware.push(createLogger());
+const store = createStore(reducer, applyMiddleware(...middleware));
 
 class WaterfallCalendar extends Component {
   static setMonthDiff({ from, to }) {
@@ -34,22 +27,13 @@ class WaterfallCalendar extends Component {
   }
   render() {
     const { multiple, ...props } = this.props;
-    if (multiple) {
-      return (
-        <Provider store={store}>
-          <MultipleCalendar
-            multiple={multiple}
-            {...props}
-          />
-        </Provider>
-      );
-    }
     return (
       <Provider store={store}>
-        <Calendar
-          multiple={multiple}
-          {...props}
-        />
+        {multiple ? (
+          <MultipleCalendar multiple={multiple} {...props} />
+        ) : (
+          <Calendar multiple={multiple} {...props} />
+        )}
       </Provider>
     );
   }
@@ -73,7 +57,13 @@ WaterfallCalendar.propTypes = {
     week: PropTypes.string,
     day: PropTypes.string,
   }),
+  style: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
+WaterfallCalendar.defaultProps = {
+  event: [],
+  classNameOf: {},
+  multiple: undefined,
+};
 
 export default WaterfallCalendar;
