@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 import Calendar from '../Calendar/';
 
-const MultipleCalendar = ({ listOfCalendar, classNameOf, defaultStyle, ...props }) => (
-  <div className={classNames(defaultStyle.root, classNameOf.root)}>
+const MultipleCalendar = ({ listOfCalendar, customizeStyle, defaultStyle, ...props }) => (
+  <div className={classNames(defaultStyle.root, customizeStyle.root)}>
     {listOfCalendar.map(month => (
       <Calendar
         {...props}
         {...month.calendar}
         key={month.monthWithYear}
-        classNameOf={classNameOf}
+        customizeStyle={customizeStyle}
         defaultStyle={defaultStyle}
       />
     ))}
@@ -36,14 +36,14 @@ MultipleCalendar.propTypes = {
     dataAttr: PropTypes.object,
   })),
   multipleSelect: PropTypes.bool,
-  classNameOf: PropTypes.shape({
+  customizeStyle: PropTypes.shape({
     root: PropTypes.string,
   }),
 };
 
 MultipleCalendar.defaultProps = {
   events: [],
-  classNameOf: {},
+  customizeStyle: {},
   multipleSelect: false,
 };
 

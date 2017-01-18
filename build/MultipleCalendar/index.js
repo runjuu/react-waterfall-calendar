@@ -46,18 +46,18 @@ var MultipleCalendar = function (_Component) {
     value: function render() {
       var _props = this.props,
           listOfCalendar = _props.listOfCalendar,
-          classNameOf = _props.classNameOf,
+          customizeStyle = _props.customizeStyle,
           style = _props.style,
-          props = _objectWithoutProperties(_props, ['listOfCalendar', 'classNameOf', 'style']);
+          props = _objectWithoutProperties(_props, ['listOfCalendar', 'customizeStyle', 'style']);
 
       return _react2.default.createElement(
         'div',
-        { className: (0, _classnames2.default)(style.root, classNameOf.root) },
+        { className: (0, _classnames2.default)(style.root, customizeStyle.root) },
         listOfCalendar.map(function (month) {
           return _react2.default.createElement(_Calendar2.default, _extends({}, month.calendar, props, {
             style: style,
             key: month.monthWithYear,
-            classNameOf: classNameOf
+            customizeStyle: customizeStyle
           }));
         })
       );
@@ -86,7 +86,7 @@ MultipleCalendar.propTypes = {
     dataAttr: _react.PropTypes.object
   })),
   multipleSelect: _react.PropTypes.bool,
-  classNameOf: _react.PropTypes.shape({
+  customizeStyle: _react.PropTypes.shape({
     root: _react.PropTypes.string
   })
 };

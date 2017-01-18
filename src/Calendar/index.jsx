@@ -32,7 +32,7 @@ class Calendar extends Component {
       month, year,
       enableTouchTap,
       defaultSelectedToday,
-      classNameOf, selected, calendarArray, dateEvents,
+      customizeStyle, selected, calendarArray, dateEvents,
     } = this.props;
 
     if (enableTouchTap) {
@@ -41,18 +41,18 @@ class Calendar extends Component {
       onClick.onClick = this.handleClickEvent;
     }
     return (
-      <div className={classNames(defaultStyle.root, classNameOf.calendar)}>
+      <div className={classNames(defaultStyle.root, customizeStyle.calendar)}>
         <h3
           data-year={year}
           data-month={month + 1}
-          className={classNameOf.title}
+          className={customizeStyle.title}
         >
           <span>{`${year}-${month + 1}`}</span>
         </h3>
         {calendarArray.map((horizontal, index) => (
           <section
             key={index}
-            className={classNames(defaultStyle.horizontal, classNameOf.week)}
+            className={classNames(defaultStyle.horizontal, customizeStyle.week)}
           >
             {horizontal.map((vertical) => {
               const date = filterDate(vertical.date);
@@ -71,7 +71,7 @@ class Calendar extends Component {
                   {...onClick}
                   key={vertical.date}
                   href={`#${vertical.date}`}
-                  className={classNames(defaultStyle.vertical, classNameOf.day)}
+                  className={classNames(defaultStyle.vertical, customizeStyle.day)}
                 >
                   <span>
                     {date.day}
@@ -90,7 +90,7 @@ Calendar.defaultProps = {
   defaultStyle: {},
   dateEvents: {},
   calendarArray: [],
-  classNameOf: {},
+  customizeStyle: {},
   selected: {},
   onClick: () => {},
   defaultSelectedToday: true,
@@ -109,7 +109,7 @@ Calendar.propTypes = {
     date: PropTypes.string.isRequired,
     weekDay: PropTypes.number.isRequired,
   }))),
-  classNameOf: PropTypes.shape({
+  customizeStyle: PropTypes.shape({
     calendar: PropTypes.string,
     title: PropTypes.string,
     week: PropTypes.string,

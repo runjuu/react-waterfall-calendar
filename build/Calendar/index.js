@@ -76,7 +76,7 @@ var Calendar = function (_Component) {
           year = _props2.year,
           enableTouchTap = _props2.enableTouchTap,
           defaultSelectedToday = _props2.defaultSelectedToday,
-          classNameOf = _props2.classNameOf,
+          customizeStyle = _props2.customizeStyle,
           selected = _props2.selected,
           calendarArray = _props2.calendarArray,
           dateEvents = _props2.dateEvents;
@@ -90,13 +90,13 @@ var Calendar = function (_Component) {
       }
       return _react2.default.createElement(
         'div',
-        { className: (0, _classnames2.default)(style.root, classNameOf.calendar) },
+        { className: (0, _classnames2.default)(style.root, customizeStyle.calendar) },
         _react2.default.createElement(
           'h3',
           {
             'data-year': year,
             'data-month': month + 1,
-            className: classNameOf.title
+            className: customizeStyle.title
           },
           _react2.default.createElement(
             'span',
@@ -109,7 +109,7 @@ var Calendar = function (_Component) {
             'section',
             {
               key: index,
-              className: (0, _classnames2.default)(style.horizontal, classNameOf.week)
+              className: (0, _classnames2.default)(style.horizontal, customizeStyle.week)
             },
             horizontal.map(function (vertical) {
               var date = (0, _methods.filterDate)(vertical.date);
@@ -127,7 +127,7 @@ var Calendar = function (_Component) {
                 _extends({}, data, onClick, {
                   key: vertical.date,
                   href: '#' + vertical.date,
-                  className: (0, _classnames2.default)(style.vertical, classNameOf.day)
+                  className: (0, _classnames2.default)(style.vertical, customizeStyle.day)
                 }),
                 _react2.default.createElement(
                   'span',
@@ -156,7 +156,7 @@ Calendar.propTypes = {
     date: _react.PropTypes.string.isRequired,
     weekDay: _react.PropTypes.number.isRequired
   }))),
-  classNameOf: _react.PropTypes.shape({
+  customizeStyle: _react.PropTypes.shape({
     calendar: _react.PropTypes.string,
     title: _react.PropTypes.string,
     week: _react.PropTypes.string,

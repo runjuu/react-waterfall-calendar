@@ -133,7 +133,7 @@ ReactModuleCalendar.propTypes = {
     from: _react.PropTypes.date,
     to: _react.PropTypes.date
   }),
-  classNameOf: _react.PropTypes.shape({
+  customizeStyle: _react.PropTypes.shape({
     root: _react.PropTypes.string,
     calendar: _react.PropTypes.string,
     title: _react.PropTypes.string,
