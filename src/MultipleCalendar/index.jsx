@@ -12,7 +12,7 @@ class MultipleCalendar extends Component {
           <Calendar
             {...month.calendar}
             {...props}
-            style={defaultStyle}
+            defaultStyle={defaultStyle}
             key={month.monthWithYear}
             classNameOf={classNameOf}
           />

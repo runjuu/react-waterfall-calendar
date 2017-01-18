@@ -4,9 +4,8 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import reducer from './reducers';
-import Calendar from './Calendar/';
 import MultipleCalendar from './MultipleCalendar/';
-import { initCalendar, initDateEvents } from './Calendar/CalendarActions';
+import { initDateEvents } from './Calendar/CalendarActions';
 import { initMultipleCalendar } from './MultipleCalendar/MultipleCalendarActions';
 
 const middleware = [thunk]; if (process.env.NODE_ENV !== 'production') middleware.push(createLogger());
@@ -20,50 +19,45 @@ class WaterfallCalendar extends Component {
     store.dispatch(initDateEvents(events));
   }
   componentWillMount() {
-    const { multiple } = this.props;
-    if (multiple) {
-      store.dispatch(initMultipleCalendar(multiple));
-    } else store.dispatch(initCalendar());
+    store.dispatch(initMultipleCalendar(this.props.multiple));
   }
   render() {
-    const { multiple, ...props } = this.props;
     return (
       <Provider store={store}>
-        {multiple ? (
-          <MultipleCalendar multiple={multiple} {...props} />
-        ) : (
-          <Calendar multiple={multiple} {...props} />
-        )}
+        <MultipleCalendar {...this.props} />
       </Provider>
     );
   }
 }
 
 WaterfallCalendar.propTypes = {
-  event: PropTypes.arrayOf(PropTypes.shape({
-    date: PropTypes.string,
-    className: PropTypes.string,
-    onClick: PropTypes.func,
-    dataAttr: PropTypes.object,
-  })),
+  // event: PropTypes.arrayOf(PropTypes.shape({
+  //   date: PropTypes.string,
+  //   className: PropTypes.string,
+  //   onClick: PropTypes.func,
+  //   dataAttr: PropTypes.object,
+  // })),
   multiple: PropTypes.shape({
     from: PropTypes.date,
     to: PropTypes.date,
   }),
-  classNameOf: PropTypes.shape({
-    root: PropTypes.string,
-    calendar: PropTypes.string,
-    title: PropTypes.string,
-    week: PropTypes.string,
-    day: PropTypes.string,
-  }),
-  defaultStyle: PropTypes.objectOf(PropTypes.string).isRequired,
+  // classNameOf: PropTypes.shape({
+  //   root: PropTypes.string,
+  //   calendar: PropTypes.string,
+  //   title: PropTypes.string,
+  //   week: PropTypes.string,
+  //   day: PropTypes.string,
+  // }),
+  // defaultStyle: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 WaterfallCalendar.defaultProps = {
   event: [],
   classNameOf: {},
-  multiple: undefined,
+  multiple: {
+    from: new Date(),
+    to: new Date(),
+  },
 };
 
 export default WaterfallCalendar;
