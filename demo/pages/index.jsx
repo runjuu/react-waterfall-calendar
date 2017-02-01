@@ -4,7 +4,7 @@ import CalendarStyle from '../../style.css';
 import style from './style.sass';
 
 class Demo extends Component {
-  static handleScroll(e) {
+  static handleScroll() {
     if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight * 0.8)) {
       window.requestAnimationFrame(Calendar.update);
     }
