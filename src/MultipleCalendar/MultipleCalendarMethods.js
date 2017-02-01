@@ -15,5 +15,9 @@ export const setMultipleCalendar = ({ from = new Date(), to = monthIncrease(from
     });
   }
 
-  return { listOfCalendar };
+  return {
+    from,
+    to,
+    listOfCalendar,
+  };
 };

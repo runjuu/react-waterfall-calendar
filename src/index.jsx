@@ -6,17 +6,22 @@ import createLogger from 'redux-logger';
 import reducer from './reducers';
 import MultipleCalendar from './MultipleCalendar/';
 import { setDateEvents } from './Calendar/CalendarActions';
-import { setMultipleCalendar } from './MultipleCalendar/MultipleCalendarActions';
+import { setMultipleCalendar, updateMultipleCalendar, resetMultipleCalendar } from './MultipleCalendar/MultipleCalendarActions';
 
 const middleware = [thunk]; if (process.env.NODE_ENV !== 'production') middleware.push(createLogger());
 const store = createStore(reducer, applyMiddleware(...middleware));
-
 class WaterfallCalendar extends Component {
   static setMonthDiff({ from, to }) {
     store.dispatch(setMultipleCalendar({ from, to }));
   }
   static setEvents(events) {
     store.dispatch(setDateEvents(events));
+  }
+  static update() {
+    store.dispatch(updateMultipleCalendar());
+  }
+  static reset() {
+    store.dispatch(resetMultipleCalendar());
   }
   componentWillMount() {
     store.dispatch(setMultipleCalendar(this.props.interval));
@@ -29,6 +34,8 @@ class WaterfallCalendar extends Component {
     );
   }
 }
+window.test = WaterfallCalendar.update;
+window.testt = WaterfallCalendar.reset;
 
 WaterfallCalendar.propTypes = {
   interval: PropTypes.shape({
