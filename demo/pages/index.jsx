@@ -6,6 +6,7 @@ import style from './style.sass';
 let canUpdate = true;
 
 class Demo extends Component {
+
   static handleScroll() {
     if (canUpdate && (window.innerHeight + window.scrollY) >= (document.body.offsetHeight * 0.8)) {
       canUpdate = false;
@@ -14,9 +15,11 @@ class Demo extends Component {
       });
     }
   }
+
   componentDidMount() {
     window.addEventListener('scroll', Demo.handleScroll);
   }
+
   render() {
     return (
       <div>
@@ -27,6 +30,7 @@ class Demo extends Component {
       </div>
     );
   }
+
 }
 
 export default Demo;
