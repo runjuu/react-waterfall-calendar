@@ -18,7 +18,7 @@ var multipleCalendar = function multipleCalendar() {
 
   switch (action.type) {
     case _MultipleCalendarActions.INIT_MULTIPLECALENDAR:
-      return _extends({}, (0, _MultipleCalendarMethods.initMultipleCalendar)({ from: from, to: to }));
+      return _extends({}, (0, _MultipleCalendarMethods.setMultipleCalendar)({ from: from, to: to }));
     default:
       return state;
   }

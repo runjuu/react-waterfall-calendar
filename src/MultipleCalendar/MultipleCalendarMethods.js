@@ -1,7 +1,7 @@
 import { monthDiff, filterDate } from '../methods';
 import { initCalendar } from '../Calendar/CalendarMethods';
 
-export const initMultipleCalendar = ({ from = new Date(), to = new Date() }) => {
+export const setMultipleCalendar = ({ from = new Date(), to = new Date() }) => {
   const listOfCalendar = [];
   const { year, month } = filterDate(from);
   const numberOfMonths = monthDiff(from, to);

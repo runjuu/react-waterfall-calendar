@@ -1,6 +1,6 @@
 export const INIT_MULTIPLECALENDAR = 'INIT_MULTIPLECALENDAR';
 
-export const initMultipleCalendar = ({ from, to }) => ({
+export const setMultipleCalendar = ({ from, to }) => ({
   type: INIT_MULTIPLECALENDAR,
   from,
   to,

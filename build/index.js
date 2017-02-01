@@ -57,7 +57,7 @@ var WaterfallCalendar = function (_Component) {
   _createClass(WaterfallCalendar, [{
     key: 'componentWillMount',
     value: function componentWillMount() {
-      store.dispatch((0, _MultipleCalendarActions.initMultipleCalendar)(this.props.multiple));
+      store.dispatch((0, _MultipleCalendarActions.setMultipleCalendar)(this.props.multiple));
     }
   }, {
     key: 'render',
@@ -74,7 +74,7 @@ var WaterfallCalendar = function (_Component) {
       var from = _ref.from,
           to = _ref.to;
 
-      store.dispatch((0, _MultipleCalendarActions.initMultipleCalendar)({ from: from, to: to }));
+      store.dispatch((0, _MultipleCalendarActions.setMultipleCalendar)({ from: from, to: to }));
     }
   }, {
     key: 'setEvents',

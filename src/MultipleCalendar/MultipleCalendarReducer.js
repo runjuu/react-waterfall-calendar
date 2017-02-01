@@ -1,4 +1,4 @@
-import { initMultipleCalendar } from './MultipleCalendarMethods';
+import { setMultipleCalendar } from './MultipleCalendarMethods';
 import {
   INIT_MULTIPLECALENDAR,
 } from './MultipleCalendarActions';
@@ -8,7 +8,7 @@ const multipleCalendar = (state = {}, action) => {
   switch (action.type) {
     case INIT_MULTIPLECALENDAR:
       return {
-        ...initMultipleCalendar({ from, to }),
+        ...setMultipleCalendar({ from, to }),
       };
     default:
       return state;

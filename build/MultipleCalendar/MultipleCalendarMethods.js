@@ -3,13 +3,13 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.initMultipleCalendar = undefined;
+exports.setMultipleCalendar = undefined;
 
 var _methods = require('../methods');
 
 var _CalendarMethods = require('../Calendar/CalendarMethods');
 
-var initMultipleCalendar = exports.initMultipleCalendar = function initMultipleCalendar(_ref) {
+var setMultipleCalendar = exports.setMultipleCalendar = function setMultipleCalendar(_ref) {
   var _ref$from = _ref.from,
       from = _ref$from === undefined ? new Date() : _ref$from,
       _ref$to = _ref.to,

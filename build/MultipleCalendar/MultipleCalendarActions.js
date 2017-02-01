@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 var INIT_MULTIPLECALENDAR = exports.INIT_MULTIPLECALENDAR = 'INIT_MULTIPLECALENDAR';
 
-var initMultipleCalendar = exports.initMultipleCalendar = function initMultipleCalendar(_ref) {
+var setMultipleCalendar = exports.setMultipleCalendar = function setMultipleCalendar(_ref) {
   var from = _ref.from,
       to = _ref.to;
   return {
