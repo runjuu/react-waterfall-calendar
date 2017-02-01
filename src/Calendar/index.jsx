@@ -5,6 +5,7 @@ import { setSelected } from './CalendarActions';
 import { filterDate, whichMonth, whichDay, isToday, filterDataAttr } from '../methods';
 
 class Calendar extends Component {
+
   constructor(props) {
     super(props);
     this.handleClickEvent = this.handleClickEvent.bind(this);
@@ -12,6 +13,7 @@ class Calendar extends Component {
       selected: {},
     };
   }
+
   handleClickEvent(e) {
     e.preventDefault();
     const { target, type } = e;
@@ -25,6 +27,7 @@ class Calendar extends Component {
       onClick({ date, target });
     }
   }
+
   render() {
     const onClick = {};
     const {
@@ -84,6 +87,7 @@ class Calendar extends Component {
       </div>
     );
   }
+
 }
 
 Calendar.defaultProps = {
@@ -99,7 +103,6 @@ Calendar.defaultProps = {
 };
 
 Calendar.propTypes = {
-  defaultStyle: PropTypes.objectOf(PropTypes.string),
   dateEvents: PropTypes.objectOf(PropTypes.shape({
     date: PropTypes.string,
     onClick: PropTypes.func,
@@ -109,6 +112,7 @@ Calendar.propTypes = {
     date: PropTypes.string.isRequired,
     weekDay: PropTypes.number.isRequired,
   }))),
+  defaultStyle: PropTypes.objectOf(PropTypes.string),
   customizeStyle: PropTypes.shape({
     calendar: PropTypes.string,
     title: PropTypes.string,

@@ -69,9 +69,9 @@ var Calendar = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
+      var onClick = {};
       var _props2 = this.props,
-          _props2$style = _props2.style,
-          style = _props2$style === undefined ? {} : _props2$style,
+          defaultStyle = _props2.defaultStyle,
           month = _props2.month,
           year = _props2.year,
           enableTouchTap = _props2.enableTouchTap,
@@ -81,7 +81,6 @@ var Calendar = function (_Component) {
           calendarArray = _props2.calendarArray,
           dateEvents = _props2.dateEvents;
 
-      var onClick = {};
 
       if (enableTouchTap) {
         onClick.onTouchTap = this.handleClickEvent;
@@ -90,7 +89,7 @@ var Calendar = function (_Component) {
       }
       return _react2.default.createElement(
         'div',
-        { className: (0, _classnames2.default)(style.root, customizeStyle.calendar) },
+        { className: (0, _classnames2.default)(defaultStyle.root, customizeStyle.calendar) },
         _react2.default.createElement(
           'h3',
           {
@@ -109,7 +108,7 @@ var Calendar = function (_Component) {
             'section',
             {
               key: index,
-              className: (0, _classnames2.default)(style.horizontal, customizeStyle.week)
+              className: (0, _classnames2.default)(defaultStyle.horizontal, customizeStyle.week)
             },
             horizontal.map(function (vertical) {
               var date = (0, _methods.filterDate)(vertical.date);
@@ -127,7 +126,7 @@ var Calendar = function (_Component) {
                 _extends({}, data, onClick, {
                   key: vertical.date,
                   href: '#' + vertical.date,
-                  className: (0, _classnames2.default)(style.vertical, customizeStyle.day)
+                  className: (0, _classnames2.default)(defaultStyle.vertical, customizeStyle.day)
                 }),
                 _react2.default.createElement(
                   'span',
@@ -145,8 +144,19 @@ var Calendar = function (_Component) {
   return Calendar;
 }(_react.Component);
 
+Calendar.defaultProps = {
+  defaultStyle: {},
+  dateEvents: {},
+  calendarArray: [],
+  customizeStyle: {},
+  selected: {},
+  onClick: function onClick() {},
+  defaultSelectedToday: true,
+  enableTouchTap: false,
+  multipleSelect: false
+};
+
 Calendar.propTypes = {
-  style: _react.PropTypes.objectOf(_react.PropTypes.string),
   dateEvents: _react.PropTypes.objectOf(_react.PropTypes.shape({
     date: _react.PropTypes.string,
     onClick: _react.PropTypes.func,
@@ -156,20 +166,21 @@ Calendar.propTypes = {
     date: _react.PropTypes.string.isRequired,
     weekDay: _react.PropTypes.number.isRequired
   }))),
+  defaultStyle: _react.PropTypes.objectOf(_react.PropTypes.string),
   customizeStyle: _react.PropTypes.shape({
     calendar: _react.PropTypes.string,
     title: _react.PropTypes.string,
     week: _react.PropTypes.string,
     day: _react.PropTypes.string
   }),
-  dispatch: _react.PropTypes.func,
+  dispatch: _react.PropTypes.func.isRequired,
   onClick: _react.PropTypes.func,
   selected: _react.PropTypes.objectOf(_react.PropTypes.bool),
   defaultSelectedToday: _react.PropTypes.bool,
   enableTouchTap: _react.PropTypes.bool,
   multipleSelect: _react.PropTypes.bool,
-  month: _react.PropTypes.number,
-  year: _react.PropTypes.number
+  month: _react.PropTypes.number.isRequired,
+  year: _react.PropTypes.number.isRequired
 };
 
 exports.default = (0, _reactRedux.connect)(function (state) {

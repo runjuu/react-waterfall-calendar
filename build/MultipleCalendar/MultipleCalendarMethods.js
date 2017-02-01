@@ -10,8 +10,10 @@ var _methods = require('../methods');
 var _CalendarMethods = require('../Calendar/CalendarMethods');
 
 var initMultipleCalendar = exports.initMultipleCalendar = function initMultipleCalendar(_ref) {
-  var from = _ref.from,
-      to = _ref.to;
+  var _ref$from = _ref.from,
+      from = _ref$from === undefined ? new Date() : _ref$from,
+      _ref$to = _ref.to,
+      to = _ref$to === undefined ? new Date() : _ref$to;
 
   var listOfCalendar = [];
 

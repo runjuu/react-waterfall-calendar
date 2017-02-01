@@ -54,7 +54,9 @@ var getCalendarArray = exports.getCalendarArray = function getCalendarArray(date
   });
 };
 
-var initCalendar = exports.initCalendar = function initCalendar(d) {
+var initCalendar = exports.initCalendar = function initCalendar() {
+  var d = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Date();
+
   var date = (0, _methods.newDate)(d);
   var year = date.getFullYear();
   var month = date.getMonth();

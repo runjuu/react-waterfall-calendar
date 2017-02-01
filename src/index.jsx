@@ -37,10 +37,11 @@ WaterfallCalendar.propTypes = {
   }),
 };
 
+const defaultTo = new Date();
 WaterfallCalendar.defaultProps = {
   multiple: {
     from: new Date(),
-    to: new Date(),
+    to: new Date(defaultTo.setMonth(defaultTo.getMonth() + 12)),
   },
 };
 

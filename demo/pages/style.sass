@@ -1,0 +1,9 @@
+.day
+  text-decoration: none
+  line-height: 200%
+  color: hsl(0, 0%, 30%)
+  &[data-selected]
+    color: red
+  &:not([data-which-month='CURRENT_MONTH'])
+    color: hsl(0, 0%, 90%)
+    pointer-events: none

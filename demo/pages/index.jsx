@@ -1,17 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Calendar from '../../src/';
-import style from '../../style.css';
+import CalendarStyle from '../../style.css';
+import style from './style.sass';
 
-class Demo extends Component {
-  render() {
-    return (
-      <div>
-        <Calendar
-          defaultStyle={style}
-        />
-      </div>
-    );
-  }
-}
+const Demo = () => (
+  <div>
+    <Calendar
+      defaultStyle={CalendarStyle}
+      customizeStyle={style}
+    />
+  </div>
+);
 
 export default Demo;
