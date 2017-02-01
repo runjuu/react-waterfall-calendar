@@ -18,7 +18,9 @@ class WaterfallCalendar extends Component {
     store.dispatch(setDateEvents(events));
   }
   static update() {
-    store.dispatch(updateMultipleCalendar());
+    return new Promise((resolve) => {
+      resolve(store.dispatch(updateMultipleCalendar()));
+    });
   }
   static reset() {
     store.dispatch(resetMultipleCalendar());
