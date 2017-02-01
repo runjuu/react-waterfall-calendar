@@ -79,7 +79,7 @@ var WaterfallCalendar = function (_Component) {
   }, {
     key: 'setEvents',
     value: function setEvents(events) {
-      store.dispatch((0, _CalendarActions.initDateEvents)(events));
+      store.dispatch((0, _CalendarActions.setDateEvents)(events));
     }
   }]);
 

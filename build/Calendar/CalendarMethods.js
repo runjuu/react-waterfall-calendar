@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.setSelected = exports.initDateEvents = exports.initCalendar = exports.getCalendarArray = undefined;
+exports.setSelected = exports.setDateEvents = exports.initCalendar = exports.getCalendarArray = undefined;
 
 var _methods = require('../methods');
 
@@ -77,7 +77,7 @@ var initCalendar = exports.initCalendar = function initCalendar() {
   };
 };
 
-var initDateEvents = exports.initDateEvents = function initDateEvents(events) {
+var setDateEvents = exports.setDateEvents = function setDateEvents(events) {
   return (0, _methods.filterEvents)(events);
 };
 

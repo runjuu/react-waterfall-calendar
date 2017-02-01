@@ -18,7 +18,7 @@ var initCalendar = exports.initCalendar = function initCalendar(style, event) {
   };
 };
 
-var initDateEvents = exports.initDateEvents = function initDateEvents() {
+var setDateEvents = exports.setDateEvents = function setDateEvents() {
   var events = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
   return {
     type: INIT_DATE_EVENTS,

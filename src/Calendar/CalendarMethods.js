@@ -70,7 +70,7 @@ export const initCalendar = (d = new Date()) => {
   };
 };
 
-export const initDateEvents = events => (
+export const setDateEvents = events => (
   filterEvents(events)
 );
 

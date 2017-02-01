@@ -1,4 +1,4 @@
-import { initCalendar, setSelected, initDateEvents } from './CalendarMethods';
+import { initCalendar, setSelected, setDateEvents } from './CalendarMethods';
 import {
   INIT_CALENDAR,
   INIT_DATE_EVENTS,
@@ -32,7 +32,7 @@ const dateEvents = (state = {}, action) => {
   const { events } = action;
   switch (action.type) {
     case INIT_DATE_EVENTS:
-      return initDateEvents(events);
+      return setDateEvents(events);
     default:
       return state;
   }

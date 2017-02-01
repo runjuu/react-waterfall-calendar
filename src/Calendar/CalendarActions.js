@@ -11,7 +11,7 @@ export const initCalendar = (style, event) => ({
   event,
 });
 
-export const initDateEvents = (events = []) => ({
+export const setDateEvents = (events = []) => ({
   type: INIT_DATE_EVENTS,
   events,
 });

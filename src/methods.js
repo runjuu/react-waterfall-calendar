@@ -126,6 +126,10 @@ export const monthDiff = (d1, d2) => {
   throw new Error('need Date type');
 };
 
+export const monthIncrease = (from, add = 0, to = new Date(from)) => (
+  new Date(to.setMonth(to.getMonth() + add))
+);
+
 export const filterDataAttr = (attrObj) => {
   const attr = {};
   const attrArray = Object.keys(attrObj);

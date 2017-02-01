@@ -45,7 +45,7 @@ var dateEvents = function dateEvents() {
 
   switch (action.type) {
     case _CalendarActions.INIT_DATE_EVENTS:
-      return (0, _CalendarMethods.initDateEvents)(events);
+      return (0, _CalendarMethods.setDateEvents)(events);
     default:
       return state;
   }
