@@ -7,9 +7,11 @@ export const setMultipleCalendar = ({ from, to }) => ({
   from,
   to,
 });
+
 export const updateMultipleCalendar = () => ({
   type: ADD_MULTIPLECALENDAR,
 });
+
 export const resetMultipleCalendar = () => ({
   type: RESET_MULTIPLECALENDAR,
 });
