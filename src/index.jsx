@@ -19,7 +19,7 @@ class WaterfallCalendar extends Component {
     store.dispatch(initDateEvents(events));
   }
   componentWillMount() {
-    store.dispatch(setMultipleCalendar(this.props.multiple));
+    store.dispatch(setMultipleCalendar(this.props.interval));
   }
   render() {
     return (
@@ -31,7 +31,7 @@ class WaterfallCalendar extends Component {
 }
 
 WaterfallCalendar.propTypes = {
-  multiple: PropTypes.shape({
+  interval: PropTypes.shape({
     from: PropTypes.date,
     to: PropTypes.date,
   }),
@@ -39,7 +39,7 @@ WaterfallCalendar.propTypes = {
 
 const defaultTo = new Date();
 WaterfallCalendar.defaultProps = {
-  multiple: {
+  interval: {
     from: new Date(),
     to: new Date(defaultTo.setMonth(defaultTo.getMonth() + 12)),
   },
