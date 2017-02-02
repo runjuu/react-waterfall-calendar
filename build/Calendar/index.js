@@ -20,6 +20,8 @@ var _classnames2 = _interopRequireDefault(_classnames);
 
 var _CalendarActions = require('./CalendarActions');
 
+var _CalendarMethods = require('./CalendarMethods');
+
 var _methods = require('../methods');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -46,16 +48,29 @@ var Calendar = function (_Component) {
   }
 
   _createClass(Calendar, [{
+    key: 'shouldComponentUpdate',
+    value: function shouldComponentUpdate(nextProps) {
+      var _props = this.props,
+          year = _props.year,
+          month = _props.month;
+
+      return (0, _CalendarMethods.shouldUpdateSelected)({
+        current: this.props.selected,
+        next: nextProps.selected,
+        date: (0, _methods.newDate)(year + '-' + (month + 1))
+      });
+    }
+  }, {
     key: 'handleClickEvent',
     value: function handleClickEvent(e) {
       e.preventDefault();
       var target = e.target,
           type = e.type;
-      var _props = this.props,
-          multipleSelect = _props.multipleSelect,
-          dispatch = _props.dispatch,
-          enableTouchTap = _props.enableTouchTap,
-          onClick = _props.onClick;
+      var _props2 = this.props,
+          multipleSelect = _props2.multipleSelect,
+          dispatch = _props2.dispatch,
+          enableTouchTap = _props2.enableTouchTap,
+          onClick = _props2.onClick;
 
       var date = target.getAttribute('data-date');
 
@@ -70,16 +85,15 @@ var Calendar = function (_Component) {
     key: 'render',
     value: function render() {
       var onClick = {};
-      var _props2 = this.props,
-          defaultStyle = _props2.defaultStyle,
-          month = _props2.month,
-          year = _props2.year,
-          enableTouchTap = _props2.enableTouchTap,
-          defaultSelectedToday = _props2.defaultSelectedToday,
-          customizeStyle = _props2.customizeStyle,
-          selected = _props2.selected,
-          calendarArray = _props2.calendarArray,
-          dateEvents = _props2.dateEvents;
+      var _props3 = this.props,
+          defaultStyle = _props3.defaultStyle,
+          month = _props3.month,
+          year = _props3.year,
+          enableTouchTap = _props3.enableTouchTap,
+          customizeStyle = _props3.customizeStyle,
+          selected = _props3.selected,
+          calendarArray = _props3.calendarArray,
+          dateEvents = _props3.dateEvents;
 
 
       if (enableTouchTap) {
@@ -95,13 +109,12 @@ var Calendar = function (_Component) {
           {
             'data-year': year,
             'data-month': month + 1,
-            className: customizeStyle.title
+            className: (0, _classnames2.default)(defaultStyle.title, customizeStyle.title)
           },
-          _react2.default.createElement(
-            'span',
-            null,
-            year + '-' + (month + 1)
-          )
+          _react2.default.createElement('span', {
+            'data-year': year,
+            'data-month': month + 1
+          })
         ),
         calendarArray.map(function (horizontal, index) {
           return _react2.default.createElement(
@@ -120,7 +133,7 @@ var Calendar = function (_Component) {
               data['data-which-month'] = (0, _methods.whichMonth)({ date: vertical.date, refer: year + '-' + (month + 1) });
               data['data-which-day'] = (0, _methods.whichDay)(vertical.date);
               data['data-is-today'] = (0, _methods.isToday)(vertical.date) || undefined;
-              data['data-selected'] = defaultSelectedToday && Object.getOwnPropertyNames(selected).length === 0 && (0, _methods.isToday)(vertical.date) || selected[vertical.date];
+              data['data-selected'] = selected[vertical.date];
               return _react2.default.createElement(
                 'a',
                 _extends({}, data, onClick, {
@@ -151,7 +164,6 @@ Calendar.defaultProps = {
   customizeStyle: {},
   selected: {},
   onClick: function onClick() {},
-  defaultSelectedToday: true,
   enableTouchTap: false,
   multipleSelect: false
 };
@@ -176,7 +188,6 @@ Calendar.propTypes = {
   dispatch: _react.PropTypes.func.isRequired,
   onClick: _react.PropTypes.func,
   selected: _react.PropTypes.objectOf(_react.PropTypes.bool),
-  defaultSelectedToday: _react.PropTypes.bool,
   enableTouchTap: _react.PropTypes.bool,
   multipleSelect: _react.PropTypes.bool,
   month: _react.PropTypes.number.isRequired,

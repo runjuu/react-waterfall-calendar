@@ -18,10 +18,6 @@ var _reduxThunk = require('redux-thunk');
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-var _reduxLogger = require('redux-logger');
-
-var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
-
 var _reducers = require('./reducers');
 
 var _reducers2 = _interopRequireDefault(_reducers);
@@ -34,6 +30,8 @@ var _CalendarActions = require('./Calendar/CalendarActions');
 
 var _MultipleCalendarActions = require('./MultipleCalendar/MultipleCalendarActions');
 
+var _methods = require('./methods');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -42,7 +40,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var middleware = [_reduxThunk2.default];if (process.env.NODE_ENV !== 'production') middleware.push((0, _reduxLogger2.default)());
+var middleware = [_reduxThunk2.default];
 var store = (0, _redux.createStore)(_reducers2.default, _redux.applyMiddleware.apply(undefined, middleware));
 
 var WaterfallCalendar = function (_Component) {
@@ -57,7 +55,16 @@ var WaterfallCalendar = function (_Component) {
   _createClass(WaterfallCalendar, [{
     key: 'componentWillMount',
     value: function componentWillMount() {
+      var multipleSelect = this.props.multipleSelect;
+
+      var _filterDate = (0, _methods.filterDate)(),
+          year = _filterDate.year,
+          month = _filterDate.month,
+          day = _filterDate.day;
+
+      var date = year + '-' + (month + 1) + '-' + day;
       store.dispatch((0, _MultipleCalendarActions.setMultipleCalendar)(this.props.interval));
+      store.dispatch((0, _CalendarActions.setSelected)({ date: date, multipleSelect: multipleSelect }));
     }
   }, {
     key: 'render',
@@ -98,18 +105,17 @@ var WaterfallCalendar = function (_Component) {
   return WaterfallCalendar;
 }(_react.Component);
 
-window.test = WaterfallCalendar.update;
-window.testt = WaterfallCalendar.reset;
-
 WaterfallCalendar.propTypes = {
   interval: _react.PropTypes.shape({
     from: _react.PropTypes.date,
     to: _react.PropTypes.date
-  })
+  }),
+  multipleSelect: _react.PropTypes.bool
 };
 
 WaterfallCalendar.defaultProps = {
-  interval: {}
+  interval: {},
+  multipleSelect: false
 };
 
 exports.default = WaterfallCalendar;
