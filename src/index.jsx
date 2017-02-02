@@ -5,8 +5,9 @@ import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import reducer from './reducers';
 import MultipleCalendar from './MultipleCalendar/';
-import { setDateEvents } from './Calendar/CalendarActions';
+import { setDateEvents, setSelected } from './Calendar/CalendarActions';
 import { setMultipleCalendar, updateMultipleCalendar, resetMultipleCalendar } from './MultipleCalendar/MultipleCalendarActions';
+import { filterDate } from './methods';
 
 const middleware = [thunk]; if (process.env.NODE_ENV !== 'production') middleware.push(createLogger());
 const store = createStore(reducer, applyMiddleware(...middleware));
@@ -26,7 +27,11 @@ class WaterfallCalendar extends Component {
     store.dispatch(resetMultipleCalendar());
   }
   componentWillMount() {
+    const { multipleSelect } = this.props;
+    const { year, month, day } = filterDate();
+    const date = `${year}-${month + 1}-${day}`;
     store.dispatch(setMultipleCalendar(this.props.interval));
+    store.dispatch(setSelected({ date, multipleSelect }));
   }
   render() {
     return (
@@ -44,10 +49,12 @@ WaterfallCalendar.propTypes = {
     from: PropTypes.date,
     to: PropTypes.date,
   }),
+  multipleSelect: PropTypes.bool,
 };
 
 WaterfallCalendar.defaultProps = {
   interval: {},
+  multipleSelect: false,
 };
 
 export default WaterfallCalendar;

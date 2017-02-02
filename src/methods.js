@@ -1,4 +1,4 @@
-export const newDate = (d) => {
+export const newDate = (d = new Date()) => {
   let date;
   if (d instanceof Date) {
     date = d;
@@ -10,7 +10,6 @@ export const newDate = (d) => {
     const day = regDate[3] || 1;
     date = new Date(year, month - 1, day);
   }
-
   return date;
 };
 
@@ -118,10 +117,11 @@ export const isToday = (d) => {
 export const monthDiff = (d1, d2) => {
   if (d1 instanceof Date && d1 instanceof Date) {
     let months;
-    months = (d2.getFullYear() - d1.getFullYear()) * 12;
-    months -= d1.getMonth() + 1;
-    months += d2.getMonth() + 1;
-    return months <= 0 ? 0 : months;
+    const yearDeff = d2.getFullYear() - d1.getFullYear();
+    months = Math.abs(yearDeff * 12);
+    months -= (yearDeff > 0 ? d1.getMonth() : d2.getMonth()) + 1;
+    months += (yearDeff > 0 ? d2.getMonth() : d1.getMonth()) + 1;
+    return months;
   }
   throw new Error('need Date type');
 };

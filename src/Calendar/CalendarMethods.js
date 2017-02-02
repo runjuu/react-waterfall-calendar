@@ -1,4 +1,4 @@
-import { getMonthData, getDateArray, splitArray, newDate, filterEvents } from '../methods';
+import { getMonthData, getDateArray, splitArray, newDate, filterEvents, monthDiff } from '../methods';
 
 export const getCalendarArray = (dateArray) => {
   let calendarArray = [];
@@ -81,4 +81,14 @@ export const setSelected = ({ date, state, multipleSelect }) => {
     return Object.assign({}, this.state.selected, selected);
   }
   return selected;
+};
+
+export const shouldUpdateSelected = ({ current, next, date }) => {
+  const diff = Object.keys(Object.assign({}, current, next)).filter((item) => {
+    if (current[item] !== next[item] && monthDiff(date, newDate(item)) === 0) {
+      return true;
+    }
+    return false;
+  });
+  return !!diff[0];
 };

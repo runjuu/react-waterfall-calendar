@@ -2,7 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { setSelected } from './CalendarActions';
-import { filterDate, whichMonth, whichDay, isToday, filterDataAttr } from '../methods';
+import { shouldUpdateSelected } from './CalendarMethods';
+import { filterDate, whichMonth, whichDay, isToday, filterDataAttr, newDate } from '../methods';
 
 class Calendar extends Component {
 
@@ -12,6 +13,15 @@ class Calendar extends Component {
     this.state = {
       selected: {},
     };
+  }
+
+  shouldComponentUpdate(nextProps) {
+    const { year, month } = this.props;
+    return shouldUpdateSelected({
+      current: this.props.selected,
+      next: nextProps.selected,
+      date: newDate(`${year}-${month + 1}`),
+    });
   }
 
   handleClickEvent(e) {
@@ -34,7 +44,6 @@ class Calendar extends Component {
       defaultStyle,
       month, year,
       enableTouchTap,
-      defaultSelectedToday,
       customizeStyle, selected, calendarArray, dateEvents,
     } = this.props;
 
@@ -70,7 +79,7 @@ class Calendar extends Component {
               data['data-which-month'] = whichMonth({ date: vertical.date, refer: `${year}-${month + 1}` });
               data['data-which-day'] = whichDay(vertical.date);
               data['data-is-today'] = isToday(vertical.date) || undefined;
-              data['data-selected'] = (defaultSelectedToday && Object.getOwnPropertyNames(selected).length === 0 && isToday(vertical.date)) || selected[vertical.date];
+              data['data-selected'] = selected[vertical.date];
               return (
                 <a
                   {...data}
@@ -100,7 +109,6 @@ Calendar.defaultProps = {
   customizeStyle: {},
   selected: {},
   onClick: () => {},
-  defaultSelectedToday: true,
   enableTouchTap: false,
   multipleSelect: false,
 };
@@ -125,7 +133,6 @@ Calendar.propTypes = {
   dispatch: PropTypes.func.isRequired,
   onClick: PropTypes.func,
   selected: PropTypes.objectOf(PropTypes.bool),
-  defaultSelectedToday: PropTypes.bool,
   enableTouchTap: PropTypes.bool,
   multipleSelect: PropTypes.bool,
   month: PropTypes.number.isRequired,
