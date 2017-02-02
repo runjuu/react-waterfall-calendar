@@ -16,6 +16,12 @@ class Demo extends Component {
     }
   }
 
+  static handleClick(event) {
+    const { target } = event;
+    const date = target.getAttribute('data-date');
+    console.log(date);
+  }
+
   componentDidMount() {
     window.addEventListener('scroll', Demo.handleScroll);
   }
@@ -26,6 +32,7 @@ class Demo extends Component {
         <Calendar
           defaultStyle={CalendarStyle}
           customizeStyle={style}
+          onClick={Demo.handleClick}
         />
       </div>
     );

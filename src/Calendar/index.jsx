@@ -34,7 +34,7 @@ class Calendar extends Component {
 
     dispatch(setSelected({ date, multipleSelect }));
     if (typeof onClick === 'function') {
-      onClick({ date, target });
+      onClick(e);
     }
   }
 
