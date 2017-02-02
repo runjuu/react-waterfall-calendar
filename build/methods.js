@@ -153,6 +153,12 @@ var monthDiff = exports.monthDiff = function monthDiff(d1, d2) {
   throw new Error('need Date type');
 };
 
+var monthIncrease = exports.monthIncrease = function monthIncrease(from) {
+  var add = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+  var to = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : new Date(from);
+  return new Date(to.setMonth(to.getMonth() + add));
+};
+
 var filterDataAttr = exports.filterDataAttr = function filterDataAttr(attrObj) {
   var attr = {};
   var attrArray = Object.keys(attrObj);

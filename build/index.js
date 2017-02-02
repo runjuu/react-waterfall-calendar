@@ -57,7 +57,7 @@ var WaterfallCalendar = function (_Component) {
   _createClass(WaterfallCalendar, [{
     key: 'componentWillMount',
     value: function componentWillMount() {
-      store.dispatch((0, _MultipleCalendarActions.setMultipleCalendar)(this.props.multiple));
+      store.dispatch((0, _MultipleCalendarActions.setMultipleCalendar)(this.props.interval));
     }
   }, {
     key: 'render',
@@ -81,24 +81,35 @@ var WaterfallCalendar = function (_Component) {
     value: function setEvents(events) {
       store.dispatch((0, _CalendarActions.setDateEvents)(events));
     }
+  }, {
+    key: 'update',
+    value: function update() {
+      return new Promise(function (resolve) {
+        resolve(store.dispatch((0, _MultipleCalendarActions.updateMultipleCalendar)()));
+      });
+    }
+  }, {
+    key: 'reset',
+    value: function reset() {
+      store.dispatch((0, _MultipleCalendarActions.resetMultipleCalendar)());
+    }
   }]);
 
   return WaterfallCalendar;
 }(_react.Component);
 
+window.test = WaterfallCalendar.update;
+window.testt = WaterfallCalendar.reset;
+
 WaterfallCalendar.propTypes = {
-  multiple: _react.PropTypes.shape({
+  interval: _react.PropTypes.shape({
     from: _react.PropTypes.date,
     to: _react.PropTypes.date
   })
 };
 
-var defaultTo = new Date();
 WaterfallCalendar.defaultProps = {
-  multiple: {
-    from: new Date(),
-    to: new Date(defaultTo.setMonth(defaultTo.getMonth() + 12))
-  }
+  interval: {}
 };
 
 exports.default = WaterfallCalendar;

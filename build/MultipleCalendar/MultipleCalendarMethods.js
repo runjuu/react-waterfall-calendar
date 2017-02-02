@@ -13,7 +13,7 @@ var setMultipleCalendar = exports.setMultipleCalendar = function setMultipleCale
   var _ref$from = _ref.from,
       from = _ref$from === undefined ? new Date() : _ref$from,
       _ref$to = _ref.to,
-      to = _ref$to === undefined ? new Date() : _ref$to;
+      to = _ref$to === undefined ? (0, _methods.monthIncrease)(from, 12) : _ref$to;
 
   var listOfCalendar = [];
 
@@ -32,5 +32,9 @@ var setMultipleCalendar = exports.setMultipleCalendar = function setMultipleCale
     });
   }
 
-  return { listOfCalendar: listOfCalendar };
+  return {
+    from: from,
+    to: to,
+    listOfCalendar: listOfCalendar
+  };
 };

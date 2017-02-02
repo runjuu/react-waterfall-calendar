@@ -11,7 +11,7 @@
     ]
   },
   "scripts": {
-    "demo": "export NODE_ENV=development && npm run build && webpack-dev-server --config demo/webpack.config.babel.js --hot --host 0.0.0.0",
+    "demo": "export NODE_ENV=development && webpack-dev-server --config demo/webpack.config.babel.js --hot --host 0.0.0.0",
     "build": "babel src --out-dir build && npm run postcss",
     "postcss": "postcss --use autoprefixer ./src/style.css -o ./style.css",
     "prepublish": "export NODE_ENV=production && npm run build"
