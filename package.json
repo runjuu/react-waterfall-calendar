@@ -16,7 +16,7 @@
     "postcss": "postcss --use autoprefixer ./src/style.css -o ./style.css",
     "prepublish": "npm run build"
   },
-  // "pre-commit": [ "build" ],
+  "pre-commit": [],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Runjuu/react-waterfall-calendar.git"
