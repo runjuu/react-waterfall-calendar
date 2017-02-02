@@ -2,6 +2,10 @@
   overflow: hidden;
 }
 
+.title > span::before {
+  content: attr(data-year) '-' attr(data-month)
+}
+
 .horizontal {
   display: flex;
   align-items: center;

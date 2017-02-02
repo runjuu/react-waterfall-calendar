@@ -12,9 +12,9 @@
   },
   "scripts": {
     "demo": "export NODE_ENV=development && webpack-dev-server --config demo/webpack.config.babel.js --hot --host 0.0.0.0",
-    "build": "babel src --out-dir build && npm run postcss",
+    "build": "export NODE_ENV=production && babel src --out-dir build && npm run postcss",
     "postcss": "postcss --use autoprefixer ./src/style.css -o ./style.css",
-    "prepublish": "export NODE_ENV=production && npm run build"
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -34,7 +34,6 @@
     "react": "^15.4.2",
     "react-redux": "^5.0.1",
     "redux": "^3.6.0",
-    "redux-logger": "^2.7.4",
     "redux-thunk": "^2.1.0",
     "webpack": "^2.2.1"
   },
@@ -51,6 +50,7 @@
     "postcss-loader": "^1.2.2",
     "precss": "^1.4.0",
     "react-dom": "^15.4.2",
+    "redux-logger": "^2.7.4",
     "sass-loader": "^4.1.1",
     "style-loader": "^0.13.1",
     "webpack-dev-server": "beta"

@@ -2,30 +2,35 @@ import React, { Component, PropTypes } from 'react';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-import createLogger from 'redux-logger';
 import reducer from './reducers';
 import MultipleCalendar from './MultipleCalendar/';
 import { setDateEvents, setSelected } from './Calendar/CalendarActions';
 import { setMultipleCalendar, updateMultipleCalendar, resetMultipleCalendar } from './MultipleCalendar/MultipleCalendarActions';
 import { filterDate } from './methods';
 
-const middleware = [thunk]; if (process.env.NODE_ENV !== 'production') middleware.push(createLogger());
+const middleware = [thunk];
 const store = createStore(reducer, applyMiddleware(...middleware));
+
 class WaterfallCalendar extends Component {
+
   static setMonthDiff({ from, to }) {
     store.dispatch(setMultipleCalendar({ from, to }));
   }
+
   static setEvents(events) {
     store.dispatch(setDateEvents(events));
   }
+
   static update() {
     return new Promise((resolve) => {
       resolve(store.dispatch(updateMultipleCalendar()));
     });
   }
+
   static reset() {
     store.dispatch(resetMultipleCalendar());
   }
+
   componentWillMount() {
     const { multipleSelect } = this.props;
     const { year, month, day } = filterDate();
@@ -33,6 +38,7 @@ class WaterfallCalendar extends Component {
     store.dispatch(setMultipleCalendar(this.props.interval));
     store.dispatch(setSelected({ date, multipleSelect }));
   }
+
   render() {
     return (
       <Provider store={store}>
@@ -40,9 +46,8 @@ class WaterfallCalendar extends Component {
       </Provider>
     );
   }
+
 }
-window.test = WaterfallCalendar.update;
-window.testt = WaterfallCalendar.reset;
 
 WaterfallCalendar.propTypes = {
   interval: PropTypes.shape({
