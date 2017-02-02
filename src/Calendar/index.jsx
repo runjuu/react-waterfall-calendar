@@ -48,9 +48,12 @@ class Calendar extends Component {
         <h3
           data-year={year}
           data-month={month + 1}
-          className={customizeStyle.title}
+          className={classNames(defaultStyle.title, customizeStyle.title)}
         >
-          <span>{`${year}-${month + 1}`}</span>
+          <span
+            data-year={year}
+            data-month={month + 1}
+          />
         </h3>
         {calendarArray.map((horizontal, index) => (
           <section
