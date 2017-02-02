@@ -78,7 +78,7 @@ var Calendar = function (_Component) {
 
       dispatch((0, _CalendarActions.setSelected)({ date: date, multipleSelect: multipleSelect }));
       if (typeof onClick === 'function') {
-        onClick({ date: date, target: target });
+        onClick(e);
       }
     }
   }, {
