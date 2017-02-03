@@ -27,12 +27,11 @@ class Calendar extends Component {
   handleClickEvent(e) {
     e.preventDefault();
     const { target, type } = e;
-    const { multipleSelect, dispatch, enableTouchTap, onClick } = this.props;
+    const { dispatch, enableTouchTap, onClick } = this.props;
     const date = target.getAttribute('data-date');
-
     if ((enableTouchTap && type === 'click') || (!enableTouchTap && type !== 'click')) return;
 
-    dispatch(setSelected({ date, multipleSelect }));
+    dispatch(setSelected({ date }));
     if (typeof onClick === 'function') {
       onClick(e);
     }

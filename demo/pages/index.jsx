@@ -30,7 +30,6 @@ class Demo extends Component {
     return (
       <div>
         <Calendar
-          multipleSelect
           defaultStyle={CalendarStyle}
           customizeStyle={style}
           onClick={Demo.handleClick}
