@@ -33,6 +33,7 @@ class Demo extends Component {
           defaultStyle={CalendarStyle}
           customizeStyle={style}
           onClick={Demo.handleClick}
+          firstWeekDay={7}
         />
       </div>
     );

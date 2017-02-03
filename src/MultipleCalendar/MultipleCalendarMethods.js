@@ -1,7 +1,7 @@
 import { monthDiff, filterDate, monthIncrease } from '../methods';
 import { initCalendar } from '../Calendar/CalendarMethods';
 
-export const setMultipleCalendar = ({ from = new Date(), to = monthIncrease(from, 12) }) => {
+export const setMultipleCalendar = ({ from = new Date(), to = monthIncrease(from, 12), firstWeekDay }) => {
   const listOfCalendar = [];
   const { year, month } = filterDate(from);
   const numberOfMonths = monthDiff(from, to);
@@ -11,7 +11,7 @@ export const setMultipleCalendar = ({ from = new Date(), to = monthIncrease(from
     const dateFilter = filterDate(date);
     listOfCalendar.push({
       monthWithYear: `${dateFilter.year}-${dateFilter.month}`,
-      calendar: initCalendar(date),
+      calendar: initCalendar({ date, firstWeekDay }),
     });
   }
 

@@ -1,10 +1,15 @@
 import { getMonthData, getDateArray, splitArray, newDate, filterEvents, monthDiff } from '../methods';
 
-export const getCalendarArray = (dateArray, firstWeekDay = 0) => {
+export const getCalendarArray = (dateArray, fwd = 0) => {
   let calendarArray = [];
+  let firstWeekDay = fwd;
   const lastMonthArray = [];
   const nextMonthArray = [];
   const dateReg = /(\w{4})-(\w{1,2})-(\w{1,2})/g;
+
+  if (firstWeekDay > 6) firstWeekDay = 6;
+  if (firstWeekDay < 0) firstWeekDay = 0;
+
   const dayOfFirstDayOfMonth = (
     dateArray[0].weekDay >= firstWeekDay
     ) ? (
@@ -60,13 +65,13 @@ export const getCalendarArray = (dateArray, firstWeekDay = 0) => {
   });
 };
 
-export const initCalendar = (d = new Date()) => {
+export const initCalendar = ({ date: d = new Date(), firstWeekDay }) => {
   const date = newDate(d);
   const year = date.getFullYear();
   const month = date.getMonth();
   const { daysInMonth, dayOfFirstDayOfMonth } = getMonthData({ year, month });
   const dateArray = getDateArray({ daysInMonth, month, year });
-  const calendarArray = getCalendarArray(dateArray);
+  const calendarArray = getCalendarArray(dateArray, firstWeekDay);
   return {
     year,
     month,
@@ -74,6 +79,7 @@ export const initCalendar = (d = new Date()) => {
     dayOfFirstDayOfMonth,
     dateArray,
     calendarArray,
+    firstWeekDay,
   };
 };
 

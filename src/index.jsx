@@ -32,11 +32,14 @@ class WaterfallCalendar extends Component {
   }
 
   componentWillMount() {
-    const { multipleSelect } = this.props;
+    const { multipleSelect, interval, firstWeekDay } = this.props;
     const { year, month, day } = filterDate();
     const date = `${year}-${month + 1}-${day}`;
-    store.dispatch(setMultipleCalendar(this.props.interval));
+    store.dispatch(setMultipleCalendar({ ...interval, firstWeekDay }));
     store.dispatch(setSelected({ date, multipleSelect }));
+
+    if (firstWeekDay > 6) console.error(`firstWeekDay must less than 6, but input is ${firstWeekDay}`);
+    if (firstWeekDay < 0) console.error(`firstWeekDay must greater than 0, but input is ${firstWeekDay}`);
   }
 
   render() {
@@ -55,11 +58,13 @@ WaterfallCalendar.propTypes = {
     to: PropTypes.date,
   }),
   multipleSelect: PropTypes.bool,
+  firstWeekDay: PropTypes.number,
 };
 
 WaterfallCalendar.defaultProps = {
   interval: {},
   multipleSelect: false,
+  firstWeekDay: 0,
 };
 
 export default WaterfallCalendar;

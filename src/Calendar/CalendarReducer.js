@@ -6,9 +6,10 @@ import {
 } from './CalendarActions';
 
 const calendar = (state = {}, action) => {
+  const { firstWeekDay = state.firstWeekDay } = action;
   switch (action.type) {
     case INIT_CALENDAR:
-      return initCalendar();
+      return initCalendar({ firstWeekDay });
     default:
       return state;
   }

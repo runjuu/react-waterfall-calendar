@@ -8,19 +8,19 @@ import {
 import { monthIncrease } from '../methods';
 
 const multipleCalendar = (state = {}, action) => {
-  const { from = state.from, to = state.to } = action;
+  const { from = state.from, to = state.to, firstWeekDay = state.firstWeekDay } = action;
   switch (action.type) {
     case SET_MULTIPLECALENDAR:
       return {
-        ...setMultipleCalendar({ from, to }),
+        ...setMultipleCalendar({ from, to, firstWeekDay }),
       };
     case ADD_MULTIPLECALENDAR:
       return {
-        ...setMultipleCalendar({ from, to: monthIncrease(to, 12) }),
+        ...setMultipleCalendar({ from, to: monthIncrease(to, 12), firstWeekDay }),
       };
     case RESET_MULTIPLECALENDAR:
       return {
-        ...setMultipleCalendar({}),
+        ...setMultipleCalendar({ firstWeekDay }),
       };
     default:
       return state;
