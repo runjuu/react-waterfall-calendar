@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import reducer from './reducers';
 import MultipleCalendar from './MultipleCalendar/';
-import { setDateEvents, setSelected } from './Calendar/CalendarActions';
+import { setDataAttr, setSelected } from './Calendar/CalendarActions';
 import { setMultipleCalendar, updateMultipleCalendar, resetMultipleCalendar } from './MultipleCalendar/MultipleCalendarActions';
 import { filterDate } from './methods';
 
@@ -13,12 +13,16 @@ const store = createStore(reducer, applyMiddleware(...middleware));
 
 class WaterfallCalendar extends Component {
 
-  static setMonthDiff({ from, to }) {
-    store.dispatch(setMultipleCalendar({ from, to }));
+  static setMonthDiff({ from, to, firstWeekDay }) {
+    store.dispatch(setMultipleCalendar({ from, to, firstWeekDay }));
   }
 
-  static setEvents(events) {
-    store.dispatch(setDateEvents(events));
+  static setDataAttr(events) {
+    store.dispatch(setDataAttr(events));
+  }
+
+  static setSelected({ date, multipleSelect }) {
+    store.dispatch(setSelected({ date, multipleSelect }));
   }
 
   static update() {
@@ -35,8 +39,9 @@ class WaterfallCalendar extends Component {
     const { multipleSelect, interval, firstWeekDay } = this.props;
     const { year, month, day } = filterDate();
     const date = `${year}-${month + 1}-${day}`;
-    store.dispatch(setMultipleCalendar({ ...interval, firstWeekDay }));
-    store.dispatch(setSelected({ date, multipleSelect }));
+
+    WaterfallCalendar.setMonthDiff({ ...interval, firstWeekDay });
+    WaterfallCalendar.setSelected({ date, multipleSelect });
 
     if (firstWeekDay > 6) console.error(`firstWeekDay must less than 6, but input is ${firstWeekDay}`);
     if (firstWeekDay < 0) console.error(`firstWeekDay must greater than 0, but input is ${firstWeekDay}`);

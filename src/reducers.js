@@ -2,11 +2,11 @@ import { combineReducers } from 'redux';
 import CalendarReducer from './Calendar/CalendarReducer';
 import multipleCalendar from './MultipleCalendar/MultipleCalendarReducer';
 
-const { selected, dateEvents } = CalendarReducer;
+const { selected, dataAttr } = CalendarReducer;
 
 const rootReducer = combineReducers({
   selected,
-  dateEvents,
+  dataAttr,
   multipleCalendar,
 });
 

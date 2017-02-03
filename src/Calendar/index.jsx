@@ -44,7 +44,7 @@ class Calendar extends Component {
       defaultStyle,
       month, year,
       enableTouchTap,
-      customizeStyle, selected, calendarArray, dateEvents,
+      customizeStyle, selected, calendarArray, dataAttr,
     } = this.props;
 
     if (enableTouchTap) {
@@ -71,7 +71,7 @@ class Calendar extends Component {
           >
             {horizontal.map((vertical) => {
               const date = filterDate(vertical.date);
-              const dateEvent = dateEvents[vertical.date];
+              const dateEvent = dataAttr[vertical.date];
               const data = dateEvent ? filterDataAttr(dateEvent.dataAttr) : {};
               data['data-day'] = date.day;
               data['data-date'] = vertical.date;
@@ -104,7 +104,7 @@ class Calendar extends Component {
 
 Calendar.defaultProps = {
   defaultStyle: {},
-  dateEvents: {},
+  dataAttr: {},
   calendarArray: [],
   customizeStyle: {},
   selected: {},
@@ -114,7 +114,7 @@ Calendar.defaultProps = {
 };
 
 Calendar.propTypes = {
-  dateEvents: PropTypes.objectOf(PropTypes.shape({
+  dataAttr: PropTypes.objectOf(PropTypes.shape({
     date: PropTypes.string,
     onClick: PropTypes.func,
     dataAttr: PropTypes.object,
@@ -142,5 +142,5 @@ Calendar.propTypes = {
 export default connect(state => ({
   ...state.calendar,
   selected: state.selected,
-  dateEvents: state.dateEvents,
+  dataAttr: state.dataAttr,
 }))(Calendar);

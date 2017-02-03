@@ -83,15 +83,15 @@ export const initCalendar = ({ date: d = new Date(), firstWeekDay }) => {
   };
 };
 
-export const setDateEvents = events => (
+export const setDataAttr = events => (
   filterEvents(events)
 );
 
 export const setSelected = ({ date, state, multipleSelect }) => {
-  const selected = {};
+  const selected = { multipleSelect };
   selected[date] = !state[date];
   if (multipleSelect) {
-    return Object.assign({}, this.state.selected, selected);
+    return Object.assign({}, state, selected);
   }
   return selected;
 };
