@@ -1,19 +1,8 @@
-import { initCalendar, setSelected, setDateEvents } from './CalendarMethods';
+import { setSelected, setDateEvents } from './CalendarMethods';
 import {
-  INIT_CALENDAR,
   INIT_DATE_EVENTS,
   SET_SELECTED,
 } from './CalendarActions';
-
-const calendar = (state = {}, action) => {
-  const { firstWeekDay = state.firstWeekDay } = action;
-  switch (action.type) {
-    case INIT_CALENDAR:
-      return initCalendar({ firstWeekDay });
-    default:
-      return state;
-  }
-};
 
 const selected = (state = {}, action) => {
   const { date, multipleSelect } = action;
@@ -40,7 +29,6 @@ const dateEvents = (state = {}, action) => {
 };
 
 export default {
-  calendar,
   selected,
   dateEvents,
 };
