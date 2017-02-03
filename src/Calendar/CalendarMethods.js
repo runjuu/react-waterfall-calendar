@@ -1,11 +1,18 @@
 import { getMonthData, getDateArray, splitArray, newDate, filterEvents, monthDiff } from '../methods';
 
-export const getCalendarArray = (dateArray) => {
+export const getCalendarArray = (dateArray, firstWeekDay = 0) => {
   let calendarArray = [];
   const lastMonthArray = [];
   const nextMonthArray = [];
   const dateReg = /(\w{4})-(\w{1,2})-(\w{1,2})/g;
-  const dayOfFirstDayOfMonth = dateArray[0].weekDay;
+  const dayOfFirstDayOfMonth = (
+    dateArray[0].weekDay >= firstWeekDay
+    ) ? (
+      dateArray[0].weekDay - firstWeekDay
+      ) : (
+        (7 - firstWeekDay) + dateArray[0].weekDay
+        );
+  const lastWeekDay = firstWeekDay - 1 < 0 ? 6 : firstWeekDay - 1;
   const dateOfFirstDayOfMonth = dateArray[0].date;
   const dateOfLastDayOfMonth = dateArray[dateArray.length - 1].date;
   const regFirstDay = dateReg.exec(dateOfFirstDayOfMonth); dateReg.lastIndex = 0;
@@ -27,7 +34,7 @@ export const getCalendarArray = (dateArray) => {
   }
   calendarArray = lastMonthArray.reverse().concat(dateArray);
 
-  if (calendarArray[calendarArray.length - 1].weekDay !== 6) {
+  if (calendarArray[calendarArray.length - 1].weekDay !== lastWeekDay) {
     let shouldKeepAdd = !nextMonthArray[0];
     for (let next = 1; shouldKeepAdd; next += 1) {
       const date = new Date(
@@ -42,7 +49,7 @@ export const getCalendarArray = (dateArray) => {
         date: `${year}-${month + 1}-${day}`,
         weekDay: date.getDay(),
       });
-      shouldKeepAdd = nextMonthArray[nextMonthArray.length - 1].weekDay !== 6;
+      shouldKeepAdd = nextMonthArray[nextMonthArray.length - 1].weekDay !== lastWeekDay;
     }
     calendarArray = calendarArray.concat(nextMonthArray);
   }
