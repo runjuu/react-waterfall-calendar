@@ -112,3 +112,13 @@ export const shouldUpdateSelected = ({ current, next, date }) => {
   });
   return !!diff[0];
 };
+
+export const shouldUpdateDataAttr = ({ current, next }) => {
+  const diff = Object.keys(Object.assign({}, current, next)).filter((item) => {
+    if (current[item] !== next[item]) {
+      return true;
+    }
+    return false;
+  });
+  return !!diff[0];
+};

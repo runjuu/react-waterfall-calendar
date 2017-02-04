@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.shouldUpdateSelected = exports.setSelected = exports.setDataAttr = exports.initCalendar = exports.getCalendarArray = undefined;
+exports.shouldUpdateDataAttr = exports.shouldUpdateSelected = exports.setSelected = exports.setDataAttr = exports.initCalendar = exports.getCalendarArray = undefined;
 
 var _methods = require('../methods');
 
@@ -125,6 +125,19 @@ var shouldUpdateSelected = exports.shouldUpdateSelected = function shouldUpdateS
 
   var diff = Object.keys(Object.assign({}, current, next)).filter(function (item) {
     if (current[item] !== next[item] && (0, _methods.monthDiff)(date, (0, _methods.newDate)(item)) === 0) {
+      return true;
+    }
+    return false;
+  });
+  return !!diff[0];
+};
+
+var shouldUpdateDataAttr = exports.shouldUpdateDataAttr = function shouldUpdateDataAttr(_ref4) {
+  var current = _ref4.current,
+      next = _ref4.next;
+
+  var diff = Object.keys(Object.assign({}, current, next)).filter(function (item) {
+    if (current[item] !== next[item]) {
       return true;
     }
     return false;

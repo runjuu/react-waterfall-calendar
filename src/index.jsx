@@ -35,16 +35,28 @@ class WaterfallCalendar extends Component {
     store.dispatch(resetMultipleCalendar());
   }
 
+  constructor(props) {
+    super(props);
+    this.update = this.update.bind(this);
+  }
+
   componentWillMount() {
+    this.update('init');
+  }
+
+  componentDidUpdate() {
+    this.update();
+  }
+
+  update(status) {
     const { multipleSelect, interval, firstWeekDay, dataAttr } = this.props;
     const { year, month, day } = filterDate();
     const date = `${year}-${month + 1}-${day}`;
 
-    WaterfallCalendar.setMonthDiff({ ...interval, firstWeekDay });
-    WaterfallCalendar.setSelected({ date, multipleSelect });
+    if (status === 'init') WaterfallCalendar.setMonthDiff({ ...interval, firstWeekDay });
+    if (status === 'init') WaterfallCalendar.setSelected({ date, multipleSelect });
     WaterfallCalendar.setDataAttr(dataAttr);
 
-    window.store = store;
     if (firstWeekDay > 6) console.error(`firstWeekDay must less than 6, but input is ${firstWeekDay}`);
     if (firstWeekDay < 0) console.error(`firstWeekDay must greater than 0, but input is ${firstWeekDay}`);
   }

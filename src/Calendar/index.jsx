@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { setSelected } from './CalendarActions';
-import { shouldUpdateSelected } from './CalendarMethods';
+import { shouldUpdateSelected, shouldUpdateDataAttr } from './CalendarMethods';
 import { filterDate, whichMonth, whichDay, isToday, newDate } from '../methods';
 
 class Calendar extends Component {
@@ -16,12 +16,12 @@ class Calendar extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    const { year, month } = this.props;
+    const { year, month, dataAttr, selected } = this.props;
     return shouldUpdateSelected({
-      current: this.props.selected,
+      current: selected,
       next: nextProps.selected,
       date: newDate(`${year}-${month + 1}`),
-    });
+    }) || shouldUpdateDataAttr({ current: dataAttr, next: nextProps.dataAttr });
   }
 
   handleClickEvent(e) {

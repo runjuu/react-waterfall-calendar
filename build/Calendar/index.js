@@ -52,13 +52,15 @@ var Calendar = function (_Component) {
     value: function shouldComponentUpdate(nextProps) {
       var _props = this.props,
           year = _props.year,
-          month = _props.month;
+          month = _props.month,
+          dataAttr = _props.dataAttr,
+          selected = _props.selected;
 
       return (0, _CalendarMethods.shouldUpdateSelected)({
-        current: this.props.selected,
+        current: selected,
         next: nextProps.selected,
         date: (0, _methods.newDate)(year + '-' + (month + 1))
-      });
+      }) || (0, _CalendarMethods.shouldUpdateDataAttr)({ current: dataAttr, next: nextProps.dataAttr });
     }
   }, {
     key: 'handleClickEvent',

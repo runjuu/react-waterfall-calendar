@@ -48,46 +48,7 @@ var store = (0, _redux.createStore)(_reducers2.default, _redux.applyMiddleware.a
 var WaterfallCalendar = function (_Component) {
   _inherits(WaterfallCalendar, _Component);
 
-  function WaterfallCalendar() {
-    _classCallCheck(this, WaterfallCalendar);
-
-    return _possibleConstructorReturn(this, (WaterfallCalendar.__proto__ || Object.getPrototypeOf(WaterfallCalendar)).apply(this, arguments));
-  }
-
-  _createClass(WaterfallCalendar, [{
-    key: 'componentWillMount',
-    value: function componentWillMount() {
-      var _props = this.props,
-          multipleSelect = _props.multipleSelect,
-          interval = _props.interval,
-          firstWeekDay = _props.firstWeekDay,
-          dataAttr = _props.dataAttr;
-
-      var _filterDate = (0, _methods.filterDate)(),
-          year = _filterDate.year,
-          month = _filterDate.month,
-          day = _filterDate.day;
-
-      var date = year + '-' + (month + 1) + '-' + day;
-
-      WaterfallCalendar.setMonthDiff(_extends({}, interval, { firstWeekDay: firstWeekDay }));
-      WaterfallCalendar.setSelected({ date: date, multipleSelect: multipleSelect });
-      WaterfallCalendar.setDataAttr(dataAttr);
-
-      window.store = store;
-      if (firstWeekDay > 6) console.error('firstWeekDay must less than 6, but input is ' + firstWeekDay);
-      if (firstWeekDay < 0) console.error('firstWeekDay must greater than 0, but input is ' + firstWeekDay);
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        _reactRedux.Provider,
-        { store: store },
-        _react2.default.createElement(_MultipleCalendar2.default, this.props)
-      );
-    }
-  }], [{
+  _createClass(WaterfallCalendar, null, [{
     key: 'setMonthDiff',
     value: function setMonthDiff(_ref) {
       var from = _ref.from,
@@ -120,6 +81,59 @@ var WaterfallCalendar = function (_Component) {
     key: 'reset',
     value: function reset() {
       store.dispatch((0, _MultipleCalendarActions.resetMultipleCalendar)());
+    }
+  }]);
+
+  function WaterfallCalendar(props) {
+    _classCallCheck(this, WaterfallCalendar);
+
+    var _this = _possibleConstructorReturn(this, (WaterfallCalendar.__proto__ || Object.getPrototypeOf(WaterfallCalendar)).call(this, props));
+
+    _this.update = _this.update.bind(_this);
+    return _this;
+  }
+
+  _createClass(WaterfallCalendar, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.update('init');
+    }
+  }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate() {
+      this.update();
+    }
+  }, {
+    key: 'update',
+    value: function update(status) {
+      var _props = this.props,
+          multipleSelect = _props.multipleSelect,
+          interval = _props.interval,
+          firstWeekDay = _props.firstWeekDay,
+          dataAttr = _props.dataAttr;
+
+      var _filterDate = (0, _methods.filterDate)(),
+          year = _filterDate.year,
+          month = _filterDate.month,
+          day = _filterDate.day;
+
+      var date = year + '-' + (month + 1) + '-' + day;
+
+      if (status === 'init') WaterfallCalendar.setMonthDiff(_extends({}, interval, { firstWeekDay: firstWeekDay }));
+      if (status === 'init') WaterfallCalendar.setSelected({ date: date, multipleSelect: multipleSelect });
+      WaterfallCalendar.setDataAttr(dataAttr);
+
+      if (firstWeekDay > 6) console.error('firstWeekDay must less than 6, but input is ' + firstWeekDay);
+      if (firstWeekDay < 0) console.error('firstWeekDay must greater than 0, but input is ' + firstWeekDay);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        _reactRedux.Provider,
+        { store: store },
+        _react2.default.createElement(_MultipleCalendar2.default, this.props)
+      );
     }
   }]);
 
