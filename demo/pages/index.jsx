@@ -4,6 +4,11 @@ import CalendarStyle from '../../style.css';
 import style from './style.sass';
 
 let canUpdate = true;
+const dataAttr = (() => ({
+  [`${new Date()}`]: {
+    customize: 'test',
+  },
+}))();
 
 class Demo extends Component {
 
@@ -32,6 +37,7 @@ class Demo extends Component {
         <Calendar
           defaultStyle={CalendarStyle}
           customizeStyle={style}
+          dataAttr={dataAttr}
           onClick={Demo.handleClick}
           firstWeekDay={0}
         />

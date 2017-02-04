@@ -4,7 +4,10 @@ export const newDate = (d = new Date()) => {
     date = d;
   } else {
     const dateReg = /(\w{4})-(\w{1,2})-(\w{1,2})|(\w{4})-(\w{1,2})/g;
-    const regDate = d instanceof Date || dateReg.exec(d); if (!regDate) return false;
+    const regDate = d instanceof Date || dateReg.exec(d);
+
+    if (!regDate) return new Date(d);
+
     const year = regDate[1] || regDate[4];
     const month = regDate[2] || regDate[5];
     const day = regDate[3] || 1;
@@ -58,15 +61,13 @@ export const filterDate = (d) => {
   };
 };
 
-export const filterEvents = (eventsArray = []) => {
-  const events = {};
-  eventsArray.forEach(((event) => {
-    const { year, month, day } = filterDate(event.date);
-    const date = `${year}-${month + 1}-${day}`;
-    events[date] = event;
-  }));
+export const filterDataAttr = (obj = {}) => {
+  const dataAttr = {};
+  Object.keys(obj).forEach((item) => {
+    dataAttr[`data-${item}`] = obj[item];
+  });
 
-  return events;
+  return dataAttr;
 };
 
 export const whichMonth = ({ date, refer }) => {
@@ -95,8 +96,8 @@ export const whichMonth = ({ date, refer }) => {
 };
 
 export const whichDay = (d) => {
-  const today = (new Date()).setHours(0,0,0,0);
-  const date = newDate(d).setHours(0,0,0,0);
+  const today = (new Date()).setHours(0, 0, 0, 0);
+  const date = newDate(d).setHours(0, 0, 0, 0);
   if (date < today) {
     return 'PAST';
   } else if (date > today) {
@@ -129,13 +130,3 @@ export const monthDiff = (d1, d2) => {
 export const monthIncrease = (from, add = 0, to = new Date(from)) => (
   new Date(to.setMonth(to.getMonth() + add))
 );
-
-export const filterDataAttr = (attrObj) => {
-  const attr = {};
-  const attrArray = Object.keys(attrObj);
-  attrArray.forEach((item) => {
-    attr[`data-${item}`] = attrObj[item];
-  });
-
-  return attr;
-};

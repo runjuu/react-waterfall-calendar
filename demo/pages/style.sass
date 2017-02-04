@@ -9,6 +9,8 @@
   color: hsl(0, 0%, 30%)
   &[data-selected]
     color: red
+  &[data-customize]
+    border: .1rem solid black
   &:not([data-which-month='CURRENT_MONTH'])
     color: hsl(0, 0%, 90%)
     pointer-events: none

@@ -4,7 +4,7 @@ export const TO_LAST_MONTH = 'TO_LAST_MONTH';
 export const SET_SELECTED = 'SET_SELECTED';
 export const INIT_DATE_EVENTS = 'INIT_DATE_EVENTS';
 
-export const setDataAttr = (events = []) => ({
+export const setDataAttr = events => ({
   type: INIT_DATE_EVENTS,
   events,
 });

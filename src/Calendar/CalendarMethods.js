@@ -1,4 +1,4 @@
-import { getMonthData, getDateArray, splitArray, newDate, filterEvents, monthDiff } from '../methods';
+import { getMonthData, getDateArray, splitArray, newDate, filterDate, filterDataAttr, monthDiff } from '../methods';
 
 export const getCalendarArray = (dateArray, fwd = 0) => {
   let calendarArray = [];
@@ -83,9 +83,16 @@ export const initCalendar = ({ date: d = new Date(), firstWeekDay }) => {
   };
 };
 
-export const setDataAttr = events => (
-  filterEvents(events)
-);
+export const setDataAttr = (events = {}) => {
+  const dateEvents = {};
+  Object.keys(events).forEach(((event) => {
+    const { year, month, day } = filterDate(event);
+    const date = `${year}-${month + 1}-${day}`;
+    const attr = events[event];
+    dateEvents[date] = attr ? filterDataAttr(attr) : {};
+  }));
+  return dateEvents;
+};
 
 export const setSelected = ({ date, state, multipleSelect }) => {
   const selected = { multipleSelect };

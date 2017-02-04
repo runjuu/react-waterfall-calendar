@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { setSelected } from './CalendarActions';
 import { shouldUpdateSelected } from './CalendarMethods';
-import { filterDate, whichMonth, whichDay, isToday, filterDataAttr, newDate } from '../methods';
+import { filterDate, whichMonth, whichDay, isToday, newDate } from '../methods';
 
 class Calendar extends Component {
 
@@ -70,8 +70,7 @@ class Calendar extends Component {
           >
             {horizontal.map((vertical) => {
               const date = filterDate(vertical.date);
-              const dateEvent = dataAttr[vertical.date];
-              const data = dateEvent ? filterDataAttr(dateEvent.dataAttr) : {};
+              const data = Object.assign({}, dataAttr[vertical.date]);
               data['data-day'] = date.day;
               data['data-date'] = vertical.date;
               data['data-weekDay'] = vertical.weekDay;
@@ -113,11 +112,7 @@ Calendar.defaultProps = {
 };
 
 Calendar.propTypes = {
-  dataAttr: PropTypes.objectOf(PropTypes.shape({
-    date: PropTypes.string,
-    onClick: PropTypes.func,
-    dataAttr: PropTypes.object,
-  })),
+  dataAttr: PropTypes.objectOf(PropTypes.objectOf(PropTypes.string)),
   calendarArray: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.shape({
     date: PropTypes.string.isRequired,
     weekDay: PropTypes.number.isRequired,
@@ -133,7 +128,6 @@ Calendar.propTypes = {
   onClick: PropTypes.func,
   selected: PropTypes.objectOf(PropTypes.bool),
   enableTouchTap: PropTypes.bool,
-  multipleSelect: PropTypes.bool,
   month: PropTypes.number.isRequired,
   year: PropTypes.number.isRequired,
 };
