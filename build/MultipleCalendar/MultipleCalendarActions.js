@@ -9,9 +9,11 @@ var RESET_MULTIPLECALENDAR = exports.RESET_MULTIPLECALENDAR = 'RESET_MULTIPLECAL
 
 var setMultipleCalendar = exports.setMultipleCalendar = function setMultipleCalendar(_ref) {
   var from = _ref.from,
-      to = _ref.to;
+      to = _ref.to,
+      firstWeekDay = _ref.firstWeekDay;
   return {
     type: SET_MULTIPLECALENDAR,
+    firstWeekDay: firstWeekDay,
     from: from,
     to: to
   };

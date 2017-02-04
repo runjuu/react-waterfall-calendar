@@ -18,15 +18,17 @@ var multipleCalendar = function multipleCalendar() {
   var _action$from = action.from,
       from = _action$from === undefined ? state.from : _action$from,
       _action$to = action.to,
-      to = _action$to === undefined ? state.to : _action$to;
+      to = _action$to === undefined ? state.to : _action$to,
+      _action$firstWeekDay = action.firstWeekDay,
+      firstWeekDay = _action$firstWeekDay === undefined ? state.firstWeekDay : _action$firstWeekDay;
 
   switch (action.type) {
     case _MultipleCalendarActions.SET_MULTIPLECALENDAR:
-      return _extends({}, (0, _MultipleCalendarMethods.setMultipleCalendar)({ from: from, to: to }));
+      return _extends({}, (0, _MultipleCalendarMethods.setMultipleCalendar)({ from: from, to: to, firstWeekDay: firstWeekDay }));
     case _MultipleCalendarActions.ADD_MULTIPLECALENDAR:
-      return _extends({}, (0, _MultipleCalendarMethods.setMultipleCalendar)({ from: from, to: (0, _methods.monthIncrease)(to, 12) }));
+      return _extends({}, (0, _MultipleCalendarMethods.setMultipleCalendar)({ from: from, to: (0, _methods.monthIncrease)(to, 12), firstWeekDay: firstWeekDay }));
     case _MultipleCalendarActions.RESET_MULTIPLECALENDAR:
-      return _extends({}, (0, _MultipleCalendarMethods.setMultipleCalendar)({}));
+      return _extends({}, (0, _MultipleCalendarMethods.setMultipleCalendar)({ firstWeekDay: firstWeekDay }));
     default:
       return state;
   }

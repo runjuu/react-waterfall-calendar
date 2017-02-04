@@ -11,7 +11,10 @@ var newDate = exports.newDate = function newDate() {
     date = d;
   } else {
     var dateReg = /(\w{4})-(\w{1,2})-(\w{1,2})|(\w{4})-(\w{1,2})/g;
-    var regDate = d instanceof Date || dateReg.exec(d);if (!regDate) return false;
+    var regDate = d instanceof Date || dateReg.exec(d);
+
+    if (!regDate) return new Date(d);
+
     var year = regDate[1] || regDate[4];
     var month = regDate[2] || regDate[5];
     var day = regDate[3] || 1;
@@ -78,21 +81,15 @@ var filterDate = exports.filterDate = function filterDate(d) {
   };
 };
 
-var filterEvents = exports.filterEvents = function filterEvents() {
-  var eventsArray = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+var filterDataAttr = exports.filterDataAttr = function filterDataAttr() {
+  var obj = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-  var events = {};
-  eventsArray.forEach(function (event) {
-    var _filterDate = filterDate(event.date),
-        year = _filterDate.year,
-        month = _filterDate.month,
-        day = _filterDate.day;
-
-    var date = year + '-' + (month + 1) + '-' + day;
-    events[date] = event;
+  var dataAttr = {};
+  Object.keys(obj).forEach(function (item) {
+    dataAttr['data-' + item] = obj[item];
   });
 
-  return events;
+  return dataAttr;
 };
 
 var whichMonth = exports.whichMonth = function whichMonth(_ref4) {
@@ -159,14 +156,4 @@ var monthIncrease = exports.monthIncrease = function monthIncrease(from) {
   var add = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
   var to = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : new Date(from);
   return new Date(to.setMonth(to.getMonth() + add));
-};
-
-var filterDataAttr = exports.filterDataAttr = function filterDataAttr(attrObj) {
-  var attr = {};
-  var attrArray = Object.keys(attrObj);
-  attrArray.forEach(function (item) {
-    attr['data-' + item] = attrObj[item];
-  });
-
-  return attr;
 };

@@ -4,6 +4,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
@@ -55,7 +57,11 @@ var WaterfallCalendar = function (_Component) {
   _createClass(WaterfallCalendar, [{
     key: 'componentWillMount',
     value: function componentWillMount() {
-      var multipleSelect = this.props.multipleSelect;
+      var _props = this.props,
+          multipleSelect = _props.multipleSelect,
+          interval = _props.interval,
+          firstWeekDay = _props.firstWeekDay,
+          dataAttr = _props.dataAttr;
 
       var _filterDate = (0, _methods.filterDate)(),
           year = _filterDate.year,
@@ -63,8 +69,14 @@ var WaterfallCalendar = function (_Component) {
           day = _filterDate.day;
 
       var date = year + '-' + (month + 1) + '-' + day;
-      store.dispatch((0, _MultipleCalendarActions.setMultipleCalendar)(this.props.interval));
-      store.dispatch((0, _CalendarActions.setSelected)({ date: date, multipleSelect: multipleSelect }));
+
+      WaterfallCalendar.setMonthDiff(_extends({}, interval, { firstWeekDay: firstWeekDay }));
+      WaterfallCalendar.setSelected({ date: date, multipleSelect: multipleSelect });
+      WaterfallCalendar.setDataAttr(dataAttr);
+
+      window.store = store;
+      if (firstWeekDay > 6) console.error('firstWeekDay must less than 6, but input is ' + firstWeekDay);
+      if (firstWeekDay < 0) console.error('firstWeekDay must greater than 0, but input is ' + firstWeekDay);
     }
   }, {
     key: 'render',
@@ -79,14 +91,23 @@ var WaterfallCalendar = function (_Component) {
     key: 'setMonthDiff',
     value: function setMonthDiff(_ref) {
       var from = _ref.from,
-          to = _ref.to;
+          to = _ref.to,
+          firstWeekDay = _ref.firstWeekDay;
 
-      store.dispatch((0, _MultipleCalendarActions.setMultipleCalendar)({ from: from, to: to }));
+      store.dispatch((0, _MultipleCalendarActions.setMultipleCalendar)({ from: from, to: to, firstWeekDay: firstWeekDay }));
     }
   }, {
-    key: 'setEvents',
-    value: function setEvents(events) {
-      store.dispatch((0, _CalendarActions.setDateEvents)(events));
+    key: 'setDataAttr',
+    value: function setDataAttr(events) {
+      store.dispatch((0, _CalendarActions.setDataAttr)(events));
+    }
+  }, {
+    key: 'setSelected',
+    value: function setSelected(_ref2) {
+      var date = _ref2.date,
+          multipleSelect = _ref2.multipleSelect;
+
+      store.dispatch((0, _CalendarActions.setSelected)({ date: date, multipleSelect: multipleSelect }));
     }
   }, {
     key: 'update',
@@ -110,12 +131,18 @@ WaterfallCalendar.propTypes = {
     from: _react.PropTypes.date,
     to: _react.PropTypes.date
   }),
-  multipleSelect: _react.PropTypes.bool
+  multipleSelect: _react.PropTypes.bool,
+  firstWeekDay: _react.PropTypes.number,
+  dataAttr: _react.PropTypes.objectOf(_react.PropTypes.shape({
+    attr: _react.PropTypes.object
+  }))
 };
 
 WaterfallCalendar.defaultProps = {
   interval: {},
-  multipleSelect: false
+  dataAttr: {},
+  multipleSelect: false,
+  firstWeekDay: 0
 };
 
 exports.default = WaterfallCalendar;

@@ -16,15 +16,13 @@ var _MultipleCalendarReducer2 = _interopRequireDefault(_MultipleCalendarReducer)
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var calendar = _CalendarReducer2.default.calendar,
-    selected = _CalendarReducer2.default.selected,
-    dateEvents = _CalendarReducer2.default.dateEvents;
+var selected = _CalendarReducer2.default.selected,
+    dataAttr = _CalendarReducer2.default.dataAttr;
 
 
 var rootReducer = (0, _redux.combineReducers)({
-  calendar: calendar,
   selected: selected,
-  dateEvents: dateEvents,
+  dataAttr: dataAttr,
   multipleCalendar: _MultipleCalendarReducer2.default
 });
 

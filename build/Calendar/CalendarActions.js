@@ -3,23 +3,13 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var INIT_CALENDAR = exports.INIT_CALENDAR = 'INIT_CALENDAR';
 var TO_CURRENT_MONTH = exports.TO_CURRENT_MONTH = 'TO_CURRENT_MONTH';
 var TO_NEXT_MONTH = exports.TO_NEXT_MONTH = 'TO_NEXT_MONTH';
 var TO_LAST_MONTH = exports.TO_LAST_MONTH = 'TO_LAST_MONTH';
 var SET_SELECTED = exports.SET_SELECTED = 'SET_SELECTED';
 var INIT_DATE_EVENTS = exports.INIT_DATE_EVENTS = 'INIT_DATE_EVENTS';
 
-var initCalendar = exports.initCalendar = function initCalendar(style, event) {
-  return {
-    type: INIT_CALENDAR,
-    style: style,
-    event: event
-  };
-};
-
-var setDateEvents = exports.setDateEvents = function setDateEvents() {
-  var events = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+var setDataAttr = exports.setDataAttr = function setDataAttr(events) {
   return {
     type: INIT_DATE_EVENTS,
     events: events

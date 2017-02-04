@@ -67,16 +67,14 @@ var Calendar = function (_Component) {
       var target = e.target,
           type = e.type;
       var _props2 = this.props,
-          multipleSelect = _props2.multipleSelect,
           dispatch = _props2.dispatch,
           enableTouchTap = _props2.enableTouchTap,
           onClick = _props2.onClick;
 
       var date = target.getAttribute('data-date');
-
       if (enableTouchTap && type === 'click' || !enableTouchTap && type !== 'click') return;
 
-      dispatch((0, _CalendarActions.setSelected)({ date: date, multipleSelect: multipleSelect }));
+      dispatch((0, _CalendarActions.setSelected)({ date: date }));
       if (typeof onClick === 'function') {
         onClick(e);
       }
@@ -93,7 +91,7 @@ var Calendar = function (_Component) {
           customizeStyle = _props3.customizeStyle,
           selected = _props3.selected,
           calendarArray = _props3.calendarArray,
-          dateEvents = _props3.dateEvents;
+          dataAttr = _props3.dataAttr;
 
 
       if (enableTouchTap) {
@@ -125,8 +123,7 @@ var Calendar = function (_Component) {
             },
             horizontal.map(function (vertical) {
               var date = (0, _methods.filterDate)(vertical.date);
-              var dateEvent = dateEvents[vertical.date];
-              var data = dateEvent ? (0, _methods.filterDataAttr)(dateEvent.dataAttr) : {};
+              var data = Object.assign({}, dataAttr[vertical.date]);
               data['data-day'] = date.day;
               data['data-date'] = vertical.date;
               data['data-weekDay'] = vertical.weekDay;
@@ -159,7 +156,7 @@ var Calendar = function (_Component) {
 
 Calendar.defaultProps = {
   defaultStyle: {},
-  dateEvents: {},
+  dataAttr: {},
   calendarArray: [],
   customizeStyle: {},
   selected: {},
@@ -169,11 +166,7 @@ Calendar.defaultProps = {
 };
 
 Calendar.propTypes = {
-  dateEvents: _react.PropTypes.objectOf(_react.PropTypes.shape({
-    date: _react.PropTypes.string,
-    onClick: _react.PropTypes.func,
-    dataAttr: _react.PropTypes.object
-  })),
+  dataAttr: _react.PropTypes.objectOf(_react.PropTypes.objectOf(_react.PropTypes.string)),
   calendarArray: _react.PropTypes.arrayOf(_react.PropTypes.arrayOf(_react.PropTypes.shape({
     date: _react.PropTypes.string.isRequired,
     weekDay: _react.PropTypes.number.isRequired
@@ -189,7 +182,6 @@ Calendar.propTypes = {
   onClick: _react.PropTypes.func,
   selected: _react.PropTypes.objectOf(_react.PropTypes.bool),
   enableTouchTap: _react.PropTypes.bool,
-  multipleSelect: _react.PropTypes.bool,
   month: _react.PropTypes.number.isRequired,
   year: _react.PropTypes.number.isRequired
 };
@@ -197,6 +189,6 @@ Calendar.propTypes = {
 exports.default = (0, _reactRedux.connect)(function (state) {
   return _extends({}, state.calendar, {
     selected: state.selected,
-    dateEvents: state.dateEvents
+    dataAttr: state.dataAttr
   });
 })(Calendar);

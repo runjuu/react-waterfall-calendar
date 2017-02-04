@@ -13,7 +13,8 @@ var setMultipleCalendar = exports.setMultipleCalendar = function setMultipleCale
   var _ref$from = _ref.from,
       from = _ref$from === undefined ? new Date() : _ref$from,
       _ref$to = _ref.to,
-      to = _ref$to === undefined ? (0, _methods.monthIncrease)(from, 12) : _ref$to;
+      to = _ref$to === undefined ? (0, _methods.monthIncrease)(from, 12) : _ref$to,
+      firstWeekDay = _ref.firstWeekDay;
 
   var listOfCalendar = [];
 
@@ -28,7 +29,7 @@ var setMultipleCalendar = exports.setMultipleCalendar = function setMultipleCale
     var dateFilter = (0, _methods.filterDate)(date);
     listOfCalendar.push({
       monthWithYear: dateFilter.year + '-' + dateFilter.month,
-      calendar: (0, _CalendarMethods.initCalendar)(date)
+      calendar: (0, _CalendarMethods.initCalendar)({ date: date, firstWeekDay: firstWeekDay })
     });
   }
 
