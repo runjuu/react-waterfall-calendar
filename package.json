@@ -1,6 +1,6 @@
 {
   "name": "react-waterfall-calendar",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "react-waterfall-calendar",
   "main": "app.js",
   "babel": {
