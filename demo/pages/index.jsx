@@ -24,7 +24,9 @@ class Demo extends Component {
   static handleClick(event) {
     const { target } = event;
     const date = target.getAttribute('data-date');
-    console.log(date);
+    return new Promise((resolve) => {
+      resolve({ date: ['2017-02-13', '2017-02-14', '2017-02-15', '2017-02-16', '2017-02-17'] });
+    });
   }
 
   componentDidMount() {

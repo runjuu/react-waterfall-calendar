@@ -31,9 +31,21 @@ class Calendar extends Component {
     const date = target.getAttribute('data-date');
     if ((enableTouchTap && type === 'click') || (!enableTouchTap && type !== 'click')) return;
 
-    dispatch(setSelected({ date }));
     if (typeof onClick === 'function') {
-      onClick(e);
+      const handleClick = onClick(e);
+      if (typeof handleClick === 'object' && typeof handleClick.then === 'function') {
+        handleClick.then(({ date: customizeDate }) => {
+          if (customizeDate) {
+            dispatch(setSelected({ date: customizeDate }));
+          } else {
+            dispatch(setSelected({ date }));
+          }
+        });
+      } else {
+        dispatch(setSelected({ date }));
+      }
+    } else {
+      dispatch(setSelected({ date }));
     }
   }
 

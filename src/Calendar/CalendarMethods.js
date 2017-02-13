@@ -96,11 +96,17 @@ export const setDataAttr = (events = {}) => {
 
 export const setSelected = ({ date, state, multipleSelect }) => {
   const selected = { multipleSelect };
-  selected[date] = !state[date];
-  if (multipleSelect) {
-    return Object.assign({}, state, selected);
+  if (Array.isArray(date)) {
+    date.forEach((customizeDate) => {
+      const { year, month, day } = filterDate(customizeDate);
+      const formatDate = `${year}-${month + 1}-${day}`;
+      selected[formatDate] = !state[formatDate];
+    });
+  } else {
+    selected[date] = !state[date];
   }
-  return selected;
+
+  return multipleSelect ? Object.assign({}, state, selected) : selected;
 };
 
 export const shouldUpdateSelected = ({ current, next, date }) => {
