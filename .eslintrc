@@ -1,18 +1,20 @@
-module.exports = {
+{
   "extends": "airbnb",
   "installedESLint": true,
+  "parser": "babel-eslint",
   "rules": {
-    "import/no-extraneous-dependencies": ["off", {"devDependencies": false, "optionalDependencies": false, "peerDependencies": false}],
+    "import/no-extraneous-dependencies": ["off", {"devDependencies": false, "optionalDependencies": false, "peerDependencies": false}]
   },
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",
     "ecmaFeatures": {
-      "jsx": true
+      "jsx": true,
+      "modules": true
     }
   },
   "env": {
     "browser": true,
     "node": true
   }
-};
+}

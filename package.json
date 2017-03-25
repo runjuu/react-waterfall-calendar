@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "react-waterfall-calendar",
   "main": "app.js",
-  "scripts": {
-  },
+  "scripts": {},
   "pre-commit": [],
   "repository": {
     "type": "git",
@@ -16,5 +15,32 @@
   "bugs": {
     "url": "https://github.com/Runjuu/react-waterfall-calendar/issues"
   },
-  "homepage": "https://github.com/Runjuu/react-waterfall-calendar#readme"
+  "homepage": "https://github.com/Runjuu/react-waterfall-calendar#readme",
+  "dependencies": {
+    "mobx": "^3.1.7",
+    "mobx-react": "^4.1.3",
+    "moment": "^2.18.1",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.24.0",
+    "babel-eslint": "^7.2.1",
+    "babel-loader": "^6.4.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-preset-es2015": "^6.24.0",
+    "babel-preset-react": "^6.23.0",
+    "babel-preset-stage-1": "^6.22.0",
+    "css-loader": "^0.27.3",
+    "ejs-loader": "^0.3.0",
+    "eslint": "^3.18.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.3",
+    "node-sass": "^4.5.1",
+    "postcss-loader": "^1.3.3",
+    "sass-loader": "^6.0.3",
+    "style-loader": "^0.16.0"
+  }
 }
