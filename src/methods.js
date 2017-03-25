@@ -2,7 +2,15 @@ import moment from 'moment';
 
 const calendarLength = 42;
 
-export const formatDate = day => (moment(day).format('YYYY-MM-DD'));
+export const which = (diff) => {
+  if (diff > 0) {
+    return 'FUTURE';
+  } else if (diff < 0) {
+    return 'PAST';
+  }
+
+  return 'CURRENT';
+};
 
 export const slice = (month = [], count = 0) => {
   slice.month = [];
@@ -15,6 +23,8 @@ export const slice = (month = [], count = 0) => {
 
   return slice.month.reverse();
 };
+
+export const formatDate = day => (moment(day).format('YYYY-MM-DD'));
 
 export const fillUpEmptyDate = ({ date, type, count = 0 }) => {
   const dateArr = [];
