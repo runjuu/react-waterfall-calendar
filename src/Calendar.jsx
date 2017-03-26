@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { toJS } from 'mobx';
 import { observer, PropTypes } from 'mobx-react';
 import injectSheet from 'react-jss';
 import moment from 'moment';
@@ -34,9 +35,11 @@ class Calendar extends Component {
 
   handleClick(event) {
     event.preventDefault();
-    const { state } = this.props;
+    const { state, onClick } = this.props;
     const date = event.target.getAttribute('href').slice(1);
+
     state.setSelected(date);
+    if (typeof onClick === 'function') onClick({ state: toJS(state), event, date });
   }
 
   render() {
@@ -90,6 +93,11 @@ Calendar.propTypes = {
       PropTypes.observableArrayOf(
         PropTypes.objectOrObservableObject)),
   }).isRequired,
+  onClick: React.PropTypes.func,
+};
+
+Calendar.defaultProps = {
+  onClick: undefined,
 };
 
 export default Calendar;

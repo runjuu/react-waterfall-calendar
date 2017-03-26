@@ -10,8 +10,12 @@ class Wrapper extends Component {
   }
 
   render() {
+    const { onClick } = this.props;
     return (
-      <Calendar state={this.state} />
+      <Calendar
+        state={this.state}
+        onClick={onClick}
+      />
     );
   }
 }
