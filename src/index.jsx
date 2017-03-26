@@ -5,16 +5,13 @@ import Calendar from './Calendar';
 class Wrapper extends Component {
   constructor(props) {
     super(props);
-    const { calendar, selected } = new State(props);
-    this.state = {
-      calendar,
-      selected,
-    };
+
+    this.state = new State(props);
   }
 
   render() {
     return (
-      <Calendar {...this.state} />
+      <Calendar state={this.state} />
     );
   }
 }

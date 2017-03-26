@@ -23,28 +23,29 @@ const styles = {
   },
 };
 
-@observer
 @injectSheet(styles)
+@observer
 class Calendar extends Component {
 
   constructor(props) {
     super(props);
-
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick(event) {
     event.preventDefault();
+    const { state } = this.props;
     const date = event.target.getAttribute('href').slice(1);
-    console.log(date);
+    state.setSelected(date);
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, state } = this.props;
+    const { calendar, selected } = state;
 
     return (
       <div className={classes.root}>
-        {this.props.calendar.map((month) => {
+        {calendar.map((month) => {
           const currentMonth = moment(month[1][0]).date(1);
           return (
 
@@ -62,6 +63,7 @@ class Calendar extends Component {
                         key={date}
                         href={`#${date}`}
                         onClick={this.handleClick}
+                        data-selected={selected[date]}
                         data-which-month={which(moment(currentDate).date(1).diff(currentMonth, 'month'))}
                         data-which-day={which(currentDate.diff(moment().format('YYYY-MM-DD'), 'day'))}
                       >
@@ -83,13 +85,11 @@ class Calendar extends Component {
 }
 
 Calendar.propTypes = {
-  calendar: PropTypes.observableArrayOf(
-    PropTypes.observableArrayOf(
-      PropTypes.objectOrObservableObject)),
-};
-
-Calendar.defaultProps = {
-  calendar: [],
+  state: React.PropTypes.shape({
+    calendar: PropTypes.observableArrayOf(
+      PropTypes.observableArrayOf(
+        PropTypes.objectOrObservableObject)),
+  }).isRequired,
 };
 
 export default Calendar;

@@ -87,3 +87,15 @@ export const filterInterval = (from, to, firstWeekDay) => {
 
   return interval;
 };
+
+export const filterSelected = (dateString, selected = {}, selectType) => {
+  const date = moment(dateString).format('YYYY-MM-DD');
+
+  switch (selectType) {
+    case 'value':
+      
+      break;
+    default:
+      return { [date]: true };
+  }
+};
