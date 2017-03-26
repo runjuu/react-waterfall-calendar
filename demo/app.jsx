@@ -7,6 +7,7 @@ class Demo extends Component {
     return (
       <Calendar
         interval={{ from: '2017-03', to: '2017-04' }}
+        selectType="INTERVAL"
       />
     );
   }

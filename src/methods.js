@@ -2,6 +2,8 @@ import moment from 'moment';
 
 const calendarLength = 42;
 
+export const formatDate = day => (moment(day).format('YYYY-MM-DD'));
+
 export const which = (diff) => {
   if (diff > 0) {
     return 'FUTURE';
@@ -23,8 +25,6 @@ export const slice = (month = [], count = 0) => {
 
   return slice.month.reverse();
 };
-
-export const formatDate = day => (moment(day).format('YYYY-MM-DD'));
 
 export const fillUpEmptyDate = ({ date, type, count = 0 }) => {
   const dateArr = [];
@@ -76,7 +76,7 @@ export const filterMonth = (month = moment(), firstWeekDay = 0) => {
   return days;
 };
 
-export const filterInterval = (from, to, firstWeekDay) => {
+export const calculateMonthInterval = (from, to, firstWeekDay) => {
   const interval = [];
 
   for (let month = moment(from); to.diff(month, 'month') >= 0; month.add(1, 'month')) {
@@ -88,14 +88,45 @@ export const filterInterval = (from, to, firstWeekDay) => {
   return interval;
 };
 
-export const filterSelected = (dateString, selected = {}, selectType) => {
-  const date = moment(dateString).format('YYYY-MM-DD');
+export const calculateDateInterval = (from, to) => {
+  const interval = [];
 
-  switch (selectType) {
-    case 'value':
-      
-      break;
-    default:
-      return { [date]: true };
+  for (let days = to.diff(from, 'days'); days >= 0; days -= 1) {
+    interval.unshift(
+      formatDate(moment(from).add(days, 'days')),
+    );
   }
+
+  return interval;
+};
+
+export const filterSelected = (dateString, selected = {}, selectType) => {
+  const date = moment(dateString);
+
+  if (selectType === 'INTERVAL') {
+    const selectedDates = Object.keys(selected);
+    if (selectedDates.length <= 1) {
+      const result = {};
+      let minDate = date;
+
+      selectedDates.forEach((d) => {
+        if (moment(minDate).diff(d, 'days') > 0) minDate = moment(d);
+      });
+
+      if (date.diff(minDate, 'days') < 0) return { [dateString]: true };
+
+      calculateDateInterval(minDate, date).forEach((d) => {
+        result[d] = true;
+      });
+
+      return result;
+    }
+    return { [dateString]: true };
+  } else if (selectType === 'MULTIPLE') {
+    return Object.assign({}, selected, { [dateString]: true });
+  } else if (selectType === 'SINGLE') {
+    return { [dateString]: true };
+  }
+
+  return selected;
 };
