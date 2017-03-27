@@ -10,7 +10,7 @@ class Demo extends Component {
   }
 
   handleClick(props) {
-    console.log(props);
+    console.log(Object.keys(props.state.selected));
   }
 
   render() {

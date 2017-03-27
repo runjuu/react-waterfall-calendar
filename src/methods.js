@@ -4,6 +4,14 @@ const calendarLength = 42;
 
 export const formatDate = day => (moment(day).format('YYYY-MM-DD'));
 
+export const shouldMonthComponentUpdate = (month, selected) => {
+  Object.keys(selected).forEach((date, index) => {
+    if (index === 0) shouldMonthComponentUpdate.month = {};
+    shouldMonthComponentUpdate.month[moment(date).format('YYYY-MM')] = true;
+  });
+  return shouldMonthComponentUpdate.month[month];
+};
+
 export const which = (diff) => {
   if (diff > 0) {
     return 'FUTURE';
