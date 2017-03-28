@@ -19,8 +19,8 @@ class State {
   }
 
   @action
-  setSelected(date) {
-    this.selected = filterSelected(date, this.selected, this.selectType);
+  setSelected(date, nextSelected) {
+    this.selected = nextSelected || filterSelected(date, this.selected, this.selectType);
     shouldMonthComponentUpdate(undefined, this.selected);
   }
 

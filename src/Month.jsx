@@ -3,7 +3,7 @@ import { toJS } from 'mobx';
 import { observer, PropTypes } from 'mobx-react';
 import injectSheet from 'react-jss';
 import moment from 'moment';
-import { which } from './methods';
+import { which, filterSelected } from './methods';
 import { calendarState } from './';
 
 const styles = {
@@ -34,8 +34,23 @@ class Month extends Component {
     const { onClick } = this.props;
     const date = event.target.getAttribute('href').slice(1);
 
-    calendarState.setSelected(date);
-    if (typeof onClick === 'function') onClick({ state: toJS(calendarState), event, date });
+    const nextSelected = Object.keys(
+      filterSelected(date, calendarState.selected, calendarState.selectType));
+
+    if (typeof onClick === 'function') {
+      Promise.all([onClick({ state: toJS(calendarState), event, date, nextSelected })])
+      .then(([params = {}]) => {
+        if (params && params.nextSelected) {
+          const paramsNextSelected = {};
+          params.nextSelected.forEach((dateString) => {
+            if (dateString) paramsNextSelected[moment(dateString).format('YYYY-MM-DD')] = true;
+          });
+          calendarState.setSelected(undefined, paramsNextSelected);
+        } else {
+          calendarState.setSelected(date);
+        }
+      });
+    }
   }
 
   render() {

@@ -9,7 +9,7 @@ export const shouldMonthComponentUpdate = (month, selected) => {
     if (index === 0) shouldMonthComponentUpdate.month = {};
     shouldMonthComponentUpdate.month[moment(date).format('YYYY-MM')] = true;
   });
-  return shouldMonthComponentUpdate.month[month];
+  return shouldMonthComponentUpdate.month && shouldMonthComponentUpdate.month[month];
 };
 
 export const which = (diff) => {

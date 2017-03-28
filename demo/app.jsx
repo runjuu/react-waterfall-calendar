@@ -10,8 +10,8 @@ class Demo extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick(props) {
-    console.log(Object.keys(props.state.selected));
+  handleClick(params) {
+    console.log(params);
   }
 
   render() {
