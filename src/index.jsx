@@ -7,6 +7,15 @@ export const calendarState = new State();
 
 @observer
 class Wrapper extends Component {
+
+  static propTypes = {
+    onClick: PropTypes.func,
+  }
+
+  static defaultProps = {
+    onClick: undefined,
+  }
+
   constructor(props) {
     super(props);
 
@@ -23,13 +32,5 @@ class Wrapper extends Component {
     );
   }
 }
-
-Wrapper.propTypes = {
-  onClick: PropTypes.func,
-};
-
-Wrapper.defaultProps = {
-  onClick: undefined,
-};
 
 export default Wrapper;

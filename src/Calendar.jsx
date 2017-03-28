@@ -34,14 +34,15 @@ class Calendar extends Component {
   }
 }
 
+
 Calendar.propTypes = {
-  onClick: PropTypes.func,
   classes: PropTypes.objectOf(PropTypes.string),
+  onClick: PropTypes.func,
 };
 
 Calendar.defaultProps = {
-  onClick: undefined,
   classes: undefined,
+  onClick: undefined,
 };
 
 export default Calendar;

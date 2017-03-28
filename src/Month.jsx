@@ -39,9 +39,8 @@ class Month extends Component {
   }
 
   render() {
-    const { month, classes } = this.props;
+    const { month, classes = {} } = this.props;
     const currentMonth = moment(month[1][0]).date(1);
-    console.log(currentMonth.format('YYYY-MM'));
     return (
       <div className={classes.month}>
         <h2>{currentMonth.format('YYYY-MM')}</h2>
