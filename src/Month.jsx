@@ -39,14 +39,14 @@ class Month extends Component {
   }
 
   render() {
-    const { month, classes = {} } = this.props;
+    const { month, classes = {}, classNames } = this.props;
     const currentMonth = moment(month[1][0]).date(1);
     return (
-      <div className={classes.month}>
+      <div className={`${classes.month} ${classNames.month}`}>
         <h2>{currentMonth.format('YYYY-MM')}</h2>
         {month.map(horizontal => (
 
-          <div key={horizontal[0]} className={classes.horizontal}>
+          <div key={horizontal[0]} className={`${classes.horizontal} ${classNames.horizontal}`}>
             {horizontal.map((date) => {
               const currentDate = moment(date);
 
@@ -56,7 +56,8 @@ class Month extends Component {
                   key={date}
                   href={`#${date}`}
                   onClick={this.handleClick}
-                  data-selected={calendarState.selected[date]}
+                  className={classNames.date}
+                  data-selected={calendarState.selected[date] ? '' : undefined}
                   data-which-month={which(moment(currentDate).date(1).diff(currentMonth, 'month'))}
                   data-which-day={which(currentDate.diff(moment().format('YYYY-MM-DD'), 'day'))}
                 >
@@ -78,10 +79,12 @@ Month.propTypes = {
   month: PropTypes.observableArrayOf(
     PropTypes.objectOrObservableObject.isRequired,
   ),
+  classNames: React.PropTypes.objectOf(React.PropTypes.string),
 };
 
 Month.defaultProps = {
   onClick: undefined,
+  classNames: {},
   month: [],
 };
 

@@ -5,7 +5,7 @@ import Month from './Month';
 import { calendarState } from './';
 
 const styles = {
-  root: {
+  calendar: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -17,16 +17,17 @@ const styles = {
 class Calendar extends Component {
 
   render() {
-    const { classes = {}, onClick } = this.props;
+    const { classes = {}, onClick, classNames } = this.props;
     const { calendar } = calendarState;
 
     return (
-      <div className={classes.root}>
+      <div className={`${classes.calendar} ${classNames.calendar}`}>
         {calendar.map(month => (
           <Month
             key={month[0][0]}
             month={month}
             onClick={onClick}
+            classNames={classNames}
           />
         ))}
       </div>
@@ -34,15 +35,16 @@ class Calendar extends Component {
   }
 }
 
-
 Calendar.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string),
+  classNames: PropTypes.objectOf(PropTypes.string),
   onClick: PropTypes.func,
 };
 
 Calendar.defaultProps = {
   classes: undefined,
   onClick: undefined,
+  classNames: {},
 };
 
 export default Calendar;

@@ -1,5 +1,6 @@
 import { render } from 'react-dom';
 import React, { Component } from 'react';
+import style from './style.sass';
 import Calendar from '../src/';
 
 class Demo extends Component {
@@ -16,9 +17,10 @@ class Demo extends Component {
   render() {
     return (
       <Calendar
-        interval={{ from: '2017-03', to: '2017-04' }}
-        onClick={this.handleClick}
         selectType="INTERVAL"
+        onClick={this.handleClick}
+        classNames={style}
+        interval={{ from: '2017-03', to: '2017-04' }}
       />
     );
   }

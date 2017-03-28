@@ -10,10 +10,12 @@ class Wrapper extends Component {
 
   static propTypes = {
     onClick: PropTypes.func,
+    classNames: PropTypes.objectOf(PropTypes.string),
   }
 
   static defaultProps = {
     onClick: undefined,
+    classNames: {},
   }
 
   constructor(props) {
@@ -24,10 +26,11 @@ class Wrapper extends Component {
   }
 
   render() {
-    const { onClick } = this.props;
+    const { onClick, classNames } = this.props;
     return (
       <Calendar
         onClick={onClick}
+        classNames={classNames}
       />
     );
   }
