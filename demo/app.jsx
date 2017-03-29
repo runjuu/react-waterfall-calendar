@@ -27,13 +27,17 @@ class Demo extends Component {
 
   render() {
     const { interval } = this.state;
-    console.log(interval);
     return (
       <Calendar
         selectType="INTERVAL"
         onClick={this.handleClick}
         classNames={style}
         interval={interval}
+        dataAttribute={{
+          '2017-04-01': {
+            test: 'test',
+          },
+        }}
       />
     );
   }

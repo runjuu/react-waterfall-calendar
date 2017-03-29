@@ -64,7 +64,7 @@ class Month extends Component {
           <div key={horizontal[0]} className={`${classes.horizontal} ${classNames.horizontal}`}>
             {horizontal.map((date) => {
               const currentDate = moment(date);
-
+              const dataAttribute = calendarState.dataAttribute[date] || {};
               return (
 
                 <a
@@ -75,6 +75,7 @@ class Month extends Component {
                   data-selected={calendarState.selected[date] ? '' : undefined}
                   data-which-month={which(moment(currentDate).date(1).diff(currentMonth, 'month'))}
                   data-which-day={which(currentDate.diff(moment().format('YYYY-MM-DD'), 'day'))}
+                  {...dataAttribute}
                 >
                   {moment(date).format('DD')}
                 </a>
