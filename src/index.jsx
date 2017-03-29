@@ -1,93 +1,43 @@
 import React, { Component, PropTypes } from 'react';
-import { createStore, applyMiddleware } from 'redux';
-import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
-import reducer from './reducers';
-import MultipleCalendar from './MultipleCalendar/';
-import { setDataAttr, setSelected } from './Calendar/CalendarActions';
-import { setMultipleCalendar, updateMultipleCalendar, resetMultipleCalendar } from './MultipleCalendar/MultipleCalendarActions';
-import { filterDate } from './methods';
+import { observer } from 'mobx-react';
+import State from './state';
+import Calendar from './Calendar';
 
-const middleware = [thunk];
-const store = createStore(reducer, applyMiddleware(...middleware));
+export const calendarState = new State();
 
-class WaterfallCalendar extends Component {
+@observer
+class Wrapper extends Component {
 
-  static setMonthDiff({ from, to, firstWeekDay }) {
-    store.dispatch(setMultipleCalendar({ from, to, firstWeekDay }));
+  static propTypes = {
+    onClick: PropTypes.func,
+    classNames: PropTypes.objectOf(PropTypes.string),
   }
 
-  static setDataAttr(events) {
-    store.dispatch(setDataAttr(events));
-  }
-
-  static setSelected({ date, multipleSelect }) {
-    store.dispatch(setSelected({ date, multipleSelect }));
-  }
-
-  static update() {
-    return new Promise((resolve) => {
-      resolve(store.dispatch(updateMultipleCalendar()));
-    });
-  }
-
-  static reset() {
-    store.dispatch(resetMultipleCalendar());
+  static defaultProps = {
+    onClick: undefined,
+    classNames: {},
   }
 
   constructor(props) {
     super(props);
-    this.update = this.update.bind(this);
-  }
 
-  componentWillMount() {
-    this.update('init');
+    calendarState.init(props);
+    this.state = calendarState;
   }
 
   componentDidUpdate() {
-    this.update();
-  }
-
-  update(status) {
-    const { multipleSelect, interval, firstWeekDay, dataAttr } = this.props;
-    const { year, month, day } = filterDate();
-    const date = `${year}-${month + 1}-${day}`;
-
-    if (status === 'init') WaterfallCalendar.setMonthDiff({ ...interval, firstWeekDay });
-    if (status === 'init') WaterfallCalendar.setSelected({ date, multipleSelect });
-    WaterfallCalendar.setDataAttr(dataAttr);
-
-    if (firstWeekDay > 6) console.error(`firstWeekDay must less than 6, but input is ${firstWeekDay}`);
-    if (firstWeekDay < 0) console.error(`firstWeekDay must greater than 0, but input is ${firstWeekDay}`);
+    calendarState.init(this.props);
   }
 
   render() {
+    const { onClick, classNames } = this.props;
     return (
-      <Provider store={store}>
-        <MultipleCalendar {...this.props} />
-      </Provider>
+      <Calendar
+        onClick={onClick}
+        classNames={classNames}
+      />
     );
   }
-
 }
 
-WaterfallCalendar.propTypes = {
-  interval: PropTypes.shape({
-    from: PropTypes.date,
-    to: PropTypes.date,
-  }),
-  multipleSelect: PropTypes.bool,
-  firstWeekDay: PropTypes.number,
-  dataAttr: PropTypes.objectOf(PropTypes.shape({
-    attr: PropTypes.object,
-  })),
-};
-
-WaterfallCalendar.defaultProps = {
-  interval: {},
-  dataAttr: {},
-  multipleSelect: false,
-  firstWeekDay: 0,
-};
-
-export default WaterfallCalendar;
+export default Wrapper;

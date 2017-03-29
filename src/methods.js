@@ -1,132 +1,155 @@
-export const newDate = (d = new Date()) => {
-  let date;
-  if (d instanceof Date) {
-    date = d;
-  } else {
-    const dateReg = /(\w{4})-(\w{1,2})-(\w{1,2})|(\w{4})-(\w{1,2})/g;
-    const regDate = d instanceof Date || dateReg.exec(d);
+import moment from 'moment';
 
-    if (!regDate) return new Date(d);
+const calendarLength = 42;
 
-    const year = regDate[1] || regDate[4];
-    const month = regDate[2] || regDate[5];
-    const day = regDate[3] || 1;
-    date = new Date(year, month - 1, day);
-  }
-  return date;
+export const formatDate = day => (moment(day).format('YYYY-MM-DD'));
+
+export const shouldMonthComponentUpdate = (month, selected) => {
+  Object.keys(selected).forEach((date, index) => {
+    if (index === 0) shouldMonthComponentUpdate.month = {};
+    shouldMonthComponentUpdate.month[moment(date).format('YYYY-MM')] = true;
+  });
+  return shouldMonthComponentUpdate.month && shouldMonthComponentUpdate.month[month];
 };
 
-export const getMonthData = ({ year, month }) => ({
-  daysInMonth: new Date(year, month + 1, 0).getDate(),
-  dayOfFirstDayOfMonth: new Date(year, month, 1).getDay(),
-});
-
-export const getDateArray = ({ daysInMonth, month, year }) => {
-  const dateArray = [];
-  for (let day = 1; day <= daysInMonth; day += 1) {
-    dateArray.push({
-      date: `${year}-${month + 1}-${day}`,
-      weekDay: new Date(year, month, day).getDay(),
-    });
+export const which = (diff) => {
+  if (diff > 0) {
+    return 'FUTURE';
+  } else if (diff < 0) {
+    return 'PAST';
   }
-  return dateArray;
+
+  return 'CURRENT';
 };
 
-export const splitArray = ({ each = 0, array = [] }) => {
-  if (!Number(each)) return [];
+export const slice = (month = [], count = 0) => {
+  slice.month = [];
 
-  let verticalArray = [];
-  const horizontalArray = [];
+  for (let times = month.length / count; times > 0; times -= 1) {
+    slice.month.push(
+      month.slice((times - 1) * count, times * count),
+    );
+  }
 
-  array.forEach(((item, i) => {
-    const index = i + 1;
+  return slice.month.reverse();
+};
 
-    verticalArray.push(item);
-    if (index % each === 0) {
-      horizontalArray.push(verticalArray);
-      verticalArray = [];
-    }
+export const fillUpEmptyDate = ({ date, type, count = 0 }) => {
+  const dateArr = [];
+  if (count < 0) return dateArr;
+
+  switch (type) {
+    case 'before':
+      for (let day = count; day; day -= 1) {
+        dateArr.push(
+          formatDate(moment(date.subtract(1, 'days'))),
+        );
+      }
+      dateArr.reverse();
+      break;
+    case 'after':
+      for (let day = count; day; day -= 1) {
+        dateArr.push(
+          formatDate(moment(date.add(1, 'days'))),
+        );
+      }
+      break;
+    default:
+      break;
+  }
+
+  return dateArr;
+};
+
+export const filterMonth = (month = moment(), firstWeekDay = 0) => {
+  const days = [];
+  const firstDateOfMonth = moment(month).date(1);
+
+  for (let day = month.daysInMonth(); day; day -= 1) {
+    days.unshift(formatDate(moment(month).date(day)));
+  }
+
+  days.splice(0, 0, ...fillUpEmptyDate({
+    type: 'before',
+    date: firstDateOfMonth,
+    count: firstDateOfMonth.day(),
   }));
 
-  return horizontalArray;
+  days.splice(days.length, 0, ...fillUpEmptyDate({
+    type: 'after',
+    date: moment(days[days.length - 1]),
+    count: calendarLength - days.length,
+  }));
+
+  return days;
 };
 
-export const filterDate = (d) => {
-  const date = newDate(d);
-  return {
-    year: date.getFullYear(),
-    month: date.getMonth(),
-    day: date.getDate(),
-    date,
-  };
+export const calculateMonthInterval = (from, to, firstWeekDay) => {
+  const interval = [];
+
+  for (let month = moment(from); to.diff(month, 'month') >= 0; month.add(1, 'month')) {
+    interval.push(
+      slice(filterMonth(month, firstWeekDay), 7),
+    );
+  }
+
+  return interval;
 };
 
-export const filterDataAttr = (obj = {}) => {
-  const dataAttr = {};
-  Object.keys(obj).forEach((item) => {
-    dataAttr[`data-${item}`] = obj[item];
+export const calculateDateInterval = (from, to) => {
+  const interval = [];
+
+  for (let days = to.diff(from, 'days'); days >= 0; days -= 1) {
+    interval.unshift(
+      formatDate(moment(from).add(days, 'days')),
+    );
+  }
+
+  return interval;
+};
+
+export const filterSelected = (dateString, selected = {}, selectType) => {
+  const date = moment(dateString);
+
+  if (selectType === 'INTERVAL') {
+    const selectedDates = Object.keys(selected);
+    if (selectedDates.length <= 1) {
+      const result = {};
+      let minDate = date;
+
+      selectedDates.forEach((d) => {
+        if (moment(minDate).diff(d, 'days') > 0) minDate = moment(d);
+      });
+
+      if (date.diff(minDate, 'days') < 0) return { [dateString]: true };
+
+      calculateDateInterval(minDate, date).forEach((d) => {
+        result[d] = true;
+      });
+
+      return result;
+    }
+    return { [dateString]: true };
+  } else if (selectType === 'MULTIPLE') {
+    return Object.assign({}, selected, { [dateString]: true });
+  } else if (selectType === 'SINGLE') {
+    return { [dateString]: true };
+  }
+
+  return selected;
+};
+
+export const filterDataAttribute = (dataAttribute = {}) => {
+  const result = {};
+
+  Object.keys(dataAttribute).forEach((dateString) => {
+    if (!dateString) return;
+    const date = moment(dateString).format('YYYY-MM-DD');
+    result[date] = result[date] || {};
+    Object.keys(dataAttribute[date]).forEach((attribute) => {
+      result[date][`data-${attribute}`] = dataAttribute[date][attribute];
+    });
   });
 
-  return dataAttr;
+  return result;
 };
-
-export const whichMonth = ({ date, refer }) => {
-  let which;
-  const LAST_MONTH = 'LAST_MONTH';
-  const NEXT_MONTH = 'NEXT_MONTH';
-  const CURRENT_MONTH = 'CURRENT_MONTH';
-  const dateFilter = filterDate(date);
-  const referFilter = filterDate(refer);
-
-  if (dateFilter.year === referFilter.year) {
-    if (dateFilter.month < referFilter.month) {
-      which = LAST_MONTH;
-    } else if (dateFilter.month > referFilter.month) {
-      which = NEXT_MONTH;
-    } else {
-      which = CURRENT_MONTH;
-    }
-  } else if (dateFilter.year < referFilter.year) {
-    which = LAST_MONTH;
-  } else if (dateFilter.year > referFilter.year) {
-    which = NEXT_MONTH;
-  }
-
-  return which;
-};
-
-export const whichDay = (d) => {
-  const today = (new Date()).setHours(0, 0, 0, 0);
-  const date = newDate(d).setHours(0, 0, 0, 0);
-  if (date < today) {
-    return 'PAST';
-  } else if (date > today) {
-    return 'FUTURE';
-  }
-  return 'TODAY';
-};
-
-export const isToday = (d) => {
-  const today = new Date();
-  const date = newDate(d);
-  if (date) {
-    return date.toDateString() === today.toDateString();
-  }
-  return false;
-};
-
-export const monthDiff = (d1, d2) => {
-  if (d1 instanceof Date && d1 instanceof Date) {
-    let months;
-    const yearDeff = d2.getFullYear() - d1.getFullYear();
-    months = Math.abs(yearDeff * 12);
-    months -= (yearDeff > 0 ? d1.getMonth() : d2.getMonth()) + 1;
-    months += (yearDeff > 0 ? d2.getMonth() : d1.getMonth()) + 1;
-    return months;
-  }
-  throw new Error('need Date type');
-};
-
-export const monthIncrease = (from, add = 0, to = new Date(from)) => (
-  new Date(to.setMonth(to.getMonth() + add))
-);
