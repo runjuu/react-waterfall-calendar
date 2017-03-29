@@ -1,7 +1,7 @@
 import { render } from 'react-dom';
 import React, { Component } from 'react';
 import style from './style.sass';
-import Calendar from '../src/';
+import Calendar from '../build/';
 
 class Demo extends Component {
 
