@@ -1,26 +1,11 @@
 import React, { Component } from 'react';
 import { toJS } from 'mobx';
 import { observer, PropTypes } from 'mobx-react';
-import injectSheet from 'react-jss';
 import moment from 'moment';
+import classes from './jss';
 import { which, filterSelected } from './methods';
 import { calendarState } from './';
 
-const styles = {
-  month: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    width: '100%',
-  },
-  horizontal: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    width: '100%',
-  },
-};
-
-@injectSheet(styles)
 @observer
 class Month extends Component {
 
@@ -54,7 +39,7 @@ class Month extends Component {
   }
 
   render() {
-    const { month, classes = {}, classNames } = this.props;
+    const { month, classNames } = this.props;
     const currentMonth = moment(month[1][0]).date(1);
     return (
       <div className={`${classes.month} ${classNames.month}`}>
