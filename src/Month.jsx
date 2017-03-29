@@ -46,7 +46,7 @@ class Month extends Component {
             if (dateString) paramsNextSelected[moment(dateString).format('YYYY-MM-DD')] = true;
           });
           calendarState.setSelected(undefined, paramsNextSelected);
-        } else {
+        } else if (params !== false) {
           calendarState.setSelected(date);
         }
       });
