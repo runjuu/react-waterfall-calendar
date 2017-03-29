@@ -25,6 +25,10 @@ class Wrapper extends Component {
     this.state = calendarState;
   }
 
+  componentDidUpdate() {
+    calendarState.init(this.props);
+  }
+
   render() {
     const { onClick, classNames } = this.props;
     return (

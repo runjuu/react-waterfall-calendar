@@ -8,6 +8,17 @@ class Demo extends Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.state = {
+      interval: { from: '2017-03', to: '2017-04' },
+    };
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({
+        interval: { from: '2017-03', to: '2017-12' },
+      });
+    }, 5000);
   }
 
   handleClick(params) {
@@ -15,12 +26,14 @@ class Demo extends Component {
   }
 
   render() {
+    const { interval } = this.state;
+    console.log(interval);
     return (
       <Calendar
         selectType="INTERVAL"
         onClick={this.handleClick}
         classNames={style}
-        interval={{ from: '2017-03', to: '2017-04' }}
+        interval={interval}
       />
     );
   }
