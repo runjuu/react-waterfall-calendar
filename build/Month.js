@@ -92,7 +92,7 @@ var Month = (0, _mobxReact.observer)(_class = function (_Component) {
       var currentMonth = (0, _moment2.default)(month[1][0]).date(1);
       return _react2.default.createElement(
         'div',
-        { className: _jss2.default.month + ' ' + classNames.month },
+        { className: _jss2.default.month + ' ' + (classNames.month || '') },
         _react2.default.createElement(
           'h2',
           null,
@@ -101,7 +101,7 @@ var Month = (0, _mobxReact.observer)(_class = function (_Component) {
         month.map(function (horizontal) {
           return _react2.default.createElement(
             'div',
-            { key: horizontal[0], className: _jss2.default.horizontal + ' ' + classNames.horizontal },
+            { key: horizontal[0], className: _jss2.default.horizontal + ' ' + (classNames.horizontal || '') },
             horizontal.map(function (date) {
               var currentDate = (0, _moment2.default)(date);
               var dataAttribute = _.calendarState.dataAttribute[date] || {};

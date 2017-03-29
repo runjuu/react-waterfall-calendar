@@ -27,7 +27,7 @@ var Calendar = function Calendar(_ref) {
       classNames = _ref.classNames;
   return _react2.default.createElement(
     'div',
-    { className: _jss2.default.calendar + ' ' + classNames.calendar },
+    { className: _jss2.default.calendar + ' ' + (classNames.calendar || '') },
     _.calendarState.calendar.map(function (month) {
       return _react2.default.createElement(_Month2.default, {
         key: month[0][0],

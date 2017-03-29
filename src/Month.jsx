@@ -42,11 +42,11 @@ class Month extends Component {
     const { month, classNames } = this.props;
     const currentMonth = moment(month[1][0]).date(1);
     return (
-      <div className={`${classes.month} ${classNames.month}`}>
+      <div className={`${classes.month} ${classNames.month || ''}`}>
         <h2>{currentMonth.format('YYYY-MM')}</h2>
         {month.map(horizontal => (
 
-          <div key={horizontal[0]} className={`${classes.horizontal} ${classNames.horizontal}`}>
+          <div key={horizontal[0]} className={`${classes.horizontal} ${classNames.horizontal || ''}`}>
             {horizontal.map((date) => {
               const currentDate = moment(date);
               const dataAttribute = calendarState.dataAttribute[date] || {};

@@ -5,7 +5,7 @@ import classes from './jss';
 import { calendarState } from './';
 
 const Calendar = ({ onClick, classNames }) => (
-  <div className={`${classes.calendar} ${classNames.calendar}`}>
+  <div className={`${classes.calendar} ${classNames.calendar || ''}`}>
     {calendarState.calendar.map(month => (
       <Month
         key={month[0][0]}
