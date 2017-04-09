@@ -27,9 +27,11 @@ class Month extends Component {
       .then(([params = {}]) => {
         if (params && params.nextSelected) {
           const paramsNextSelected = {};
-          params.nextSelected.forEach((dateString) => {
-            if (dateString) paramsNextSelected[moment(dateString).format('YYYY-MM-DD')] = true;
-          });
+          if (params.nextSelected instanceof Array) {
+            params.nextSelected.forEach((dateString) => {
+              if (dateString) paramsNextSelected[moment(dateString).format('YYYY-MM-DD')] = true;
+            });
+          }
           calendarState.setSelected(undefined, paramsNextSelected);
         } else if (params !== false) {
           calendarState.setSelected(date);
