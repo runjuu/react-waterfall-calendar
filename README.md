@@ -26,7 +26,7 @@
 
 ⚠️ 当`months !== undefined`时，`to`将不起任何作用
 
-===
+---
 ### selectType
 日期如何被选中的类型
 > 格式为 String 类型，接受以下三个值，默认为 `'SINGLE'`
@@ -42,7 +42,7 @@
 ##### 'SINGLE'
 只有最后一个被选择的日期
 
-===
+---
 ### classNames
 传入自定义样式的样式名
 
@@ -73,7 +73,7 @@
 > 会根据 `onClick` 返回的 `nextSelected` 值更新
 > `nextSelected` 为 **符合 [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) 的 `String` 类型** 的**数组**
 
-===
+---
 *如果比较难理解上面的文字描述，可以看看下面处理 onClick 的主要代码部分*
 
 ```
