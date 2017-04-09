@@ -16,8 +16,12 @@ class State {
   }
 
   @action
-  setInterval({ from, to, firstWeekDay } = {}) {
-    this.calendar = calculateMonthInterval(moment(from), moment(to), firstWeekDay);
+  setInterval({ from, to, months, firstWeekDay } = {}) {
+    this.calendar = calculateMonthInterval(
+      moment(from),
+      months ? moment(from).add(months, 'months') : moment(to),
+      firstWeekDay,
+    );
   }
 
   @action

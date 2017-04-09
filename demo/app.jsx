@@ -16,7 +16,7 @@ class Demo extends Component {
   componentDidMount() {
     setTimeout(() => {
       this.setState({
-        interval: { from: '2017-03', to: '2017-12' },
+        interval: { months: 5 },
       });
     }, 5000);
   }

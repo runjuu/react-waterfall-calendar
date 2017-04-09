@@ -93,9 +93,10 @@ var State = (_class = function () {
       var _ref2 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
           from = _ref2.from,
           to = _ref2.to,
+          months = _ref2.months,
           firstWeekDay = _ref2.firstWeekDay;
 
-      this.calendar = (0, _methods.calculateMonthInterval)((0, _moment2.default)(from), (0, _moment2.default)(to), firstWeekDay);
+      this.calendar = (0, _methods.calculateMonthInterval)((0, _moment2.default)(from), months ? (0, _moment2.default)(from).add(months, 'months') : (0, _moment2.default)(to), firstWeekDay);
     }
   }, {
     key: 'setSelected',
