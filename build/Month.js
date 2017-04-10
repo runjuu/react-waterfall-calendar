@@ -80,6 +80,8 @@ var Month = (0, _mobxReact.observer)(_class = function (_Component) {
             _.calendarState.setSelected(date);
           }
         });
+      } else {
+        _.calendarState.setSelected(date);
       }
     }
   }, {

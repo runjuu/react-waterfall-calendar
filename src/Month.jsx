@@ -37,6 +37,8 @@ class Month extends Component {
           calendarState.setSelected(date);
         }
       });
+    } else {
+      calendarState.setSelected(date);
     }
   }
 
