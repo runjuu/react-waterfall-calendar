@@ -60,40 +60,35 @@ class Month extends Component {
     return (
       <div className={`${classes.calendar} ${classNames.calendar || ''}`}>
         <h2 className={`${classes.month} ${classNames.month || ''}`}>{currentMonth.format(monthFormat)}</h2>
-        {month.map((horizontal) => {
-          let horizontalHasSelected;
-          const horizontalElm = horizontal.map((date) => {
-            const currentDate = moment(date);
-            const dataAttribute = calendarState.dataAttribute[date] || {};
-            const hasSelected = calendarState.selected[date] ? '' : undefined;
-            if (horizontalHasSelected !== '') horizontalHasSelected = hasSelected;
+        {month.map(horizontal => (
 
-            return (
-              <a
-                key={date}
-                href={`#${date}`}
-                onClick={this.handleClick}
-                className={`${classes.date} ${classNames.date || ''}`}
-                data-selected={hasSelected}
-                data-which-month={which(moment(currentDate).date(1).diff(currentMonth, 'month'))}
-                data-which-day={which(currentDate.diff(moment().format('YYYY-MM-DD'), 'day'))}
-                {...dataAttribute}
-              >
-                {moment(date).format(dateFormat)}
-              </a>
-            );
-          });
+          <div
+            key={horizontal[0]}
+            className={`${classes.horizontal} ${classNames.horizontal || ''}`}
+          >
+            {horizontal.map((date) => {
+              const currentDate = moment(date);
+              const dataAttribute = calendarState.dataAttribute[date] || {};
+              return (
 
-          return (
-            <div
-              key={horizontal[0]}
-              className={`${classes.horizontal} ${classNames.horizontal || ''}`}
-              data-has-selected={horizontalHasSelected}
-            >
-              {horizontalElm}
-            </div>
-          );
-        })}
+                <a
+                  key={date}
+                  href={`#${date}`}
+                  onClick={this.handleClick}
+                  className={`${classes.date} ${classNames.date || ''}`}
+                  data-selected={calendarState.selected[date] ? '' : undefined}
+                  data-which-month={which(moment(currentDate).date(1).diff(currentMonth, 'month'))}
+                  data-which-day={which(currentDate.diff(moment().format('YYYY-MM-DD'), 'day'))}
+                  {...dataAttribute}
+                >
+                  {moment(date).format(dateFormat)}
+                </a>
+
+              );
+            })}
+          </div>
+
+        ))}
       </div>
     );
   }
