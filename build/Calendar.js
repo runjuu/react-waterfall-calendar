@@ -53,7 +53,7 @@ Calendar.propTypes = {
 Calendar.defaultProps = {
   onClick: undefined,
   classNames: {},
-  dateFormat: 'DD',
+  dateFormat: 'D',
   monthFormat: 'YYYY-MM'
 };
 

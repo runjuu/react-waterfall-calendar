@@ -20,7 +20,6 @@ class Demo extends Component {
     const { interval } = this.state;
     return (
       <Calendar
-        dateFormat="D"
         monthFormat="YYYY-MM"
         selectType="INTERVAL"
         onClick={Demo.handleClick}
