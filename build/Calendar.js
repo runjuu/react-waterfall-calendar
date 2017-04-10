@@ -24,7 +24,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var Calendar = function Calendar(_ref) {
   var onClick = _ref.onClick,
-      classNames = _ref.classNames;
+      classNames = _ref.classNames,
+      dateFormat = _ref.dateFormat,
+      monthFormat = _ref.monthFormat;
   return _react2.default.createElement(
     'div',
     { className: _jss2.default.calendar + ' ' + (classNames.calendar || '') },
@@ -33,7 +35,9 @@ var Calendar = function Calendar(_ref) {
         key: month[0][0],
         month: month,
         onClick: onClick,
-        classNames: classNames
+        classNames: classNames,
+        dateFormat: dateFormat,
+        monthFormat: monthFormat
       });
     })
   );
@@ -41,12 +45,16 @@ var Calendar = function Calendar(_ref) {
 
 Calendar.propTypes = {
   classNames: _react.PropTypes.objectOf(_react.PropTypes.string),
-  onClick: _react.PropTypes.func
+  onClick: _react.PropTypes.func,
+  dateFormat: _react.PropTypes.string,
+  monthFormat: _react.PropTypes.string
 };
 
 Calendar.defaultProps = {
   onClick: undefined,
-  classNames: {}
+  classNames: {},
+  dateFormat: 'DD',
+  monthFormat: 'YYYY-MM'
 };
 
 exports.default = (0, _mobxReact.observer)(Calendar);

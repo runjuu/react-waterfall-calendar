@@ -7,7 +7,7 @@ exports.calendarState = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _class, _class2, _temp;
+var _class;
 
 var _react = require('react');
 
@@ -33,7 +33,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var calendarState = exports.calendarState = new _state2.default();
 
-var Wrapper = (0, _mobxReact.observer)(_class = (_temp = _class2 = function (_Component) {
+var Wrapper = (0, _mobxReact.observer)(_class = function (_Component) {
   _inherits(Wrapper, _Component);
 
   function Wrapper(props) {
@@ -54,24 +54,11 @@ var Wrapper = (0, _mobxReact.observer)(_class = (_temp = _class2 = function (_Co
   }, {
     key: 'render',
     value: function render() {
-      var _props = this.props,
-          onClick = _props.onClick,
-          classNames = _props.classNames;
-
-      return _react2.default.createElement(_Calendar2.default, {
-        onClick: onClick,
-        classNames: classNames
-      });
+      return _react2.default.createElement(_Calendar2.default, this.props);
     }
   }]);
 
   return Wrapper;
-}(_react.Component), _class2.propTypes = {
-  onClick: _react.PropTypes.func,
-  classNames: _react.PropTypes.objectOf(_react.PropTypes.string)
-}, _class2.defaultProps = {
-  onClick: undefined,
-  classNames: {}
-}, _temp)) || _class;
+}(_react.Component)) || _class;
 
 exports.default = Wrapper;

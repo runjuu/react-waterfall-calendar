@@ -4,7 +4,7 @@ import Month from './Month';
 import classes from './jss';
 import { calendarState } from './';
 
-const Calendar = ({ onClick, classNames }) => (
+const Calendar = ({ onClick, classNames, dateFormat, monthFormat }) => (
   <div className={`${classes.calendar} ${classNames.calendar || ''}`}>
     {calendarState.calendar.map(month => (
       <Month
@@ -12,6 +12,8 @@ const Calendar = ({ onClick, classNames }) => (
         month={month}
         onClick={onClick}
         classNames={classNames}
+        dateFormat={dateFormat}
+        monthFormat={monthFormat}
       />
     ))}
   </div>
@@ -20,11 +22,15 @@ const Calendar = ({ onClick, classNames }) => (
 Calendar.propTypes = {
   classNames: PropTypes.objectOf(PropTypes.string),
   onClick: PropTypes.func,
+  dateFormat: PropTypes.string,
+  monthFormat: PropTypes.string,
 };
 
 Calendar.defaultProps = {
   onClick: undefined,
   classNames: {},
+  dateFormat: 'DD',
+  monthFormat: 'YYYY-MM',
 };
 
 export default observer(Calendar);

@@ -43,11 +43,15 @@ class Month extends Component {
   }
 
   render() {
-    const { month, classNames } = this.props;
+    const {
+      month, classNames,
+      monthFormat, dateFormat,
+    } = this.props;
     const currentMonth = moment(month[1][0]).date(1);
+    console.log(monthFormat, dateFormat);
     return (
       <div className={`${classes.month} ${classNames.month || ''}`}>
-        <h2>{currentMonth.format('YYYY-MM')}</h2>
+        <h2>{currentMonth.format(monthFormat)}</h2>
         {month.map(horizontal => (
 
           <div key={horizontal[0]} className={`${classes.horizontal} ${classNames.horizontal || ''}`}>
@@ -66,7 +70,7 @@ class Month extends Component {
                   data-which-day={which(currentDate.diff(moment().format('YYYY-MM-DD'), 'day'))}
                   {...dataAttribute}
                 >
-                  {moment(date).format('DD')}
+                  {moment(date).format(dateFormat)}
                 </a>
 
               );
@@ -85,6 +89,8 @@ Month.propTypes = {
     PropTypes.objectOrObservableObject.isRequired,
   ),
   classNames: React.PropTypes.objectOf(React.PropTypes.string),
+  dateFormat: React.PropTypes.string.isRequired,
+  monthFormat: React.PropTypes.string.isRequired,
 };
 
 Month.defaultProps = {

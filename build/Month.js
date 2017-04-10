@@ -91,16 +91,19 @@ var Month = (0, _mobxReact.observer)(_class = function (_Component) {
 
       var _props = this.props,
           month = _props.month,
-          classNames = _props.classNames;
+          classNames = _props.classNames,
+          monthFormat = _props.monthFormat,
+          dateFormat = _props.dateFormat;
 
       var currentMonth = (0, _moment2.default)(month[1][0]).date(1);
+      console.log(monthFormat, dateFormat);
       return _react2.default.createElement(
         'div',
         { className: _jss2.default.month + ' ' + (classNames.month || '') },
         _react2.default.createElement(
           'h2',
           null,
-          currentMonth.format('YYYY-MM')
+          currentMonth.format(monthFormat)
         ),
         month.map(function (horizontal) {
           return _react2.default.createElement(
@@ -120,7 +123,7 @@ var Month = (0, _mobxReact.observer)(_class = function (_Component) {
                   'data-which-month': (0, _methods.which)((0, _moment2.default)(currentDate).date(1).diff(currentMonth, 'month')),
                   'data-which-day': (0, _methods.which)(currentDate.diff((0, _moment2.default)().format('YYYY-MM-DD'), 'day'))
                 }, dataAttribute),
-                (0, _moment2.default)(date).format('DD')
+                (0, _moment2.default)(date).format(dateFormat)
               );
             })
           );
@@ -135,7 +138,9 @@ var Month = (0, _mobxReact.observer)(_class = function (_Component) {
 Month.propTypes = {
   onClick: _react2.default.PropTypes.func,
   month: _mobxReact.PropTypes.observableArrayOf(_mobxReact.PropTypes.objectOrObservableObject.isRequired),
-  classNames: _react2.default.PropTypes.objectOf(_react2.default.PropTypes.string)
+  classNames: _react2.default.PropTypes.objectOf(_react2.default.PropTypes.string),
+  dateFormat: _react2.default.PropTypes.string.isRequired,
+  monthFormat: _react2.default.PropTypes.string.isRequired
 };
 
 Month.defaultProps = {

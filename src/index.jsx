@@ -8,16 +8,6 @@ export const calendarState = new State();
 @observer
 class Wrapper extends Component {
 
-  static propTypes = {
-    onClick: PropTypes.func,
-    classNames: PropTypes.objectOf(PropTypes.string),
-  }
-
-  static defaultProps = {
-    onClick: undefined,
-    classNames: {},
-  }
-
   constructor(props) {
     super(props);
 
@@ -30,12 +20,8 @@ class Wrapper extends Component {
   }
 
   render() {
-    const { onClick, classNames } = this.props;
     return (
-      <Calendar
-        onClick={onClick}
-        classNames={classNames}
-      />
+      <Calendar {...this.props} />
     );
   }
 }
