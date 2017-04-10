@@ -121,6 +121,7 @@ var Month = (0, _mobxReact.observer)(_class = function (_Component) {
             var dataAttribute = _.calendarState.dataAttribute[date] || {};
             var hasSelected = _.calendarState.selected[date] ? '' : undefined;
             if (horizontalHasSelected !== '') horizontalHasSelected = hasSelected;
+
             return _react2.default.createElement(
               'a',
               _extends({
@@ -135,6 +136,7 @@ var Month = (0, _mobxReact.observer)(_class = function (_Component) {
               (0, _moment2.default)(date).format(dateFormat)
             );
           });
+
           return _react2.default.createElement(
             'div',
             {
