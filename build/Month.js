@@ -118,7 +118,7 @@ var Month = (0, _mobxReact.observer)(_class = function (_Component) {
                   key: date,
                   href: '#' + date,
                   onClick: _this2.handleClick,
-                  className: classNames.date,
+                  className: _jss2.default.date + ' ' + classNames.date,
                   'data-selected': _.calendarState.selected[date] ? '' : undefined,
                   'data-which-month': (0, _methods.which)((0, _moment2.default)(currentDate).date(1).diff(currentMonth, 'month')),
                   'data-which-day': (0, _methods.which)(currentDate.diff((0, _moment2.default)().format('YYYY-MM-DD'), 'day'))

@@ -33,6 +33,9 @@ var styles = {
     display: 'flex',
     justifyContent: 'space-between',
     width: '100%'
+  },
+  date: {
+    flex: 1
   }
 };
 

@@ -64,7 +64,7 @@ class Month extends Component {
                   key={date}
                   href={`#${date}`}
                   onClick={this.handleClick}
-                  className={classNames.date}
+                  className={`${classes.date} ${classNames.date}`}
                   data-selected={calendarState.selected[date] ? '' : undefined}
                   data-which-month={which(moment(currentDate).date(1).diff(currentMonth, 'month'))}
                   data-which-day={which(currentDate.diff(moment().format('YYYY-MM-DD'), 'day'))}

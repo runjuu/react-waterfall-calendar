@@ -21,6 +21,9 @@ const styles = {
     justifyContent: 'space-between',
     width: '100%',
   },
+  date: {
+    flex: 1,
+  },
 };
 
 const { classes } = jss.createStyleSheet(styles).attach();
