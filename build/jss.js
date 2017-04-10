@@ -20,7 +20,8 @@ var styles = {
   calendar: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center'
+    alignItems: 'center',
+    textAlign: 'center'
   },
   month: {
     display: 'flex',
