@@ -24,17 +24,21 @@ class Month extends Component {
 
     if (typeof onClick === 'function') {
       Promise.all([onClick({ state: toJS(calendarState), event, date, nextSelected })])
-      .then(([params = {}]) => {
-        if (params && params.nextSelected) {
+      .then(([params]) => {
+        if (typeof params !== 'object') return;
+        // if has nextSelected
+        if (params.nextSelected instanceof Array) {
           const paramsNextSelected = {};
-          if (params.nextSelected instanceof Array) {
-            params.nextSelected.forEach((dateString) => {
-              if (dateString) paramsNextSelected[moment(dateString).format('YYYY-MM-DD')] = true;
-            });
-          }
+          params.nextSelected.forEach((dateString) => {
+            if (dateString) paramsNextSelected[moment(dateString).format('YYYY-MM-DD')] = true;
+          });
           calendarState.setSelected(undefined, paramsNextSelected);
-        } else if (params !== false) {
+        } else {
           calendarState.setSelected(date);
+        }
+        // if has dataAttribute
+        if (params.dataAttribute) {
+          calendarState.setDataAttribute(params.dataAttribute);
         }
       });
     } else {
@@ -48,7 +52,6 @@ class Month extends Component {
       monthFormat, dateFormat,
     } = this.props;
     const currentMonth = moment(month[1][0]).date(1);
-
     return (
       <div className={`${classes.calendar} ${classNames.calendar || ''}`}>
         <h2 className={`${classes.month} ${classNames.month || ''}`}>{currentMonth.format(monthFormat)}</h2>

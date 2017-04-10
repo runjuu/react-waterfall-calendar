@@ -6,6 +6,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -65,19 +67,22 @@ var Month = (0, _mobxReact.observer)(_class = function (_Component) {
       if (typeof onClick === 'function') {
         Promise.all([onClick({ state: (0, _mobx.toJS)(_.calendarState), event: event, date: date, nextSelected: nextSelected })]).then(function (_ref) {
           var _ref2 = _slicedToArray(_ref, 1),
-              _ref2$ = _ref2[0],
-              params = _ref2$ === undefined ? {} : _ref2$;
+              params = _ref2[0];
 
-          if (params && params.nextSelected) {
+          if ((typeof params === 'undefined' ? 'undefined' : _typeof(params)) !== 'object') return;
+          // if has nextSelected
+          if (params.nextSelected instanceof Array) {
             var paramsNextSelected = {};
-            if (params.nextSelected instanceof Array) {
-              params.nextSelected.forEach(function (dateString) {
-                if (dateString) paramsNextSelected[(0, _moment2.default)(dateString).format('YYYY-MM-DD')] = true;
-              });
-            }
+            params.nextSelected.forEach(function (dateString) {
+              if (dateString) paramsNextSelected[(0, _moment2.default)(dateString).format('YYYY-MM-DD')] = true;
+            });
             _.calendarState.setSelected(undefined, paramsNextSelected);
-          } else if (params !== false) {
+          } else {
             _.calendarState.setSelected(date);
+          }
+          // if has dataAttribute
+          if (params.dataAttribute) {
+            _.calendarState.setDataAttribute(params.dataAttribute);
           }
         });
       } else {
@@ -96,7 +101,6 @@ var Month = (0, _mobxReact.observer)(_class = function (_Component) {
           dateFormat = _props.dateFormat;
 
       var currentMonth = (0, _moment2.default)(month[1][0]).date(1);
-
       return _react2.default.createElement(
         'div',
         { className: _jss2.default.calendar + ' ' + (classNames.calendar || '') },
