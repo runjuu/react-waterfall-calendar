@@ -123,7 +123,10 @@ var Month = (0, _mobxReact.observer)(_class = function (_Component) {
             },
             horizontal.map(function (date) {
               var currentDate = (0, _moment2.default)(date);
+              var preDate = (0, _moment2.default)(date).subtract(1, 'days').format('YYYY-MM-DD');
+              var nextDate = (0, _moment2.default)(date).add(1, 'days').format('YYYY-MM-DD');
               var dataAttribute = _.calendarState.dataAttribute[date] || {};
+              var isSelected = _.calendarState.selected[date];
               return _react2.default.createElement(
                 'a',
                 _extends({
@@ -131,7 +134,9 @@ var Month = (0, _mobxReact.observer)(_class = function (_Component) {
                   href: '#' + date,
                   onClick: _this2.handleClick,
                   className: _jss2.default.date + ' ' + (classNames.date || ''),
-                  'data-selected': _.calendarState.selected[date] ? '' : undefined,
+                  'data-first-selected': !_.calendarState.selected[preDate] && isSelected ? '' : undefined,
+                  'data-last-selected': !_.calendarState.selected[nextDate] && isSelected ? '' : undefined,
+                  'data-selected': isSelected ? '' : undefined,
                   'data-which-month': (0, _methods.which)((0, _moment2.default)(currentDate).date(1).diff(currentMonth, 'month')),
                   'data-which-day': (0, _methods.which)(currentDate.diff((0, _moment2.default)().format('YYYY-MM-DD'), 'day'))
                 }, dataAttribute),

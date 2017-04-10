@@ -68,7 +68,10 @@ class Month extends Component {
           >
             {horizontal.map((date) => {
               const currentDate = moment(date);
+              const preDate = moment(date).subtract(1, 'days').format('YYYY-MM-DD');
+              const nextDate = moment(date).add(1, 'days').format('YYYY-MM-DD');
               const dataAttribute = calendarState.dataAttribute[date] || {};
+              const isSelected = calendarState.selected[date];
               return (
 
                 <a
@@ -76,7 +79,9 @@ class Month extends Component {
                   href={`#${date}`}
                   onClick={this.handleClick}
                   className={`${classes.date} ${classNames.date || ''}`}
-                  data-selected={calendarState.selected[date] ? '' : undefined}
+                  data-first-selected={(!calendarState.selected[preDate] && isSelected) ? '' : undefined}
+                  data-last-selected={(!calendarState.selected[nextDate] && isSelected) ? '' : undefined}
+                  data-selected={isSelected ? '' : undefined}
                   data-which-month={which(moment(currentDate).date(1).diff(currentMonth, 'month'))}
                   data-which-day={which(currentDate.diff(moment().format('YYYY-MM-DD'), 'day'))}
                   {...dataAttribute}
