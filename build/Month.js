@@ -96,13 +96,13 @@ var Month = (0, _mobxReact.observer)(_class = function (_Component) {
           dateFormat = _props.dateFormat;
 
       var currentMonth = (0, _moment2.default)(month[1][0]).date(1);
-      console.log(monthFormat, dateFormat);
+
       return _react2.default.createElement(
         'div',
-        { className: _jss2.default.month + ' ' + (classNames.month || '') },
+        { className: _jss2.default.calendar + ' ' + (classNames.calendar || '') },
         _react2.default.createElement(
           'h2',
-          null,
+          { className: _jss2.default.month + ' ' + (classNames.month || '') },
           currentMonth.format(monthFormat)
         ),
         month.map(function (horizontal) {
@@ -118,7 +118,7 @@ var Month = (0, _mobxReact.observer)(_class = function (_Component) {
                   key: date,
                   href: '#' + date,
                   onClick: _this2.handleClick,
-                  className: _jss2.default.date + ' ' + classNames.date,
+                  className: _jss2.default.date + ' ' + (classNames.date || ''),
                   'data-selected': _.calendarState.selected[date] ? '' : undefined,
                   'data-which-month': (0, _methods.which)((0, _moment2.default)(currentDate).date(1).diff(currentMonth, 'month')),
                   'data-which-day': (0, _methods.which)(currentDate.diff((0, _moment2.default)().format('YYYY-MM-DD'), 'day'))

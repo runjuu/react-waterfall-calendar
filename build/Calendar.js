@@ -14,10 +14,6 @@ var _Month = require('./Month');
 
 var _Month2 = _interopRequireDefault(_Month);
 
-var _jss = require('./jss');
-
-var _jss2 = _interopRequireDefault(_jss);
-
 var _ = require('./');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -29,7 +25,7 @@ var Calendar = function Calendar(_ref) {
       monthFormat = _ref.monthFormat;
   return _react2.default.createElement(
     'div',
-    { className: _jss2.default.calendar + ' ' + (classNames.calendar || '') },
+    { className: classNames.calendars },
     _.calendarState.calendar.map(function (month) {
       return _react2.default.createElement(_Month2.default, {
         key: month[0][0],

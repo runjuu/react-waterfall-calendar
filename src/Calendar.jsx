@@ -1,11 +1,10 @@
 import React, { PropTypes } from 'react';
 import { observer } from 'mobx-react';
 import Month from './Month';
-import classes from './jss';
 import { calendarState } from './';
 
 const Calendar = ({ onClick, classNames, dateFormat, monthFormat }) => (
-  <div className={`${classes.calendar} ${classNames.calendar || ''}`}>
+  <div className={classNames.calendars}>
     {calendarState.calendar.map(month => (
       <Month
         key={month[0][0]}

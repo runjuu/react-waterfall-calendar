@@ -48,10 +48,10 @@ class Month extends Component {
       monthFormat, dateFormat,
     } = this.props;
     const currentMonth = moment(month[1][0]).date(1);
-    console.log(monthFormat, dateFormat);
+
     return (
-      <div className={`${classes.month} ${classNames.month || ''}`}>
-        <h2>{currentMonth.format(monthFormat)}</h2>
+      <div className={`${classes.calendar} ${classNames.calendar || ''}`}>
+        <h2 className={`${classes.month} ${classNames.month || ''}`}>{currentMonth.format(monthFormat)}</h2>
         {month.map(horizontal => (
 
           <div key={horizontal[0]} className={`${classes.horizontal} ${classNames.horizontal || ''}`}>
@@ -64,7 +64,7 @@ class Month extends Component {
                   key={date}
                   href={`#${date}`}
                   onClick={this.handleClick}
-                  className={`${classes.date} ${classNames.date}`}
+                  className={`${classes.date} ${classNames.date || ''}`}
                   data-selected={calendarState.selected[date] ? '' : undefined}
                   data-which-month={which(moment(currentDate).date(1).diff(currentMonth, 'month'))}
                   data-which-day={which(currentDate.diff(moment().format('YYYY-MM-DD'), 'day'))}
