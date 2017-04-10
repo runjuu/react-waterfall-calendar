@@ -5,24 +5,15 @@ import Calendar from '../build/';
 
 class Demo extends Component {
 
+  static handleClick(params) {
+    console.log(params);
+  }
+
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
     this.state = {
-      interval: { from: '2017-03', to: '2017-04' },
+      interval: { months: 3 },
     };
-  }
-
-  componentDidMount() {
-    setTimeout(() => {
-      this.setState({
-        interval: { months: 5 },
-      });
-    }, 5000);
-  }
-
-  handleClick(params) {
-    console.log(params);
   }
 
   render() {
@@ -30,7 +21,7 @@ class Demo extends Component {
     return (
       <Calendar
         selectType="INTERVAL"
-        onClick={this.handleClick}
+        onClick={Demo.handleClick}
         classNames={style}
         interval={interval}
         dataAttribute={{

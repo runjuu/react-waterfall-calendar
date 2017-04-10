@@ -19,7 +19,7 @@ class State {
   setInterval({ from, to, months, firstWeekDay } = {}) {
     this.calendar = calculateMonthInterval(
       moment(from),
-      months ? moment(from).add(months, 'months') : moment(to),
+      months ? moment(from).date(1).add(months > 0 ? months - 1 : 0, 'months') : moment(to),
       firstWeekDay,
     );
   }

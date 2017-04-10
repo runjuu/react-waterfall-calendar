@@ -96,7 +96,7 @@ var State = (_class = function () {
           months = _ref2.months,
           firstWeekDay = _ref2.firstWeekDay;
 
-      this.calendar = (0, _methods.calculateMonthInterval)((0, _moment2.default)(from), months ? (0, _moment2.default)(from).add(months, 'months') : (0, _moment2.default)(to), firstWeekDay);
+      this.calendar = (0, _methods.calculateMonthInterval)((0, _moment2.default)(from), months ? (0, _moment2.default)(from).date(1).add(months > 0 ? months - 1 : 0, 'months') : (0, _moment2.default)(to), firstWeekDay);
     }
   }, {
     key: 'setSelected',
