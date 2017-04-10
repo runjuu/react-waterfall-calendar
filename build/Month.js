@@ -69,7 +69,11 @@ var Month = (0, _mobxReact.observer)(_class = function (_Component) {
           var _ref2 = _slicedToArray(_ref, 1),
               params = _ref2[0];
 
-          if ((typeof params === 'undefined' ? 'undefined' : _typeof(params)) !== 'object') return;
+          if ((typeof params === 'undefined' ? 'undefined' : _typeof(params)) !== 'object') {
+            if (params !== false) _.calendarState.setSelected(date);
+            return;
+          }
+
           // if has nextSelected
           if (params.nextSelected instanceof Array) {
             var paramsNextSelected = {};
@@ -80,6 +84,7 @@ var Month = (0, _mobxReact.observer)(_class = function (_Component) {
           } else {
             _.calendarState.setSelected(date);
           }
+
           // if has dataAttribute
           if (params.dataAttribute) {
             _.calendarState.setDataAttribute(params.dataAttribute);
@@ -110,26 +115,34 @@ var Month = (0, _mobxReact.observer)(_class = function (_Component) {
           currentMonth.format(monthFormat)
         ),
         month.map(function (horizontal) {
+          var horizontalHasSelected = void 0;
+          var horizontalElm = horizontal.map(function (date) {
+            var currentDate = (0, _moment2.default)(date);
+            var dataAttribute = _.calendarState.dataAttribute[date] || {};
+            var hasSelected = _.calendarState.selected[date] ? '' : undefined;
+            if (horizontalHasSelected !== '') horizontalHasSelected = hasSelected;
+            return _react2.default.createElement(
+              'a',
+              _extends({
+                key: date,
+                href: '#' + date,
+                onClick: _this2.handleClick,
+                className: _jss2.default.date + ' ' + (classNames.date || ''),
+                'data-selected': hasSelected,
+                'data-which-month': (0, _methods.which)((0, _moment2.default)(currentDate).date(1).diff(currentMonth, 'month')),
+                'data-which-day': (0, _methods.which)(currentDate.diff((0, _moment2.default)().format('YYYY-MM-DD'), 'day'))
+              }, dataAttribute),
+              (0, _moment2.default)(date).format(dateFormat)
+            );
+          });
           return _react2.default.createElement(
             'div',
-            { key: horizontal[0], className: _jss2.default.horizontal + ' ' + (classNames.horizontal || '') },
-            horizontal.map(function (date) {
-              var currentDate = (0, _moment2.default)(date);
-              var dataAttribute = _.calendarState.dataAttribute[date] || {};
-              return _react2.default.createElement(
-                'a',
-                _extends({
-                  key: date,
-                  href: '#' + date,
-                  onClick: _this2.handleClick,
-                  className: _jss2.default.date + ' ' + (classNames.date || ''),
-                  'data-selected': _.calendarState.selected[date] ? '' : undefined,
-                  'data-which-month': (0, _methods.which)((0, _moment2.default)(currentDate).date(1).diff(currentMonth, 'month')),
-                  'data-which-day': (0, _methods.which)(currentDate.diff((0, _moment2.default)().format('YYYY-MM-DD'), 'day'))
-                }, dataAttribute),
-                (0, _moment2.default)(date).format(dateFormat)
-              );
-            })
+            {
+              key: horizontal[0],
+              className: _jss2.default.horizontal + ' ' + (classNames.horizontal || ''),
+              'data-has-selected': horizontalHasSelected
+            },
+            horizontalElm
           );
         })
       );
