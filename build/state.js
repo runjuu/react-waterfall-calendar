@@ -81,10 +81,12 @@ var State = (_class = function () {
     value: function init(_ref) {
       var interval = _ref.interval,
           selectType = _ref.selectType,
-          dataAttribute = _ref.dataAttribute;
+          dataAttribute = _ref.dataAttribute,
+          nextSelected = _ref.nextSelected;
 
-      this.setInterval(interval);
-      this.setDataAttribute(dataAttribute);
+      if (interval) this.setInterval(interval);
+      if (dataAttribute) this.setDataAttribute(dataAttribute);
+      if (nextSelected) this.setSelected(undefined, nextSelected);
       this.selectType = selectType || this.selectType;
     }
   }, {

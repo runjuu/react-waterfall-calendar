@@ -5,9 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.calendarState = undefined;
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _class;
+var _class, _class2, _temp;
 
 var _react = require('react');
 
@@ -23,6 +25,8 @@ var _Calendar = require('./Calendar');
 
 var _Calendar2 = _interopRequireDefault(_Calendar);
 
+var _methods = require('./methods');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -33,7 +37,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var calendarState = exports.calendarState = new _state2.default();
 
-var Wrapper = (0, _mobxReact.observer)(_class = function (_Component) {
+var Wrapper = (0, _mobxReact.observer)(_class = (_temp = _class2 = function (_Component) {
   _inherits(Wrapper, _Component);
 
   function Wrapper(props) {
@@ -41,7 +45,9 @@ var Wrapper = (0, _mobxReact.observer)(_class = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (Wrapper.__proto__ || Object.getPrototypeOf(Wrapper)).call(this, props));
 
-    calendarState.init(props);
+    var nextSelected = (0, _methods.filterArrayOfSelected)(props.defaultSelected);
+    calendarState.init(_extends({}, props, { nextSelected: nextSelected }));
+
     _this.state = calendarState;
     return _this;
   }
@@ -59,6 +65,10 @@ var Wrapper = (0, _mobxReact.observer)(_class = function (_Component) {
   }]);
 
   return Wrapper;
-}(_react.Component)) || _class;
+}(_react.Component), _class2.propTypes = {
+  defaultSelected: _react.PropTypes.arrayOf(_react.PropTypes.string)
+}, _class2.defaultProps = {
+  defaultSelected: []
+}, _temp)) || _class;
 
 exports.default = Wrapper;

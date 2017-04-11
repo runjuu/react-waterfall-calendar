@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.filterDataAttribute = exports.filterSelected = exports.calculateDateInterval = exports.calculateMonthInterval = exports.filterMonth = exports.fillUpEmptyDate = exports.slice = exports.which = exports.shouldMonthComponentUpdate = exports.formatDate = undefined;
+exports.filterArrayOfSelected = exports.filterDataAttribute = exports.filterSelected = exports.calculateDateInterval = exports.calculateMonthInterval = exports.filterMonth = exports.fillUpEmptyDate = exports.slice = exports.which = exports.shouldMonthComponentUpdate = exports.formatDate = undefined;
 
 var _moment = require('moment');
 
@@ -175,4 +175,14 @@ var filterDataAttribute = exports.filterDataAttribute = function filterDataAttri
   });
 
   return result;
+};
+
+var filterArrayOfSelected = exports.filterArrayOfSelected = function filterArrayOfSelected(arrayOfSelected) {
+  var selected = {};
+  if (arrayOfSelected instanceof Array) {
+    arrayOfSelected.forEach(function (dateString) {
+      if (dateString) selected[(0, _moment2.default)(dateString).format('YYYY-MM-DD')] = true;
+    });
+  }
+  return selected;
 };

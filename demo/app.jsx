@@ -25,6 +25,7 @@ class Demo extends Component {
         onClick={Demo.handleClick}
         classNames={style}
         interval={interval}
+        defaultSelected={['2017-04-13', '2017-04-14', '2017-04-15']}
         dataAttribute={{
           '2017-04-01': {
             test: 'test',

@@ -153,3 +153,13 @@ export const filterDataAttribute = (dataAttribute = {}) => {
 
   return result;
 };
+
+export const filterArrayOfSelected = (arrayOfSelected) => {
+  const selected = {};
+  if (arrayOfSelected instanceof Array) {
+    arrayOfSelected.forEach((dateString) => {
+      if (dateString) selected[moment(dateString).format('YYYY-MM-DD')] = true;
+    });
+  }
+  return selected;
+};

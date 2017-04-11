@@ -9,9 +9,10 @@ class State {
   @observable selectType = 'SINGLE'
 
   @action
-  init({ interval, selectType, dataAttribute }) {
-    this.setInterval(interval);
-    this.setDataAttribute(dataAttribute);
+  init({ interval, selectType, dataAttribute, nextSelected }) {
+    if (interval) this.setInterval(interval);
+    if (dataAttribute) this.setDataAttribute(dataAttribute);
+    if (nextSelected) this.setSelected(undefined, nextSelected);
     this.selectType = selectType || this.selectType;
   }
 

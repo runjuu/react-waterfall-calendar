@@ -3,7 +3,7 @@ import { toJS } from 'mobx';
 import { observer, PropTypes } from 'mobx-react';
 import moment from 'moment';
 import classes from './jss';
-import { which, filterSelected } from './methods';
+import { which, filterSelected, filterArrayOfSelected } from './methods';
 import { calendarState } from './';
 
 @observer
@@ -30,18 +30,9 @@ class Month extends Component {
           return;
         }
 
-        // if has nextSelected
-        if (params.nextSelected instanceof Array) {
-          const paramsNextSelected = {};
-          params.nextSelected.forEach((dateString) => {
-            if (dateString) paramsNextSelected[moment(dateString).format('YYYY-MM-DD')] = true;
-          });
-          calendarState.setSelected(undefined, paramsNextSelected);
-        } else {
-          calendarState.setSelected(date);
+        if (params.nextSelected) {
+          calendarState.setSelected(undefined, filterArrayOfSelected(params.nextSelected));
         }
-
-        // if has dataAttribute
         if (params.dataAttribute) {
           calendarState.setDataAttribute(params.dataAttribute);
         }

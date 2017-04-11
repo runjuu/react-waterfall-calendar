@@ -74,18 +74,9 @@ var Month = (0, _mobxReact.observer)(_class = function (_Component) {
             return;
           }
 
-          // if has nextSelected
-          if (params.nextSelected instanceof Array) {
-            var paramsNextSelected = {};
-            params.nextSelected.forEach(function (dateString) {
-              if (dateString) paramsNextSelected[(0, _moment2.default)(dateString).format('YYYY-MM-DD')] = true;
-            });
-            _.calendarState.setSelected(undefined, paramsNextSelected);
-          } else {
-            _.calendarState.setSelected(date);
+          if (params.nextSelected) {
+            _.calendarState.setSelected(undefined, (0, _methods.filterArrayOfSelected)(params.nextSelected));
           }
-
-          // if has dataAttribute
           if (params.dataAttribute) {
             _.calendarState.setDataAttribute(params.dataAttribute);
           }
