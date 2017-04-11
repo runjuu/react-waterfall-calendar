@@ -35,7 +35,10 @@ var styles = {
     width: '100%'
   },
   date: {
-    flex: 1
+    flex: 1,
+    '& > span': {
+      pointerEvents: 'none'
+    }
   }
 };
 

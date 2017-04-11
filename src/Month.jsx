@@ -79,7 +79,7 @@ class Month extends Component {
                   {...onClick}
                   {...dataAttribute}
                 >
-                  {moment(date).format(dateFormat)}
+                  <span>{moment(date).format(dateFormat)}</span>
                 </a>
 
               );

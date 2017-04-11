@@ -23,6 +23,9 @@ const styles = {
   },
   date: {
     flex: 1,
+    '& > span': {
+      pointerEvents: 'none',
+    },
   },
 };
 

@@ -135,7 +135,11 @@ var Month = function (_Component) {
                   'data-which-month': (0, _methods.which)((0, _moment2.default)(currentDate).date(1).diff(currentMonth, 'month')),
                   'data-which-day': (0, _methods.which)(currentDate.diff((0, _moment2.default)().format('YYYY-MM-DD'), 'day'))
                 }, onClick, dataAttribute),
-                (0, _moment2.default)(date).format(dateFormat)
+                _react2.default.createElement(
+                  'span',
+                  null,
+                  (0, _moment2.default)(date).format(dateFormat)
+                )
               );
             })
           );
