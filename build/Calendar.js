@@ -22,7 +22,8 @@ var Calendar = function Calendar(_ref) {
   var onClick = _ref.onClick,
       classNames = _ref.classNames,
       dateFormat = _ref.dateFormat,
-      monthFormat = _ref.monthFormat;
+      monthFormat = _ref.monthFormat,
+      enableTouchTap = _ref.enableTouchTap;
   return _react2.default.createElement(
     'div',
     { className: classNames.calendars },
@@ -33,7 +34,8 @@ var Calendar = function Calendar(_ref) {
         onClick: onClick,
         classNames: classNames,
         dateFormat: dateFormat,
-        monthFormat: monthFormat
+        monthFormat: monthFormat,
+        enableTouchTap: enableTouchTap
       });
     })
   );
@@ -43,11 +45,13 @@ Calendar.propTypes = {
   classNames: _react.PropTypes.objectOf(_react.PropTypes.string),
   onClick: _react.PropTypes.func,
   dateFormat: _react.PropTypes.string,
-  monthFormat: _react.PropTypes.string
+  monthFormat: _react.PropTypes.string,
+  enableTouchTap: _react2.default.PropTypes.bool
 };
 
 Calendar.defaultProps = {
   onClick: undefined,
+  enableTouchTap: false,
   classNames: {},
   dateFormat: 'D',
   monthFormat: 'YYYY-MM'

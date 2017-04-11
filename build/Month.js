@@ -36,6 +36,8 @@ var _ = require('./');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -88,15 +90,16 @@ var Month = (0, _mobxReact.observer)(_class = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
-
       var _props = this.props,
           month = _props.month,
           classNames = _props.classNames,
           monthFormat = _props.monthFormat,
-          dateFormat = _props.dateFormat;
+          dateFormat = _props.dateFormat,
+          enableTouchTap = _props.enableTouchTap;
 
       var currentMonth = (0, _moment2.default)(month[1][0]).date(1);
+      var onClick = _defineProperty({}, enableTouchTap ? 'onTouchTap' : 'onClick', this.handleClick);
+
       return _react2.default.createElement(
         'div',
         { className: _jss2.default.calendar + ' ' + (classNames.calendar || '') },
@@ -123,14 +126,13 @@ var Month = (0, _mobxReact.observer)(_class = function (_Component) {
                 _extends({
                   key: date,
                   href: '#' + date,
-                  onClick: _this2.handleClick,
                   className: _jss2.default.date + ' ' + (classNames.date || ''),
                   'data-first-selected': !_.calendarState.selected[preDate] && isSelected ? '' : undefined,
                   'data-last-selected': !_.calendarState.selected[nextDate] && isSelected ? '' : undefined,
                   'data-selected': isSelected ? '' : undefined,
                   'data-which-month': (0, _methods.which)((0, _moment2.default)(currentDate).date(1).diff(currentMonth, 'month')),
                   'data-which-day': (0, _methods.which)(currentDate.diff((0, _moment2.default)().format('YYYY-MM-DD'), 'day'))
-                }, dataAttribute),
+                }, onClick, dataAttribute),
                 (0, _moment2.default)(date).format(dateFormat)
               );
             })
@@ -148,7 +150,8 @@ Month.propTypes = {
   month: _mobxReact.PropTypes.observableArrayOf(_mobxReact.PropTypes.objectOrObservableObject.isRequired),
   classNames: _react2.default.PropTypes.objectOf(_react2.default.PropTypes.string),
   dateFormat: _react2.default.PropTypes.string.isRequired,
-  monthFormat: _react2.default.PropTypes.string.isRequired
+  monthFormat: _react2.default.PropTypes.string.isRequired,
+  enableTouchTap: _react2.default.PropTypes.bool.isRequired
 };
 
 Month.defaultProps = {

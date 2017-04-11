@@ -11,7 +11,8 @@
     "ecmaFeatures": {
       "jsx": true,
       "modules": true
-    }
+    },
+    "experimentalDecorators": true
   },
   "env": {
     "browser": true,

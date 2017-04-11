@@ -46,8 +46,11 @@ class Month extends Component {
     const {
       month, classNames,
       monthFormat, dateFormat,
+      enableTouchTap,
     } = this.props;
     const currentMonth = moment(month[1][0]).date(1);
+    const onClick = { [enableTouchTap ? 'onTouchTap' : 'onClick']: this.handleClick };
+
     return (
       <div className={`${classes.calendar} ${classNames.calendar || ''}`}>
         <h2 className={`${classes.month} ${classNames.month || ''}`}>{currentMonth.format(monthFormat)}</h2>
@@ -68,13 +71,13 @@ class Month extends Component {
                 <a
                   key={date}
                   href={`#${date}`}
-                  onClick={this.handleClick}
                   className={`${classes.date} ${classNames.date || ''}`}
                   data-first-selected={(!calendarState.selected[preDate] && isSelected) ? '' : undefined}
                   data-last-selected={(!calendarState.selected[nextDate] && isSelected) ? '' : undefined}
                   data-selected={isSelected ? '' : undefined}
                   data-which-month={which(moment(currentDate).date(1).diff(currentMonth, 'month'))}
                   data-which-day={which(currentDate.diff(moment().format('YYYY-MM-DD'), 'day'))}
+                  {...onClick}
                   {...dataAttribute}
                 >
                   {moment(date).format(dateFormat)}
@@ -98,6 +101,7 @@ Month.propTypes = {
   classNames: React.PropTypes.objectOf(React.PropTypes.string),
   dateFormat: React.PropTypes.string.isRequired,
   monthFormat: React.PropTypes.string.isRequired,
+  enableTouchTap: React.PropTypes.bool.isRequired,
 };
 
 Month.defaultProps = {

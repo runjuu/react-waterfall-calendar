@@ -1,7 +1,10 @@
 import { render } from 'react-dom';
 import React, { Component } from 'react';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 import style from './style.sass';
 import Calendar from '../build/';
+
+injectTapEventPlugin();
 
 class Demo extends Component {
 
@@ -20,6 +23,7 @@ class Demo extends Component {
     const { interval } = this.state;
     return (
       <Calendar
+        enableTouchTap
         monthFormat="YYYY-MM"
         selectType="INTERVAL"
         onClick={Demo.handleClick}
