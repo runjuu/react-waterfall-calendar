@@ -85,9 +85,6 @@ var Month = function (_Component) {
           if (params.nextSelected) {
             _.calendarState.setSelected(undefined, (0, _methods.filterArrayOfSelected)(params.nextSelected));
           }
-          if (params.dataAttribute) {
-            _.calendarState.setDataAttribute(params.dataAttribute);
-          }
         });
       } else {
         _.calendarState.setSelected(date);

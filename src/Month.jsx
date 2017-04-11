@@ -36,9 +36,6 @@ class Month extends Component {
         if (params.nextSelected) {
           calendarState.setSelected(undefined, filterArrayOfSelected(params.nextSelected));
         }
-        if (params.dataAttribute) {
-          calendarState.setDataAttribute(params.dataAttribute);
-        }
       });
     } else {
       calendarState.setSelected(date);
