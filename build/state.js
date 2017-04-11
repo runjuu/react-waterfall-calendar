@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _desc, _value, _class, _descriptor, _descriptor2, _descriptor3, _descriptor4;
+var _desc, _value, _class, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5;
 
 var _mobx = require('mobx');
 
@@ -73,7 +73,9 @@ var State = (_class = function () {
 
     _initDefineProp(this, 'dataAttribute', _descriptor3, this);
 
-    _initDefineProp(this, 'selectType', _descriptor4, this);
+    _initDefineProp(this, 'updateMonth', _descriptor4, this);
+
+    _initDefineProp(this, 'selectType', _descriptor5, this);
   }
 
   _createClass(State, [{
@@ -104,7 +106,7 @@ var State = (_class = function () {
     key: 'setSelected',
     value: function setSelected(date, nextSelected) {
       this.selected = nextSelected || (0, _methods.filterSelected)(date, this.selected, this.selectType);
-      (0, _methods.shouldMonthComponentUpdate)(undefined, this.selected);
+      this.updateMonth = (0, _methods.whichMonthShouldUpdate)(this.selected);
     }
   }, {
     key: 'setDataAttribute',
@@ -129,7 +131,12 @@ var State = (_class = function () {
   initializer: function initializer() {
     return {};
   }
-}), _descriptor4 = _applyDecoratedDescriptor(_class.prototype, 'selectType', [_mobx.observable], {
+}), _descriptor4 = _applyDecoratedDescriptor(_class.prototype, 'updateMonth', [_mobx.observable], {
+  enumerable: true,
+  initializer: function initializer() {
+    return {};
+  }
+}), _descriptor5 = _applyDecoratedDescriptor(_class.prototype, 'selectType', [_mobx.observable], {
   enumerable: true,
   initializer: function initializer() {
     return 'SINGLE';

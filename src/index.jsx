@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { autorunAsync } from 'mobx';
 import { observer } from 'mobx-react';
 import State from './state';
 import Calendar from './Calendar';
@@ -19,20 +20,29 @@ class Wrapper extends Component {
 
   constructor(props) {
     super(props);
-
     const nextSelected = filterArrayOfSelected(props.defaultSelected);
     calendarState.init({ ...props, nextSelected });
 
-    this.state = calendarState;
+    this.state = {
+      updateMonth: {},
+    };
   }
 
-  componentDidUpdate() {
+  componentDidMount() {
+    autorunAsync(() => {
+      this.setState({
+        updateMonth: calendarState.updateMonth,
+      });
+    });
+  }
+
+  componentWillReceiveProps() {
     calendarState.init(this.props);
   }
 
   render() {
     return (
-      <Calendar {...this.props} />
+      <Calendar {...this.props} updateMonth={this.state.updateMonth} />
     );
   }
 }

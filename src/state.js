@@ -1,11 +1,12 @@
 import { observable, action } from 'mobx';
 import moment from 'moment';
-import { calculateMonthInterval, filterSelected, shouldMonthComponentUpdate, filterDataAttribute } from './methods';
+import { calculateMonthInterval, filterSelected, filterDataAttribute, whichMonthShouldUpdate } from './methods';
 
 class State {
   @observable calendar = []
   @observable selected = {}
   @observable dataAttribute = {}
+  @observable updateMonth = {}
   @observable selectType = 'SINGLE'
 
   @action
@@ -28,7 +29,7 @@ class State {
   @action
   setSelected(date, nextSelected) {
     this.selected = nextSelected || filterSelected(date, this.selected, this.selectType);
-    shouldMonthComponentUpdate(undefined, this.selected);
+    this.updateMonth = whichMonthShouldUpdate(this.selected);
   }
 
   @action

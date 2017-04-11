@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.filterArrayOfSelected = exports.filterDataAttribute = exports.filterSelected = exports.calculateDateInterval = exports.calculateMonthInterval = exports.filterMonth = exports.fillUpEmptyDate = exports.slice = exports.which = exports.shouldMonthComponentUpdate = exports.formatDate = undefined;
+exports.filterArrayOfSelected = exports.filterDataAttribute = exports.filterSelected = exports.calculateDateInterval = exports.calculateMonthInterval = exports.filterMonth = exports.fillUpEmptyDate = exports.slice = exports.which = exports.whichMonthShouldUpdate = exports.formatDate = undefined;
 
 var _moment = require('moment');
 
@@ -21,12 +21,19 @@ var formatDate = exports.formatDate = function formatDate(day) {
   return (0, _moment2.default)(day).format('YYYY-MM-DD');
 };
 
-var shouldMonthComponentUpdate = exports.shouldMonthComponentUpdate = function shouldMonthComponentUpdate(month, selected) {
-  Object.keys(selected).forEach(function (date, index) {
-    if (index === 0) shouldMonthComponentUpdate.month = {};
-    shouldMonthComponentUpdate.month[(0, _moment2.default)(date).format('YYYY-MM')] = true;
+var whichMonthShouldUpdate = exports.whichMonthShouldUpdate = function whichMonthShouldUpdate() {
+  var selected = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+  whichMonthShouldUpdate.month = whichMonthShouldUpdate.month || {};
+
+  var updateMonth = {};
+  Object.keys(selected).forEach(function (date) {
+    updateMonth[(0, _moment2.default)(date).format('YYYY-MM')] = true;
   });
-  return shouldMonthComponentUpdate.month && shouldMonthComponentUpdate.month[month];
+  Object.assign(updateMonth, whichMonthShouldUpdate.month);
+
+  whichMonthShouldUpdate.month = updateMonth;
+  return updateMonth;
 };
 
 var which = exports.which = function which(diff) {

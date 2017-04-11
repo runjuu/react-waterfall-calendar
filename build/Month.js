@@ -12,8 +12,6 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _class;
-
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -44,7 +42,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Month = (0, _mobxReact.observer)(_class = function (_Component) {
+var Month = function (_Component) {
   _inherits(Month, _Component);
 
   function Month(props) {
@@ -57,6 +55,14 @@ var Month = (0, _mobxReact.observer)(_class = function (_Component) {
   }
 
   _createClass(Month, [{
+    key: 'shouldComponentUpdate',
+    value: function shouldComponentUpdate(_ref) {
+      var updateMonth = _ref.updateMonth,
+          currentMonth = _ref.currentMonth;
+
+      return !!updateMonth[currentMonth.format('YYYY-MM')];
+    }
+  }, {
     key: 'handleClick',
     value: function handleClick(event) {
       event.preventDefault();
@@ -67,9 +73,9 @@ var Month = (0, _mobxReact.observer)(_class = function (_Component) {
       var nextSelected = Object.keys((0, _methods.filterSelected)(date, _.calendarState.selected, _.calendarState.selectType));
 
       if (typeof onClick === 'function') {
-        Promise.all([onClick({ state: (0, _mobx.toJS)(_.calendarState), event: event, date: date, nextSelected: nextSelected })]).then(function (_ref) {
-          var _ref2 = _slicedToArray(_ref, 1),
-              params = _ref2[0];
+        Promise.all([onClick({ state: (0, _mobx.toJS)(_.calendarState), event: event, date: date, nextSelected: nextSelected })]).then(function (_ref2) {
+          var _ref3 = _slicedToArray(_ref2, 1),
+              params = _ref3[0];
 
           if ((typeof params === 'undefined' ? 'undefined' : _typeof(params)) !== 'object') {
             if (params !== false) _.calendarState.setSelected(date);
@@ -92,14 +98,13 @@ var Month = (0, _mobxReact.observer)(_class = function (_Component) {
     value: function render() {
       var _props = this.props,
           month = _props.month,
+          currentMonth = _props.currentMonth,
           classNames = _props.classNames,
           monthFormat = _props.monthFormat,
           dateFormat = _props.dateFormat,
           enableTouchTap = _props.enableTouchTap;
 
-      var currentMonth = (0, _moment2.default)(month[1][0]).date(1);
       var onClick = _defineProperty({}, enableTouchTap ? 'onTouchTap' : 'onClick', this.handleClick);
-
       return _react2.default.createElement(
         'div',
         { className: _jss2.default.calendar + ' ' + (classNames.calendar || '') },
@@ -143,7 +148,7 @@ var Month = (0, _mobxReact.observer)(_class = function (_Component) {
   }]);
 
   return Month;
-}(_react.Component)) || _class;
+}(_react.Component);
 
 Month.propTypes = {
   onClick: _react2.default.PropTypes.func,
@@ -151,7 +156,11 @@ Month.propTypes = {
   classNames: _react2.default.PropTypes.objectOf(_react2.default.PropTypes.string),
   dateFormat: _react2.default.PropTypes.string.isRequired,
   monthFormat: _react2.default.PropTypes.string.isRequired,
-  enableTouchTap: _react2.default.PropTypes.bool.isRequired
+  enableTouchTap: _react2.default.PropTypes.bool.isRequired,
+  updateMonth: _react2.default.PropTypes.objectOf(_react2.default.PropTypes.bool).isRequired,
+  currentMonth: _react2.default.PropTypes.shape({
+    format: _react2.default.PropTypes.func.isRequired
+  }).isRequired
 };
 
 Month.defaultProps = {

@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
 import { toJS } from 'mobx';
-import { observer, PropTypes } from 'mobx-react';
+import { PropTypes } from 'mobx-react';
 import moment from 'moment';
 import classes from './jss';
 import { which, filterSelected, filterArrayOfSelected } from './methods';
 import { calendarState } from './';
 
-@observer
 class Month extends Component {
 
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+  }
+
+  shouldComponentUpdate({ updateMonth, currentMonth }) {
+    return !!updateMonth[currentMonth.format('YYYY-MM')];
   }
 
   handleClick(event) {
@@ -44,13 +47,12 @@ class Month extends Component {
 
   render() {
     const {
-      month, classNames,
+      month, currentMonth,
+      classNames,
       monthFormat, dateFormat,
       enableTouchTap,
     } = this.props;
-    const currentMonth = moment(month[1][0]).date(1);
     const onClick = { [enableTouchTap ? 'onTouchTap' : 'onClick']: this.handleClick };
-
     return (
       <div className={`${classes.calendar} ${classNames.calendar || ''}`}>
         <h2 className={`${classes.month} ${classNames.month || ''}`}>{currentMonth.format(monthFormat)}</h2>
@@ -102,6 +104,10 @@ Month.propTypes = {
   dateFormat: React.PropTypes.string.isRequired,
   monthFormat: React.PropTypes.string.isRequired,
   enableTouchTap: React.PropTypes.bool.isRequired,
+  updateMonth: React.PropTypes.objectOf(React.PropTypes.bool).isRequired,
+  currentMonth: React.PropTypes.shape({
+    format: React.PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 Month.defaultProps = {

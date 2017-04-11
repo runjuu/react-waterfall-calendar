@@ -4,12 +4,17 @@ const calendarLength = 42;
 
 export const formatDate = day => (moment(day).format('YYYY-MM-DD'));
 
-export const shouldMonthComponentUpdate = (month, selected) => {
-  Object.keys(selected).forEach((date, index) => {
-    if (index === 0) shouldMonthComponentUpdate.month = {};
-    shouldMonthComponentUpdate.month[moment(date).format('YYYY-MM')] = true;
+export const whichMonthShouldUpdate = (selected = {}) => {
+  whichMonthShouldUpdate.month = whichMonthShouldUpdate.month || {};
+
+  const updateMonth = {};
+  Object.keys(selected).forEach((date) => {
+    updateMonth[moment(date).format('YYYY-MM')] = true;
   });
-  return shouldMonthComponentUpdate.month && shouldMonthComponentUpdate.month[month];
+  Object.assign(updateMonth, whichMonthShouldUpdate.month);
+
+  whichMonthShouldUpdate.month = updateMonth;
+  return updateMonth;
 };
 
 export const which = (diff) => {
