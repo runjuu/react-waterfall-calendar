@@ -1,5 +1,6 @@
 demo/
 src/
+.vscode／
 yarn.lock
 .gitignore
 .eslintrc.js
