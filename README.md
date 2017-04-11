@@ -2,13 +2,20 @@
 流式布局日历模块
 
 ## Props
-```
+```javascript
     <Calendar
-        interval
-        selectType
-        classNames
-        dataAttribute
-        onClick
+      interval
+
+      selectType
+      classNames
+      dataAttribute
+      defaultSelected
+        
+      dateFormat
+      monthFormat
+      
+      enableTouchTap
+      onClick
     />
 ```
 
@@ -42,7 +49,6 @@
 ##### 'SINGLE'
 只有最后一个被选择的日期
 
----
 ### classNames
 传入自定义样式的样式名
 
@@ -58,6 +64,34 @@
     dataAttribute['2017-04-05'] = { attribute: 'attribute' }
 ```
 
+### defaultSelected
+在挂载日历组件时默认选中的日期
+
+```javascript
+    const defaultSelected = ['2017-02-06', '2017-02-07'];
+```
+---
+### dateFormat
+
+日期格式化
+
+> 默认为 `'D'`
+
+```javascript
+    const dateFormat = 'D' || 'DD' || 'D日';
+```
+
+### monthFormat
+
+月份格式化
+
+> 默认为 `'YYYY-MM'`
+
+```javascript
+    const dateFormat = 'M' || 'MM' || 'M月';
+```
+
+---
 ### onClick
 日期被点击时的回调方法
 
@@ -73,25 +107,10 @@
 > 会根据 `onClick` 返回的 `nextSelected` 值更新
 > `nextSelected` 为 **符合 [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) 的 `String` 类型** 的**数组**
 
----
-*如果比较难理解上面的文字描述，可以看看下面处理 onClick 的主要代码部分*
 
-```
-Promise.all([onClick({ state: toJS(calendarState), event, date, nextSelected })])
-.then(([params = {}]) => {
-  if (params && params.nextSelected) {
-    const paramsNextSelected = {};
-    if (params.nextSelected instanceof Array) {
-      params.nextSelected.forEach((dateString) => {
-        if (dateString) paramsNextSelected[moment(dateString).format('YYYY-MM-DD')] = true;
-      });
-    }
-    calendarState.setSelected(undefined, paramsNextSelected);
-  } else if (params !== false) {
-    calendarState.setSelected(date);
-  }
-});
-```
+### enableTouchTap
+当 `enableTouchTap = true` 时，`onClick`回调事件为 `onTouchTap`
+> 默认为 `false`
 
 
 
