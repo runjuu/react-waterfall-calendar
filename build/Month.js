@@ -68,7 +68,7 @@ var Month = function (_Component) {
       event.preventDefault();
       var onClick = this.props.onClick;
 
-      var date = event.target.getAttribute('href').slice(1);
+      var date = event.target.getAttribute('data-date');
 
       var nextSelected = Object.keys((0, _methods.filterSelected)(date, _.calendarState.selected, _.calendarState.selectType));
 
@@ -124,11 +124,11 @@ var Month = function (_Component) {
               var dataAttribute = _.calendarState.dataAttribute[date] || {};
               var isSelected = _.calendarState.selected[date];
               return _react2.default.createElement(
-                'a',
+                'p',
                 _extends({
                   key: date,
-                  href: '#' + date,
                   className: _jss2.default.date + ' ' + (classNames.date || ''),
+                  'data-date': date,
                   'data-first-selected': !_.calendarState.selected[preDate] && isSelected ? '' : undefined,
                   'data-last-selected': !_.calendarState.selected[nextDate] && isSelected ? '' : undefined,
                   'data-selected': isSelected ? '' : undefined,

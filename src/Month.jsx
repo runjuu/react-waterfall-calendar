@@ -20,7 +20,7 @@ class Month extends Component {
   handleClick(event) {
     event.preventDefault();
     const { onClick } = this.props;
-    const date = event.target.getAttribute('href').slice(1);
+    const date = event.target.getAttribute('data-date');
 
     const nextSelected = Object.keys(
       filterSelected(date, calendarState.selected, calendarState.selectType));
@@ -67,10 +67,10 @@ class Month extends Component {
               const isSelected = calendarState.selected[date];
               return (
 
-                <a
+                <p
                   key={date}
-                  href={`#${date}`}
                   className={`${classes.date} ${classNames.date || ''}`}
+                  data-date={date}
                   data-first-selected={(!calendarState.selected[preDate] && isSelected) ? '' : undefined}
                   data-last-selected={(!calendarState.selected[nextDate] && isSelected) ? '' : undefined}
                   data-selected={isSelected ? '' : undefined}
@@ -80,7 +80,7 @@ class Month extends Component {
                   {...dataAttribute}
                 >
                   <span>{moment(date).format(dateFormat)}</span>
-                </a>
+                </p>
 
               );
             })}
