@@ -7,6 +7,17 @@
 .date
   color: #000
   text-decoration: none
+  position: relative
+  &::before
+    content: ''
+    display: block
+    position: absolute
+    width: 100%
+    height: 100%
+    left: 0
+    top: 0
+    z-index: -1
+
   &[data-which-month='PAST'],
   &[data-which-month='FUTURE']
     opacity: 0
@@ -14,3 +25,5 @@
   &[data-selected]
     background: #1c1c1c
     color: #fff
+    &::before
+      background: #1c1c1c

@@ -15,8 +15,6 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _mobx = require('mobx');
-
 var _mobxReact = require('mobx-react');
 
 var _state = require('./state');
@@ -49,25 +47,10 @@ var Wrapper = (0, _mobxReact.observer)(_class = (_temp = _class2 = function (_Co
 
     var nextSelected = (0, _methods.filterArrayOfSelected)(props.defaultSelected);
     calendarState.init(_extends({}, props, { nextSelected: nextSelected }));
-
-    _this.state = {
-      updateMonth: {}
-    };
     return _this;
   }
 
   _createClass(Wrapper, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      var _this2 = this;
-
-      (0, _mobx.autorunAsync)(function () {
-        _this2.setState({
-          updateMonth: calendarState.updateMonth
-        });
-      });
-    }
-  }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps() {
       calendarState.init(this.props);
@@ -75,7 +58,7 @@ var Wrapper = (0, _mobxReact.observer)(_class = (_temp = _class2 = function (_Co
   }, {
     key: 'render',
     value: function render() {
-      return _react2.default.createElement(_Calendar2.default, _extends({}, this.props, { updateMonth: this.state.updateMonth }));
+      return _react2.default.createElement(_Calendar2.default, _extends({}, this.props, { updateMonth: calendarState.updateMonth }));
     }
   }]);
 
