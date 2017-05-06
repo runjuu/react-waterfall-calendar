@@ -19,22 +19,22 @@ class Wrapper extends Component {
 
   constructor(props) {
     super(props);
-    this.init = this.init.bind(this);
-    this.init();
-  }
-
-  componentWillReceiveProps() {
-    this.init();
-  }
-
-  init() {
     const nextSelected = filterArrayOfSelected(this.props.defaultSelected);
+    calendarState.init({ ...this.props, nextSelected });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const nextSelected = filterArrayOfSelected(nextProps.defaultSelected);
     calendarState.init({ ...this.props, nextSelected });
   }
 
   render() {
     return (
-      <Calendar {...this.props} updateMonth={calendarState.updateMonth} />
+      <Calendar
+        {...this.props}
+        updateMonth={calendarState.updateMonth}
+        defaultSelected={this.props.defaultSelected}
+      />
     );
   }
 }
