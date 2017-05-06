@@ -19,12 +19,17 @@ class Wrapper extends Component {
 
   constructor(props) {
     super(props);
-    const nextSelected = filterArrayOfSelected(props.defaultSelected);
-    calendarState.init({ ...props, nextSelected });
+    this.init = this.init.bind(this);
+    this.init();
   }
 
   componentWillReceiveProps() {
-    calendarState.init(this.props);
+    this.init();
+  }
+
+  init() {
+    const nextSelected = filterArrayOfSelected(this.props.defaultSelected);
+    calendarState.init({ ...this.props, nextSelected });
   }
 
   render() {

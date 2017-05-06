@@ -45,15 +45,21 @@ var Wrapper = (0, _mobxReact.observer)(_class = (_temp = _class2 = function (_Co
 
     var _this = _possibleConstructorReturn(this, (Wrapper.__proto__ || Object.getPrototypeOf(Wrapper)).call(this, props));
 
-    var nextSelected = (0, _methods.filterArrayOfSelected)(props.defaultSelected);
-    calendarState.init(_extends({}, props, { nextSelected: nextSelected }));
+    _this.init = _this.init.bind(_this);
+    _this.init();
     return _this;
   }
 
   _createClass(Wrapper, [{
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps() {
-      calendarState.init(this.props);
+      this.init();
+    }
+  }, {
+    key: 'init',
+    value: function init() {
+      var nextSelected = (0, _methods.filterArrayOfSelected)(this.props.defaultSelected);
+      calendarState.init(_extends({}, this.props, { nextSelected: nextSelected }));
     }
   }, {
     key: 'render',
