@@ -11,11 +11,11 @@ class Wrapper extends Component {
 
   static propTypes = {
     defaultSelected: PropTypes.arrayOf(PropTypes.string),
-  }
+  };
 
   static defaultProps = {
     defaultSelected: [],
-  }
+  };
 
   constructor(props) {
     super(props);

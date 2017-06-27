@@ -3,11 +3,11 @@ import moment from 'moment';
 import { calculateMonthInterval, filterSelected, filterDataAttribute, whichMonthShouldUpdate } from './methods';
 
 class State {
-  @observable calendar = []
-  @observable selected = {}
-  @observable dataAttribute = {}
-  @observable updateMonth = {}
-  @observable selectType = 'SINGLE'
+  @observable calendar = [];
+  @observable selected = {};
+  @observable dataAttribute = {};
+  @observable updateMonth = {};
+  @observable selectType = 'SINGLE';
 
   @action
   init({ interval, selectType, dataAttribute, nextSelected }) {
