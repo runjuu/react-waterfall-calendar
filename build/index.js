@@ -15,6 +15,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _mobxReact = require('mobx-react');
 
 var _state = require('./state');
@@ -68,7 +72,7 @@ var Wrapper = (0, _mobxReact.observer)(_class = (_temp = _class2 = function (_Co
 
   return Wrapper;
 }(_react.Component), _class2.propTypes = {
-  defaultSelected: _react.PropTypes.arrayOf(_react.PropTypes.string)
+  defaultSelected: _propTypes2.default.arrayOf(_propTypes2.default.string)
 }, _class2.defaultProps = {
   defaultSelected: []
 }, _temp)) || _class;

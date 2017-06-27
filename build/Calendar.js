@@ -8,6 +8,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _mobxReact = require('mobx-react');
 
 var _moment = require('moment');
@@ -49,12 +53,12 @@ var Calendar = function Calendar(_ref) {
 };
 
 Calendar.propTypes = {
-  classNames: _react.PropTypes.objectOf(_react.PropTypes.string),
-  onClick: _react.PropTypes.func,
-  dateFormat: _react.PropTypes.string,
-  monthFormat: _react.PropTypes.string,
-  enableTouchTap: _react2.default.PropTypes.bool,
-  updateMonth: _react2.default.PropTypes.objectOf(_react2.default.PropTypes.bool).isRequired
+  classNames: _propTypes2.default.objectOf(_propTypes2.default.string),
+  onClick: _propTypes2.default.func,
+  dateFormat: _propTypes2.default.string,
+  monthFormat: _propTypes2.default.string,
+  enableTouchTap: _propTypes2.default.bool,
+  updateMonth: _propTypes2.default.objectOf(_propTypes2.default.bool).isRequired
 };
 
 Calendar.defaultProps = {

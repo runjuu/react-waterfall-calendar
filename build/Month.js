@@ -16,6 +16,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _mobx = require('mobx');
 
 var _mobxReact = require('mobx-react');
@@ -152,15 +156,15 @@ var Month = function (_Component) {
 }(_react.Component);
 
 Month.propTypes = {
-  onClick: _react2.default.PropTypes.func,
+  onClick: _propTypes2.default.func,
   month: _mobxReact.PropTypes.observableArrayOf(_mobxReact.PropTypes.objectOrObservableObject.isRequired),
-  classNames: _react2.default.PropTypes.objectOf(_react2.default.PropTypes.string),
-  dateFormat: _react2.default.PropTypes.string.isRequired,
-  monthFormat: _react2.default.PropTypes.string.isRequired,
-  enableTouchTap: _react2.default.PropTypes.bool.isRequired,
-  updateMonth: _react2.default.PropTypes.objectOf(_react2.default.PropTypes.bool).isRequired,
-  currentMonth: _react2.default.PropTypes.shape({
-    format: _react2.default.PropTypes.func.isRequired
+  classNames: _propTypes2.default.objectOf(_propTypes2.default.string),
+  dateFormat: _propTypes2.default.string.isRequired,
+  monthFormat: _propTypes2.default.string.isRequired,
+  enableTouchTap: _propTypes2.default.bool.isRequired,
+  updateMonth: _propTypes2.default.objectOf(_propTypes2.default.bool).isRequired,
+  currentMonth: _propTypes2.default.shape({
+    format: _propTypes2.default.func.isRequired
   }).isRequired
 };
 

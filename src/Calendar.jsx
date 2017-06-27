@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import moment from 'moment';
 import Month from './Month';
@@ -29,8 +30,8 @@ Calendar.propTypes = {
   onClick: PropTypes.func,
   dateFormat: PropTypes.string,
   monthFormat: PropTypes.string,
-  enableTouchTap: React.PropTypes.bool,
-  updateMonth: React.PropTypes.objectOf(React.PropTypes.bool).isRequired,
+  enableTouchTap: PropTypes.bool,
+  updateMonth: PropTypes.objectOf(PropTypes.bool).isRequired,
 };
 
 Calendar.defaultProps = {

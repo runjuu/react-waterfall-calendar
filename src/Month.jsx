@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactPropTypes from 'prop-types';
 import { toJS } from 'mobx';
 import { PropTypes } from 'mobx-react';
 import moment from 'moment';
@@ -93,17 +94,17 @@ class Month extends Component {
 }
 
 Month.propTypes = {
-  onClick: React.PropTypes.func,
+  onClick: ReactPropTypes.func,
   month: PropTypes.observableArrayOf(
     PropTypes.objectOrObservableObject.isRequired,
   ),
-  classNames: React.PropTypes.objectOf(React.PropTypes.string),
-  dateFormat: React.PropTypes.string.isRequired,
-  monthFormat: React.PropTypes.string.isRequired,
-  enableTouchTap: React.PropTypes.bool.isRequired,
-  updateMonth: React.PropTypes.objectOf(React.PropTypes.bool).isRequired,
-  currentMonth: React.PropTypes.shape({
-    format: React.PropTypes.func.isRequired,
+  classNames: ReactPropTypes.objectOf(ReactPropTypes.string),
+  dateFormat: ReactPropTypes.string.isRequired,
+  monthFormat: ReactPropTypes.string.isRequired,
+  enableTouchTap: ReactPropTypes.bool.isRequired,
+  updateMonth: ReactPropTypes.objectOf(ReactPropTypes.bool).isRequired,
+  currentMonth: ReactPropTypes.shape({
+    format: ReactPropTypes.func.isRequired,
   }).isRequired,
 };
 
