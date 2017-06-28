@@ -1,6 +1,6 @@
 import { observable, action } from 'mobx';
 import moment from 'moment';
-import { calculateMonthInterval, filterSelected, filterDataAttribute, whichMonthShouldUpdate } from './methods';
+import { calculateMonthInterval, filterSelected, filterDataAttribute, whichMonthShouldUpdate } from './methods/';
 
 class State {
   @observable calendar = [];

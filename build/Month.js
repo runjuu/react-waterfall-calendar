@@ -32,7 +32,7 @@ var _jss = require('./jss');
 
 var _jss2 = _interopRequireDefault(_jss);
 
-var _methods = require('./methods');
+var _methods = require('./methods/');
 
 var _ = require('./');
 

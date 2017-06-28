@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import State from './state';
 import Calendar from './Calendar';
-import { filterArrayOfSelected } from './methods';
+import { filterArrayOfSelected } from './methods/';
 
 export const calendarState = new State();
 

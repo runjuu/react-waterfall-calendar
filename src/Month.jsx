@@ -4,7 +4,7 @@ import { toJS } from 'mobx';
 import { PropTypes } from 'mobx-react';
 import moment from 'moment';
 import classes from './jss';
-import { which, filterSelected, filterArrayOfSelected } from './methods';
+import { which, filterSelected, filterArrayOfSelected } from './methods/';
 import { calendarState } from './';
 
 class Month extends Component {

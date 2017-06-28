@@ -29,7 +29,7 @@ var _Calendar = require('./Calendar');
 
 var _Calendar2 = _interopRequireDefault(_Calendar);
 
-var _methods = require('./methods');
+var _methods = require('./methods/');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
