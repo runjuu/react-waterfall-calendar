@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import State from './state';
-import Calendar from './Calendar';
+import { Calendar } from './Component/';
 import { filterArrayOfSelected } from './methods/';
 
 export const calendarState = new State();

@@ -25,9 +25,7 @@ var _state = require('./state');
 
 var _state2 = _interopRequireDefault(_state);
 
-var _Calendar = require('./Calendar');
-
-var _Calendar2 = _interopRequireDefault(_Calendar);
+var _Component2 = require('./Component/');
 
 var _methods = require('./methods/');
 
@@ -63,7 +61,7 @@ var Wrapper = (0, _mobxReact.observer)(_class = (_temp = _class2 = function (_Co
   }, {
     key: 'render',
     value: function render() {
-      return _react2.default.createElement(_Calendar2.default, _extends({}, this.props, {
+      return _react2.default.createElement(_Component2.Calendar, _extends({}, this.props, {
         updateMonth: calendarState.updateMonth,
         defaultSelected: this.props.defaultSelected
       }));

@@ -3,9 +3,9 @@ import ReactPropTypes from 'prop-types';
 import { toJS } from 'mobx';
 import { PropTypes } from 'mobx-react';
 import moment from 'moment';
-import classes from './jss';
-import { which, filterSelected, filterArrayOfSelected } from './methods/';
-import { calendarState } from './';
+import classes from '../../jss';
+import { which, filterSelected, filterArrayOfSelected } from '../../methods/';
+import { calendarState } from '../../';
 
 class Month extends Component {
 
@@ -28,16 +28,16 @@ class Month extends Component {
 
     if (typeof onClick === 'function') {
       Promise.all([onClick({ state: toJS(calendarState), event, date, nextSelected })])
-      .then(([params]) => {
-        if (typeof params !== 'object') {
-          if (params !== false) calendarState.setSelected(date);
-          return;
-        }
+        .then(([params]) => {
+          if (typeof params !== 'object') {
+            if (params !== false) calendarState.setSelected(date);
+            return;
+          }
 
-        if (params.nextSelected) {
-          calendarState.setSelected(undefined, filterArrayOfSelected(params.nextSelected));
-        }
-      });
+          if (params.nextSelected) {
+            calendarState.setSelected(undefined, filterArrayOfSelected(params.nextSelected));
+          }
+        });
     } else {
       calendarState.setSelected(date);
     }
