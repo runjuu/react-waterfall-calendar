@@ -3,7 +3,7 @@ import ReactPropTypes from 'prop-types';
 import { toJS } from 'mobx';
 import { PropTypes } from 'mobx-react';
 import moment from 'moment';
-import classes from '../../jss';
+import style from '../style';
 import { which, filterSelected, filterArrayOfSelected } from '../../methods/';
 import { calendarState } from '../../';
 
@@ -52,13 +52,13 @@ class Month extends Component {
     } = this.props;
     const onClick = { [enableTouchTap ? 'onTouchTap' : 'onClick']: this.handleClick };
     return (
-      <div className={`${classes.calendar} ${classNames.calendar || ''}`}>
-        <h2 className={`${classes.month} ${classNames.month || ''}`}>{currentMonth.format(monthFormat)}</h2>
+      <div className={`${style.calendar} ${classNames.calendar || ''}`}>
+        <h2 className={`${style.month} ${classNames.month || ''}`}>{currentMonth.format(monthFormat)}</h2>
         {month.map(horizontal => (
 
           <div
             key={horizontal[0]}
-            className={`${classes.horizontal} ${classNames.horizontal || ''}`}
+            className={`${style.horizontal} ${classNames.horizontal || ''}`}
           >
             {horizontal.map((date) => {
               const currentDate = moment(date);
@@ -70,7 +70,7 @@ class Month extends Component {
 
                 <p
                   key={date}
-                  className={`${classes.date} ${classNames.date || ''}`}
+                  className={`${style.date} ${classNames.date || ''}`}
                   data-date={date}
                   data-first-selected={(!calendarState.selected[preDate] && isSelected) ? '' : undefined}
                   data-last-selected={(!calendarState.selected[nextDate] && isSelected) ? '' : undefined}
