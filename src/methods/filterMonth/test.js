@@ -23,10 +23,9 @@ export default () => (
       const january = filterMonth('2017');
       const february = filterMonth('2017-02');
       const march = filterMonth('2017-03-01');
-
-      expect(moment(january[6]).format('YYYY-MM')).to.be.equal('2017-01');
-      expect(moment(february[6]).format('YYYY-MM')).to.be.equal('2017-02');
-      expect(moment(march[6]).format('YYYY-MM')).to.be.equal('2017-03');
+      expect(january[27]).to.be.equal('2017-01-28');
+      expect(february[8]).to.be.equal('2017-02-06');
+      expect(march[6]).to.be.equal('2017-03-04');
     });
   })
 );

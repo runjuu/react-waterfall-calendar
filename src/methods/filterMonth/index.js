@@ -5,11 +5,10 @@ import { calendarLength } from '../';
 
 const filterMonth = (passInMonth) => {
   // TODO 根据传入的 firstWeekDay 渲染日历
-  let month = moment.isMoment(passInMonth) ? passInMonth : moment(passInMonth);
   const days = [];
+  const month = (date => (date.isValid() ? date : moment()))(
+    moment.isMoment(passInMonth) ? passInMonth : moment(new Date(passInMonth)));
   const firstDateOfMonth = moment(month).date(1);
-
-  if (!month.isValid()) month = moment();
 
   for (let day = month.daysInMonth(); day; day -= 1) {
     days.unshift(formatDate(moment(month).date(day)));
