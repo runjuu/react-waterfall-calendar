@@ -5,10 +5,12 @@ const filterDataAttribute = (dataAttribute = {}) => {
 
   Object.keys(dataAttribute).forEach((dateString) => {
     if (!dateString) return;
-    const date = moment(dateString).format('YYYY-MM-DD');
-    result[date] = result[date] || {};
-    Object.keys(dataAttribute[date]).forEach((attribute) => {
-      result[date][`data-${attribute}`] = dataAttribute[date][attribute];
+    let key = moment(new Date(dateString)).format('YYYY-MM-DD');
+
+    if (key === 'Invalid date') key = dateString;
+    result[key] = result[key] || {};
+    Object.keys(dataAttribute[dateString]).forEach((attribute) => {
+      result[key][`data-${attribute}`] = dataAttribute[dateString][attribute];
     });
   });
 
