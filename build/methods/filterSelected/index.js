@@ -22,8 +22,12 @@ var filterSelected = function filterSelected(dateString) {
 
   var date = (0, _moment2.default)(dateString);
 
+  if (!date.isValid() || date.format('YYYY-MM-DD') !== dateString) return selected;
+
   if (selectType === 'INTERVAL') {
-    var selectedDates = Object.keys(selected);
+    var selectedDates = Object.keys(selected).filter(function (key) {
+      return selected[key];
+    });
     if (selectedDates.length <= 1) {
       var result = {};
       var minDate = date;
@@ -42,9 +46,9 @@ var filterSelected = function filterSelected(dateString) {
     }
     return _defineProperty({}, dateString, true);
   } else if (selectType === 'MULTIPLE') {
-    return Object.assign({}, selected, _defineProperty({}, dateString, true));
+    return Object.assign({}, selected, _defineProperty({}, dateString, !selected[dateString]));
   } else if (selectType === 'SINGLE') {
-    return _defineProperty({}, dateString, true);
+    return _defineProperty({}, dateString, !selected[dateString]);
   }
 
   return selected;

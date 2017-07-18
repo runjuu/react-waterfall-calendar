@@ -4,8 +4,10 @@ import calculateDateInterval from '../calculateDateInterval/';
 const filterSelected = (dateString, selected = {}, selectType) => {
   const date = moment(dateString);
 
+  if (!date.isValid() || date.format('YYYY-MM-DD') !== dateString) return selected;
+
   if (selectType === 'INTERVAL') {
-    const selectedDates = Object.keys(selected);
+    const selectedDates = Object.keys(selected).filter(key => selected[key]);
     if (selectedDates.length <= 1) {
       const result = {};
       let minDate = date;
@@ -24,9 +26,9 @@ const filterSelected = (dateString, selected = {}, selectType) => {
     }
     return { [dateString]: true };
   } else if (selectType === 'MULTIPLE') {
-    return Object.assign({}, selected, { [dateString]: true });
+    return Object.assign({}, selected, { [dateString]: !selected[dateString] });
   } else if (selectType === 'SINGLE') {
-    return { [dateString]: true };
+    return { [dateString]: !selected[dateString] };
   }
 
   return selected;

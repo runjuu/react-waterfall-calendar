@@ -28,9 +28,9 @@ var _moment = require('moment');
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _jss = require('../../jss');
+var _style = require('../style');
 
-var _jss2 = _interopRequireDefault(_jss);
+var _style2 = _interopRequireDefault(_style);
 
 var _methods = require('../../methods/');
 
@@ -108,10 +108,10 @@ var Month = function (_Component) {
       var onClick = _defineProperty({}, enableTouchTap ? 'onTouchTap' : 'onClick', this.handleClick);
       return _react2.default.createElement(
         'div',
-        { className: _jss2.default.calendar + ' ' + (classNames.calendar || '') },
+        { className: _style2.default.calendar + ' ' + (classNames.calendar || '') },
         _react2.default.createElement(
           'h2',
-          { className: _jss2.default.month + ' ' + (classNames.month || '') },
+          { className: _style2.default.month + ' ' + (classNames.month || '') },
           currentMonth.format(monthFormat)
         ),
         month.map(function (horizontal) {
@@ -119,7 +119,7 @@ var Month = function (_Component) {
             'div',
             {
               key: horizontal[0],
-              className: _jss2.default.horizontal + ' ' + (classNames.horizontal || '')
+              className: _style2.default.horizontal + ' ' + (classNames.horizontal || '')
             },
             horizontal.map(function (date) {
               var currentDate = (0, _moment2.default)(date);
@@ -131,7 +131,7 @@ var Month = function (_Component) {
                 'p',
                 _extends({
                   key: date,
-                  className: _jss2.default.date + ' ' + (classNames.date || ''),
+                  className: _style2.default.date + ' ' + (classNames.date || ''),
                   'data-date': date,
                   'data-first-selected': !_.calendarState.selected[preDate] && isSelected ? '' : undefined,
                   'data-last-selected': !_.calendarState.selected[nextDate] && isSelected ? '' : undefined,
