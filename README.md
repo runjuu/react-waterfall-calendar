@@ -1,6 +1,7 @@
 # react-waterfall-calendar
-流式布局日历模块
+[![Build Status](https://travis-ci.org/Runjuu/react-waterfall-calendar.svg?branch=master)](https://travis-ci.org/Runjuu/react-waterfall-calendar)
 
+流式布局日历模块
 ## Props
 ```javascript
     <Calendar
