@@ -1,5 +1,6 @@
 # react-waterfall-calendar
-[![Build Status](https://travis-ci.org/Runjuu/react-waterfall-calendar.svg?branch=master)](https://travis-ci.org/Runjuu/react-waterfall-calendar)
+[![Build Status](https://travis-ci.org/Runjuu/react-waterfall-calendar.svg?branch=test)](https://travis-ci.org/Runjuu/react-waterfall-calendar)
+[![Coverage Status](https://coveralls.io/repos/github/Runjuu/react-waterfall-calendar/badge.svg?branch=test)](https://coveralls.io/github/Runjuu/react-waterfall-calendar?branch=test)
 
 流式布局日历模块
 ## Props
