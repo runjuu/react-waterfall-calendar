@@ -3,9 +3,13 @@ import formatDate from '../formatDate/';
 import fillUpEmptyDate from '../fillUpEmptyDate/';
 import { calendarLength } from '../';
 
-const filterMonth = (month = moment(), firstWeekDay = 0) => {
+const filterMonth = (passInMonth) => {
+  // TODO 根据传入的 firstWeekDay 渲染日历
+  let month = moment.isMoment(passInMonth) ? passInMonth : moment(passInMonth);
   const days = [];
   const firstDateOfMonth = moment(month).date(1);
+
+  if (!month.isValid()) month = moment();
 
   for (let day = month.daysInMonth(); day; day -= 1) {
     days.unshift(formatDate(moment(month).date(day)));
