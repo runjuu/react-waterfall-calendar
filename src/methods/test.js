@@ -4,6 +4,7 @@ import filterSelected from './filterSelected/test';
 import filterMonth from './filterMonth/test';
 import filterDataAttribute from './filterDataAttribute/test';
 import filterArrayOfSelected from './filterArrayOfSelected/test';
+import fillUpEmptyDate from './fillUpEmptyDate/test';
 
 describe('methods', () => {
   slice();
@@ -12,4 +13,5 @@ describe('methods', () => {
   filterMonth();
   filterDataAttribute();
   filterArrayOfSelected();
+  fillUpEmptyDate();
 });

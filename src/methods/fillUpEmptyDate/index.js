@@ -1,8 +1,9 @@
 import moment from 'moment';
 import formatDate from '../formatDate/';
 
-const fillUpEmptyDate = ({ date, type, count = 0 }) => {
+const fillUpEmptyDate = ({ date: defaultDate, type = 'after', count = 0 }) => {
   const dateArr = [];
+  const date = moment.isMoment(defaultDate) ? defaultDate : moment(new Date(defaultDate));
   if (count < 0) return dateArr;
 
   switch (type) {
