@@ -8,6 +8,7 @@ import fillUpEmptyDate from './fillUpEmptyDate/test';
 import calculateMonthInterval from './calculateMonthInterval/test';
 import calculateDateInterval from './calculateDateInterval/test';
 import which from './which/test';
+import whichMonthShouldUpdate from './whichMonthShouldUpdate/test';
 
 describe('methods', () => {
   slice();
@@ -20,4 +21,5 @@ describe('methods', () => {
   calculateMonthInterval();
   calculateDateInterval();
   which();
+  whichMonthShouldUpdate();
 });
