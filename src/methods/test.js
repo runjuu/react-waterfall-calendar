@@ -7,6 +7,7 @@ import filterArrayOfSelected from './filterArrayOfSelected/test';
 import fillUpEmptyDate from './fillUpEmptyDate/test';
 import calculateMonthInterval from './calculateMonthInterval/test';
 import calculateDateInterval from './calculateDateInterval/test';
+import which from './which/test';
 
 describe('methods', () => {
   slice();
@@ -18,4 +19,5 @@ describe('methods', () => {
   fillUpEmptyDate();
   calculateMonthInterval();
   calculateDateInterval();
+  which();
 });
