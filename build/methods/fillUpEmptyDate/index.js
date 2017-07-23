@@ -15,12 +15,14 @@ var _formatDate2 = _interopRequireDefault(_formatDate);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var fillUpEmptyDate = function fillUpEmptyDate(_ref) {
-  var date = _ref.date,
-      type = _ref.type,
+  var defaultDate = _ref.date,
+      _ref$type = _ref.type,
+      type = _ref$type === undefined ? 'after' : _ref$type,
       _ref$count = _ref.count,
       count = _ref$count === undefined ? 0 : _ref$count;
 
   var dateArr = [];
+  var date = _moment2.default.isMoment(defaultDate) ? defaultDate : (0, _moment2.default)(new Date(defaultDate));
   if (count < 0) return dateArr;
 
   switch (type) {

@@ -18,11 +18,11 @@ var _filterMonth2 = _interopRequireDefault(_filterMonth);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var calculateMonthInterval = function calculateMonthInterval(from, to, firstWeekDay) {
+var calculateMonthInterval = function calculateMonthInterval(from, to) {
   var interval = [];
 
-  for (var month = (0, _moment2.default)(from); to.diff(month, 'month') >= 0; month.add(1, 'month')) {
-    interval.push((0, _slice2.default)((0, _filterMonth2.default)(month, firstWeekDay), 7));
+  for (var month = (0, _moment2.default)(from); (0, _moment2.default)(to).diff(month, 'month') >= 0; month.add(1, 'month')) {
+    interval.push((0, _slice2.default)((0, _filterMonth2.default)(month), 7));
   }
 
   return interval;

@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import ReactPropTypes from 'prop-types';
-import { toJS } from 'mobx';
-import { PropTypes } from 'mobx-react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import style from '../style';
 import { which, filterSelected, filterArrayOfSelected } from '../../methods/';
-import { calendarState } from '../../';
+import { state as calendarState } from '../../state';
 
 class Month extends Component {
 
@@ -14,8 +12,8 @@ class Month extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  shouldComponentUpdate({ updateMonth, currentMonth }) {
-    return !!updateMonth[currentMonth.format('YYYY-MM')];
+  shouldComponentUpdate({ currentMonth }) {
+    return !!calendarState.updateMonth[currentMonth.format('YYYY-MM')];
   }
 
   handleClick(event) {
@@ -27,7 +25,7 @@ class Month extends Component {
       filterSelected(date, calendarState.selected, calendarState.selectType));
 
     if (typeof onClick === 'function') {
-      Promise.all([onClick({ state: toJS(calendarState), event, date, nextSelected })])
+      Promise.all([onClick({ state: calendarState, event, date, nextSelected })])
         .then(([params]) => {
           if (typeof params !== 'object') {
             if (params !== false) calendarState.setSelected(date);
@@ -45,7 +43,8 @@ class Month extends Component {
 
   render() {
     const {
-      month, currentMonth,
+      month,
+      currentMonth,
       classNames,
       monthFormat, dateFormat,
       enableTouchTap,
@@ -94,17 +93,14 @@ class Month extends Component {
 }
 
 Month.propTypes = {
-  onClick: ReactPropTypes.func,
-  month: PropTypes.observableArrayOf(
-    PropTypes.objectOrObservableObject.isRequired,
-  ),
-  classNames: ReactPropTypes.objectOf(ReactPropTypes.string),
-  dateFormat: ReactPropTypes.string.isRequired,
-  monthFormat: ReactPropTypes.string.isRequired,
-  enableTouchTap: ReactPropTypes.bool.isRequired,
-  updateMonth: ReactPropTypes.objectOf(ReactPropTypes.bool).isRequired,
-  currentMonth: ReactPropTypes.shape({
-    format: ReactPropTypes.func.isRequired,
+  onClick: PropTypes.func,
+  month: PropTypes.arrayOf(PropTypes.array),
+  classNames: PropTypes.objectOf(PropTypes.string),
+  dateFormat: PropTypes.string.isRequired,
+  monthFormat: PropTypes.string.isRequired,
+  enableTouchTap: PropTypes.bool.isRequired,
+  currentMonth: PropTypes.shape({
+    format: PropTypes.func.isRequired,
   }).isRequired,
 };
 

@@ -4,6 +4,7 @@
   "description": "",
   "main": "app.jsx",
   "scripts": {
+    "build": "webpack",
     "demo": "webpack-dev-server"
   },
   "keywords": [],

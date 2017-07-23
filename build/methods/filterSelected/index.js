@@ -20,6 +20,8 @@ var filterSelected = function filterSelected(dateString) {
   var selected = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   var selectType = arguments[2];
 
+  if (!/\d{4}-\d{2}-\d{2}/.test(dateString)) return selected;
+
   var date = (0, _moment2.default)(dateString);
 
   if (!date.isValid() || date.format('YYYY-MM-DD') !== dateString) return selected;

@@ -22,11 +22,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-var filterMonth = function filterMonth() {
-  var month = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : (0, _moment2.default)();
-  var firstWeekDay = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-
+var filterMonth = function filterMonth(passInMonth) {
+  // TODO 根据传入的 firstWeekDay 渲染日历
   var days = [];
+  var month = function (date) {
+    return date.isValid() ? date : (0, _moment2.default)();
+  }(_moment2.default.isMoment(passInMonth) ? passInMonth : (0, _moment2.default)(new Date(passInMonth)));
   var firstDateOfMonth = (0, _moment2.default)(month).date(1);
 
   for (var day = month.daysInMonth(); day; day -= 1) {

@@ -17,10 +17,12 @@ var filterDataAttribute = function filterDataAttribute() {
 
   Object.keys(dataAttribute).forEach(function (dateString) {
     if (!dateString) return;
-    var date = (0, _moment2.default)(dateString).format('YYYY-MM-DD');
-    result[date] = result[date] || {};
-    Object.keys(dataAttribute[date]).forEach(function (attribute) {
-      result[date]['data-' + attribute] = dataAttribute[date][attribute];
+    var key = (0, _moment2.default)(new Date(dateString)).format('YYYY-MM-DD');
+
+    if (key === 'Invalid date') key = dateString;
+    result[key] = result[key] || {};
+    Object.keys(dataAttribute[dateString]).forEach(function (attribute) {
+      result[key]['data-' + attribute] = dataAttribute[dateString][attribute];
     });
   });
 

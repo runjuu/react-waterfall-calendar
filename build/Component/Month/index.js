@@ -20,10 +20,6 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _mobx = require('mobx');
-
-var _mobxReact = require('mobx-react');
-
 var _moment = require('moment');
 
 var _moment2 = _interopRequireDefault(_moment);
@@ -34,7 +30,7 @@ var _style2 = _interopRequireDefault(_style);
 
 var _methods = require('../../methods/');
 
-var _ = require('../../');
+var _state = require('../../state');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -61,10 +57,9 @@ var Month = function (_Component) {
   _createClass(Month, [{
     key: 'shouldComponentUpdate',
     value: function shouldComponentUpdate(_ref) {
-      var updateMonth = _ref.updateMonth,
-          currentMonth = _ref.currentMonth;
+      var currentMonth = _ref.currentMonth;
 
-      return !!updateMonth[currentMonth.format('YYYY-MM')];
+      return !!_state.state.updateMonth[currentMonth.format('YYYY-MM')];
     }
   }, {
     key: 'handleClick',
@@ -74,24 +69,24 @@ var Month = function (_Component) {
 
       var date = event.target.getAttribute('data-date');
 
-      var nextSelected = Object.keys((0, _methods.filterSelected)(date, _.calendarState.selected, _.calendarState.selectType));
+      var nextSelected = Object.keys((0, _methods.filterSelected)(date, _state.state.selected, _state.state.selectType));
 
       if (typeof onClick === 'function') {
-        Promise.all([onClick({ state: (0, _mobx.toJS)(_.calendarState), event: event, date: date, nextSelected: nextSelected })]).then(function (_ref2) {
+        Promise.all([onClick({ state: _state.state, event: event, date: date, nextSelected: nextSelected })]).then(function (_ref2) {
           var _ref3 = _slicedToArray(_ref2, 1),
               params = _ref3[0];
 
           if ((typeof params === 'undefined' ? 'undefined' : _typeof(params)) !== 'object') {
-            if (params !== false) _.calendarState.setSelected(date);
+            if (params !== false) _state.state.setSelected(date);
             return;
           }
 
           if (params.nextSelected) {
-            _.calendarState.setSelected(undefined, (0, _methods.filterArrayOfSelected)(params.nextSelected));
+            _state.state.setSelected(undefined, (0, _methods.filterArrayOfSelected)(params.nextSelected));
           }
         });
       } else {
-        _.calendarState.setSelected(date);
+        _state.state.setSelected(date);
       }
     }
   }, {
@@ -125,16 +120,16 @@ var Month = function (_Component) {
               var currentDate = (0, _moment2.default)(date);
               var preDate = (0, _moment2.default)(date).subtract(1, 'days').format('YYYY-MM-DD');
               var nextDate = (0, _moment2.default)(date).add(1, 'days').format('YYYY-MM-DD');
-              var dataAttribute = _.calendarState.dataAttribute[date] || {};
-              var isSelected = _.calendarState.selected[date];
+              var dataAttribute = _state.state.dataAttribute[date] || {};
+              var isSelected = _state.state.selected[date];
               return _react2.default.createElement(
                 'p',
                 _extends({
                   key: date,
                   className: _style2.default.date + ' ' + (classNames.date || ''),
                   'data-date': date,
-                  'data-first-selected': !_.calendarState.selected[preDate] && isSelected ? '' : undefined,
-                  'data-last-selected': !_.calendarState.selected[nextDate] && isSelected ? '' : undefined,
+                  'data-first-selected': !_state.state.selected[preDate] && isSelected ? '' : undefined,
+                  'data-last-selected': !_state.state.selected[nextDate] && isSelected ? '' : undefined,
                   'data-selected': isSelected ? '' : undefined,
                   'data-which-month': (0, _methods.which)((0, _moment2.default)(currentDate).date(1).diff(currentMonth, 'month')),
                   'data-which-day': (0, _methods.which)(currentDate.diff((0, _moment2.default)().format('YYYY-MM-DD'), 'day'))
@@ -157,12 +152,11 @@ var Month = function (_Component) {
 
 Month.propTypes = {
   onClick: _propTypes2.default.func,
-  month: _mobxReact.PropTypes.observableArrayOf(_mobxReact.PropTypes.objectOrObservableObject.isRequired),
+  month: _propTypes2.default.arrayOf(_propTypes2.default.array),
   classNames: _propTypes2.default.objectOf(_propTypes2.default.string),
   dateFormat: _propTypes2.default.string.isRequired,
   monthFormat: _propTypes2.default.string.isRequired,
   enableTouchTap: _propTypes2.default.bool.isRequired,
-  updateMonth: _propTypes2.default.objectOf(_propTypes2.default.bool).isRequired,
   currentMonth: _propTypes2.default.shape({
     format: _propTypes2.default.func.isRequired
   }).isRequired
