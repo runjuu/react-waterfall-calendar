@@ -12,18 +12,20 @@ var _moment2 = _interopRequireDefault(_moment);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var whichMonthShouldUpdate = function whichMonthShouldUpdate() {
-  var selected = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+var initWhichMonthShouldUpdate = function initWhichMonthShouldUpdate() {
+  return function whichMonthShouldUpdate() {
+    var selected = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-  var updateMonth = {};
-  var result = _extends({}, whichMonthShouldUpdate.month || {});
+    var updateMonth = {};
+    var result = _extends({}, whichMonthShouldUpdate.month || {});
 
-  Object.keys(selected).forEach(function (date) {
-    updateMonth[(0, _moment2.default)(date).format('YYYY-MM')] = true;
-  });
+    Object.keys(selected).forEach(function (date) {
+      updateMonth[(0, _moment2.default)(date).format('YYYY-MM')] = true;
+    });
 
-  whichMonthShouldUpdate.month = updateMonth;
-  return Object.assign({}, result, updateMonth);
+    whichMonthShouldUpdate.month = updateMonth;
+    return Object.assign({}, result, updateMonth);
+  };
 };
 
-exports.default = whichMonthShouldUpdate;
+exports.default = initWhichMonthShouldUpdate;

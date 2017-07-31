@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -12,29 +12,31 @@ var _moment = require('moment');
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _calculateMonthInterval = require('../calculateMonthInterval/');
+var _calculateMonthInterval = require('../methods/calculateMonthInterval/');
 
 var _calculateMonthInterval2 = _interopRequireDefault(_calculateMonthInterval);
 
-var _filterSelected = require('../filterSelected/');
+var _filterSelected = require('../methods/filterSelected/');
 
 var _filterSelected2 = _interopRequireDefault(_filterSelected);
 
-var _filterDataAttribute = require('../filterDataAttribute/');
+var _filterDataAttribute = require('../methods/filterDataAttribute/');
 
 var _filterDataAttribute2 = _interopRequireDefault(_filterDataAttribute);
 
-var _whichMonthShouldUpdate = require('../whichMonthShouldUpdate/');
+var _whichMonthShouldUpdate = require('../methods/whichMonthShouldUpdate/');
 
 var _whichMonthShouldUpdate2 = _interopRequireDefault(_whichMonthShouldUpdate);
 
-var _filterArrayOfSelected = require('../filterArrayOfSelected/');
+var _filterArrayOfSelected = require('../methods/filterArrayOfSelected/');
 
 var _filterArrayOfSelected2 = _interopRequireDefault(_filterArrayOfSelected);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var whichMonthShouldUpdate = (0, _whichMonthShouldUpdate2.default)();
 
 var State = function () {
   function State() {
@@ -83,8 +85,15 @@ var State = function () {
   }, {
     key: 'setSelected',
     value: function setSelected(date, nextSelected, shouldNotUpdate) {
-      this.selected = nextSelected || (0, _filterSelected2.default)(date, this.selected, this.selectType);
-      this.updateMonth = (0, _whichMonthShouldUpdate2.default)(this.selected);
+      if (nextSelected && (typeof nextSelected === 'undefined' ? 'undefined' : _typeof(nextSelected)) === 'object') {
+        this.selected = nextSelected;
+      } else if (Array.isArray(nextSelected)) {
+        this.selected = (0, _filterArrayOfSelected2.default)(nextSelected);
+      } else {
+        this.selected = (0, _filterSelected2.default)(date, this.selected, this.selectType);
+      }
+
+      this.updateMonth = whichMonthShouldUpdate(this.selected);
       if (!shouldNotUpdate) this.reRender();
     }
   }, {
@@ -98,28 +107,35 @@ var State = function () {
   return State;
 }();
 
-function initialize() {
+function initialize(target) {
   var state = new State();
+  var needUpdates = [];
 
-  function autoUpdate() {
-    var descriptor = arguments.length <= 2 ? undefined : arguments[2];
-    var oldRender = descriptor.value;
-
-    descriptor.value = function render() {
-      if (!state.update) {
-        state.update = this.forceUpdate.bind(this);
-        state.init(_extends({}, this.props, {
-          nextSelected: (0, _filterArrayOfSelected2.default)(this.props.defaultSelected)
-        }));
-      }
-      return oldRender.call(this, state.calendar);
-    };
-    return descriptor;
+  function update() {
+    needUpdates.forEach(function (func) {
+      return typeof func === 'function' && func();
+    });
+  }
+  function autoRun(func) {
+    if (!needUpdates.includes(func)) needUpdates.push(func);
+  }
+  function removeFromAutoRun(removeFunc) {
+    needUpdates.splice(needUpdates.findIndex(function (func) {
+      return func === removeFunc;
+    }), 1);
   }
 
-  return {
+  if (typeof target === 'function') {
+    Object.defineProperty(target, 'state', { value: state });
+    Object.defineProperty(target, 'autoRun', { value: autoRun });
+    Object.defineProperty(target, 'removeFromAutoRun', { value: removeFromAutoRun });
+  }
+
+  state.update = update;
+  return typeof target === 'function' ? target : {
     state: state,
-    autoUpdate: autoUpdate
+    autoRun: autoRun,
+    removeFromAutoRun: removeFromAutoRun
   };
 }
 

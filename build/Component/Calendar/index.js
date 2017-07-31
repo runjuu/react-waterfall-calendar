@@ -4,9 +4,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _desc, _value, _class, _class2, _temp;
+var _class, _class2, _temp;
 
 var _react = require('react');
 
@@ -20,11 +22,13 @@ var _moment = require('moment');
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _state = require('../../state');
-
 var _Month = require('../Month');
 
 var _Month2 = _interopRequireDefault(_Month);
+
+var _State = require('../../State/');
+
+var _State2 = _interopRequireDefault(_State);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -34,67 +38,37 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
-  var desc = {};
-  Object['ke' + 'ys'](descriptor).forEach(function (key) {
-    desc[key] = descriptor[key];
-  });
-  desc.enumerable = !!desc.enumerable;
-  desc.configurable = !!desc.configurable;
-
-  if ('value' in desc || desc.initializer) {
-    desc.writable = true;
-  }
-
-  desc = decorators.slice().reverse().reduce(function (desc, decorator) {
-    return decorator(target, property, desc) || desc;
-  }, desc);
-
-  if (context && desc.initializer !== void 0) {
-    desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
-    desc.initializer = undefined;
-  }
-
-  if (desc.initializer === void 0) {
-    Object['define' + 'Property'](target, property, desc);
-    desc = null;
-  }
-
-  return desc;
-}
-
-var Calendar = (_class = (_temp = _class2 = function (_Component) {
+var Calendar = (0, _State2.default)(_class = (_temp = _class2 = function (_Component) {
   _inherits(Calendar, _Component);
 
-  function Calendar() {
+  function Calendar(props) {
     _classCallCheck(this, Calendar);
 
-    return _possibleConstructorReturn(this, (Calendar.__proto__ || Object.getPrototypeOf(Calendar)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (Calendar.__proto__ || Object.getPrototypeOf(Calendar)).call(this, props));
+
+    Calendar.state.init(_extends({}, _this.props, { nextSelected: _this.props.defaultSelected }));
+    Calendar.autoRun(_this.forceUpdate.bind(_this));
+    return _this;
   }
 
   _createClass(Calendar, [{
     key: 'render',
-    value: function render(calendar) {
-      var _props = this.props,
-          onClick = _props.onClick,
-          classNames = _props.classNames,
-          dateFormat = _props.dateFormat,
-          monthFormat = _props.monthFormat,
-          enableTouchTap = _props.enableTouchTap;
+    value: function render() {
+      var _this2 = this;
 
       return _react2.default.createElement(
         'div',
-        { className: classNames.calendars },
-        calendar.map(function (month) {
+        { className: this.props.classNames.calendars },
+        Calendar.state.calendar.map(function (month) {
           return _react2.default.createElement(_Month2.default, {
             key: month[0][0],
             month: month,
             currentMonth: (0, _moment2.default)(month[1][0]).date(1),
-            onClick: onClick,
-            classNames: classNames,
-            dateFormat: dateFormat,
-            monthFormat: monthFormat,
-            enableTouchTap: enableTouchTap
+            onClick: _this2.props.onClick,
+            classNames: _this2.props.classNames,
+            dateFormat: _this2.props.dateFormat,
+            monthFormat: _this2.props.monthFormat,
+            enableTouchTap: _this2.props.enableTouchTap
           });
         })
       );
@@ -107,12 +81,15 @@ var Calendar = (_class = (_temp = _class2 = function (_Component) {
   onClick: _propTypes2.default.func,
   dateFormat: _propTypes2.default.string,
   monthFormat: _propTypes2.default.string,
-  enableTouchTap: _propTypes2.default.bool
+  enableTouchTap: _propTypes2.default.bool,
+  defaultSelected: _propTypes2.default.arrayOf(_propTypes2.default.string)
 }, _class2.defaultProps = {
-  onClick: undefined,
+  onClick: null,
   enableTouchTap: false,
   classNames: {},
   dateFormat: 'D',
-  monthFormat: 'YYYY-MM'
-}, _temp), (_applyDecoratedDescriptor(_class.prototype, 'render', [_state.autoUpdate], Object.getOwnPropertyDescriptor(_class.prototype, 'render'), _class.prototype)), _class);
+  monthFormat: 'YYYY-MM',
+  defaultSelected: null
+}, _temp)) || _class;
+
 exports.default = Calendar;
