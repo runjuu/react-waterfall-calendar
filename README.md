@@ -1,6 +1,9 @@
 # react-waterfall-calendar
 [![Build Status](https://travis-ci.org/Runjuu/react-waterfall-calendar.svg?branch=master)](https://travis-ci.org/Runjuu/react-waterfall-calendar)
 [![Coverage Status](https://coveralls.io/repos/github/Runjuu/react-waterfall-calendar/badge.svg?branch=master)](https://coveralls.io/github/Runjuu/react-waterfall-calendar?branch=master)
+[![npm version](https://badge.fury.io/js/react-waterfall-calendar.svg)](https://badge.fury.io/js/react-waterfall-calendar)
+[![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
+
 
 流式布局日历模块
 ## Props
@@ -113,6 +116,3 @@
 ### enableTouchTap
 当 `enableTouchTap = true` 时，`onClick`回调事件为 `onTouchTap`
 > 默认为 `false`
-
-
-
