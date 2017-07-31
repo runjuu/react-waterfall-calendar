@@ -3,7 +3,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/Runjuu/react-waterfall-calendar/badge.svg?branch=master)](https://coveralls.io/github/Runjuu/react-waterfall-calendar?branch=master)
 [![npm version](https://badge.fury.io/js/react-waterfall-calendar.svg)](https://badge.fury.io/js/react-waterfall-calendar)
 [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
-
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md#pull-requests)
 
 流式布局日历模块
 ## Props
