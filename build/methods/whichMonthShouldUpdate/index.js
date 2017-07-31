@@ -20,7 +20,7 @@ var initWhichMonthShouldUpdate = function initWhichMonthShouldUpdate() {
     var result = _extends({}, whichMonthShouldUpdate.month || {});
 
     Object.keys(selected).forEach(function (date) {
-      updateMonth[(0, _moment2.default)(date).format('YYYY-MM')] = true;
+      updateMonth[(0, _moment2.default)(new Date(date)).format('YYYY-MM')] = true;
     });
 
     whichMonthShouldUpdate.month = updateMonth;

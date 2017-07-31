@@ -6,7 +6,7 @@ const initWhichMonthShouldUpdate = () => (
     const result = { ...(whichMonthShouldUpdate.month || {}) };
 
     Object.keys(selected).forEach((date) => {
-      updateMonth[moment(date).format('YYYY-MM')] = true;
+      updateMonth[moment(new Date(date)).format('YYYY-MM')] = true;
     });
 
     whichMonthShouldUpdate.month = updateMonth;
