@@ -156,7 +156,7 @@ describe('State', () => {
         expect(state.selected).to.deep.equal({ '2017-01-04': true });
       });
 
-      it('调用 setInterval、setSelected、setDataAttribute 会触发 reRender 方法, init 则不会', () => {
+      it('调用 setInterval、setSelected、setDataAttribute、init 会触发 reRender 方法, 最后一个参数传入 false 时则不会触发 reRender', () => {
         count = 0;
         autoRun(counter);
 
@@ -166,13 +166,22 @@ describe('State', () => {
           dataAttribute: { '2017-01-01': { event: 'new year' } },
           selectType: 'INTERVAL',
         });
-
         state.setSelected('2017-01-04');
         state.setInterval({ from: new Date(2017, 0), to: new Date(2018, 0), months: 3 });
         state.setDataAttribute({ '2017-01-01': { event: 'new year' } });
 
+        state.init({
+          interval: { from: new Date(2017, 0), to: new Date(2017, 1) },
+          nextSelected: { '2017-01-01': true },
+          dataAttribute: { '2017-01-01': { event: 'new year' } },
+          selectType: 'INTERVAL',
+        }, false);
+        state.setSelected('2017-01-04', null, false);
+        state.setInterval({ from: new Date(2017, 0), to: new Date(2018, 0), months: 3 }, false);
+        state.setDataAttribute({ '2017-01-01': { event: 'new year' } }, false);
+
         removeFromAutoRun(counter);
-        expect(count).to.be.equal(3);
+        expect(count).to.be.equal(4);
       });
     });
   });

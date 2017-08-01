@@ -36,7 +36,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var whichMonthShouldUpdate = (0, _whichMonthShouldUpdate2.default)();
+var whichMonthreRender = (0, _whichMonthShouldUpdate2.default)();
 
 var State = function () {
   function State() {
@@ -57,16 +57,18 @@ var State = function () {
     }
   }, {
     key: 'init',
-    value: function init(_ref) {
+    value: function init(_ref, reRender) {
       var interval = _ref.interval,
           selectType = _ref.selectType,
           dataAttribute = _ref.dataAttribute,
           nextSelected = _ref.nextSelected;
 
-      if (interval) this.setInterval(interval, true);
-      if (dataAttribute) this.setDataAttribute(dataAttribute, true);
-      if (nextSelected) this.setSelected(undefined, nextSelected, true);
+      if (interval) this.setInterval(interval, false);
+      if (dataAttribute) this.setDataAttribute(dataAttribute, false);
+      if (nextSelected) this.setSelected(undefined, nextSelected, false);
       this.selectType = selectType || this.selectType;
+
+      if (reRender !== false) this.reRender();
     }
   }, {
     key: 'setInterval',
@@ -77,30 +79,30 @@ var State = function () {
           months = _ref2.months,
           firstWeekDay = _ref2.firstWeekDay;
 
-      var shouldNotUpdate = arguments[1];
+      var reRender = arguments[1];
 
       this.calendar = (0, _calculateMonthInterval2.default)((0, _moment2.default)(from), months ? (0, _moment2.default)(from).date(1).add(months > 0 ? months - 1 : 0, 'months') : (0, _moment2.default)(to), firstWeekDay);
-      if (!shouldNotUpdate) this.reRender();
+      if (reRender !== false) this.reRender();
     }
   }, {
     key: 'setSelected',
-    value: function setSelected(date, nextSelected, shouldNotUpdate) {
-      if (nextSelected && (typeof nextSelected === 'undefined' ? 'undefined' : _typeof(nextSelected)) === 'object') {
-        this.selected = nextSelected;
-      } else if (Array.isArray(nextSelected)) {
+    value: function setSelected(date, nextSelected, reRender) {
+      if (Array.isArray(nextSelected)) {
         this.selected = (0, _filterArrayOfSelected2.default)(nextSelected);
+      } else if (nextSelected && (typeof nextSelected === 'undefined' ? 'undefined' : _typeof(nextSelected)) === 'object') {
+        this.selected = nextSelected;
       } else {
         this.selected = (0, _filterSelected2.default)(date, this.selected, this.selectType);
       }
 
-      this.updateMonth = whichMonthShouldUpdate(this.selected);
-      if (!shouldNotUpdate) this.reRender();
+      this.updateMonth = whichMonthreRender(this.selected);
+      if (reRender !== false) this.reRender();
     }
   }, {
     key: 'setDataAttribute',
-    value: function setDataAttribute(dataAttribute, shouldNotUpdate) {
+    value: function setDataAttribute(dataAttribute, reRender) {
       this.dataAttribute = (0, _filterDataAttribute2.default)(dataAttribute);
-      if (!shouldNotUpdate) this.reRender();
+      if (reRender !== false) this.reRender();
     }
   }]);
 

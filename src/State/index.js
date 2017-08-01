@@ -2,10 +2,10 @@ import moment from 'moment';
 import calculateMonthInterval from '../methods/calculateMonthInterval/';
 import filterSelected from '../methods/filterSelected/';
 import filterDataAttribute from '../methods/filterDataAttribute/';
-import initWhichMonthShouldUpdate from '../methods/whichMonthShouldUpdate/';
+import whichMonthShouldUpdate from '../methods/whichMonthShouldUpdate/';
 import filterArrayOfSelected from '../methods/filterArrayOfSelected/';
 
-const whichMonthShouldUpdate = initWhichMonthShouldUpdate();
+const whichMonthreRender = whichMonthShouldUpdate();
 
 class State {
 
@@ -25,38 +25,40 @@ class State {
     if (typeof this.update === 'function') this.update();
   }
 
-  init({ interval, selectType, dataAttribute, nextSelected }) {
-    if (interval) this.setInterval(interval, true);
-    if (dataAttribute) this.setDataAttribute(dataAttribute, true);
-    if (nextSelected) this.setSelected(undefined, nextSelected, true);
+  init({ interval, selectType, dataAttribute, nextSelected }, reRender) {
+    if (interval) this.setInterval(interval, false);
+    if (dataAttribute) this.setDataAttribute(dataAttribute, false);
+    if (nextSelected) this.setSelected(undefined, nextSelected, false);
     this.selectType = selectType || this.selectType;
+
+    if (reRender !== false) this.reRender();
   }
 
-  setInterval({ from, to, months, firstWeekDay } = {}, shouldNotUpdate) {
+  setInterval({ from, to, months, firstWeekDay } = {}, reRender) {
     this.calendar = calculateMonthInterval(
       moment(from),
       months ? moment(from).date(1).add(months > 0 ? months - 1 : 0, 'months') : moment(to),
       firstWeekDay,
     );
-    if (!shouldNotUpdate) this.reRender();
+    if (reRender !== false) this.reRender();
   }
 
-  setSelected(date, nextSelected, shouldNotUpdate) {
-    if (nextSelected && typeof nextSelected === 'object') {
-      this.selected = nextSelected;
-    } else if (Array.isArray(nextSelected)) {
+  setSelected(date, nextSelected, reRender) {
+    if (Array.isArray(nextSelected)) {
       this.selected = filterArrayOfSelected(nextSelected);
+    } else if (nextSelected && typeof nextSelected === 'object') {
+      this.selected = nextSelected;
     } else {
       this.selected = filterSelected(date, this.selected, this.selectType);
     }
 
-    this.updateMonth = whichMonthShouldUpdate(this.selected);
-    if (!shouldNotUpdate) this.reRender();
+    this.updateMonth = whichMonthreRender(this.selected);
+    if (reRender !== false) this.reRender();
   }
 
-  setDataAttribute(dataAttribute, shouldNotUpdate) {
+  setDataAttribute(dataAttribute, reRender) {
     this.dataAttribute = filterDataAttribute(dataAttribute);
-    if (!shouldNotUpdate) this.reRender();
+    if (reRender !== false) this.reRender();
   }
 
 }

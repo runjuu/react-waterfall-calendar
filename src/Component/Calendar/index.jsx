@@ -32,6 +32,10 @@ class Calendar extends Component {
     Calendar.autoRun(this.forceUpdate.bind(this));
   }
 
+  componentWillReceiveProps(nextProps) {
+    Calendar.state.init({ ...nextProps, nextSelected: nextProps.defaultSelected }, false);
+  }
+
   render() {
     return (
       <div className={this.props.classNames.calendars}>

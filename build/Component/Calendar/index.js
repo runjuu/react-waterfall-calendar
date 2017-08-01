@@ -52,6 +52,11 @@ var Calendar = (0, _State2.default)(_class = (_temp = _class2 = function (_Compo
   }
 
   _createClass(Calendar, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      Calendar.state.init(_extends({}, nextProps, { nextSelected: nextProps.defaultSelected }), false);
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
