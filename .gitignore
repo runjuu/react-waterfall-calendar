@@ -1,6 +1,7 @@
 .DS_Store
 .vscode
 node_modules/
+build/**/test.js
 npm-debug.log
 yarn-error.log
 /.idea
