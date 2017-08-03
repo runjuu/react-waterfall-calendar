@@ -45,13 +45,12 @@ class Month extends Component {
     if (typeof onClick === 'function') {
       Promise.all([onClick({ state: Calendar.state, event, date, nextSelected })])
         .then(([params]) => {
-          if (typeof params !== 'object') {
-            if (params !== false) Calendar.state.setSelected(date);
-            return;
-          }
+          if (params === false) return;
 
-          if (params.nextSelected) {
+          if (params && params.nextSelected) {
             Calendar.state.setSelected(undefined, filterArrayOfSelected(params.nextSelected));
+          } else {
+            Calendar.state.setSelected(date);
           }
         });
     } else {
