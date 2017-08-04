@@ -4,7 +4,6 @@ import filterSelected from '../methods/filterSelected/';
 import filterDataAttribute from '../methods/filterDataAttribute/';
 import whichMonthShouldUpdate from '../methods/whichMonthShouldUpdate/';
 import filterArrayOfSelected from '../methods/filterArrayOfSelected/';
-import newError from '../methods/newError/';
 
 const whichMonthShouldBeingUpdated = whichMonthShouldUpdate();
 
@@ -33,7 +32,8 @@ class State {
   }
 
   setInterval({ from, to, months, month, firstWeekDay } = {}, reRender) {
-    if (month) newError('interval props need "months" instead of "month"');
+    // eslint-disable-next-line no-console
+    if (month) console.error('[react-waterfall-calendar] interval props need "months" instead of "month"');
 
     this.calendar = calculateMonthInterval(
       moment(from),

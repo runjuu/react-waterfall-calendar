@@ -9,6 +9,5 @@ export calculateDateInterval from './calculateDateInterval/index';
 export filterSelected from './filterSelected/index';
 export filterDataAttribute from './filterDataAttribute/index';
 export filterArrayOfSelected from './filterArrayOfSelected/index';
-export newError from './newError/index';
 
 export const calendarLength = 42;
