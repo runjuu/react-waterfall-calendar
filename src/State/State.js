@@ -4,6 +4,7 @@ import filterSelected from '../methods/filterSelected/';
 import filterDataAttribute from '../methods/filterDataAttribute/';
 import whichMonthShouldUpdate from '../methods/whichMonthShouldUpdate/';
 import filterArrayOfSelected from '../methods/filterArrayOfSelected/';
+import newError from '../methods/newError/';
 
 const whichMonthShouldBeingUpdated = whichMonthShouldUpdate();
 
@@ -31,12 +32,15 @@ class State {
     if (reRender !== false) this.reRender();
   }
 
-  setInterval({ from, to, months, firstWeekDay } = {}, reRender) {
+  setInterval({ from, to, months, month, firstWeekDay } = {}, reRender) {
+    if (month) newError('interval props need "months" instead of "month"');
+
     this.calendar = calculateMonthInterval(
       moment(from),
       months ? moment(from).date(1).add(months > 0 ? months - 1 : 0, 'months') : moment(to),
       firstWeekDay,
     );
+
     if (reRender !== false) this.reRender();
   }
 

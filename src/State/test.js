@@ -81,6 +81,10 @@ describe('State', () => {
         expect(state.calendar[1][0][3]).to.be.equal('2017-02-01');
         expect(state.calendar[2][0][3]).to.be.equal('2017-03-01');
       });
+      it('传入的两个日期只匹配月份，不以日期间的天数作为月份区间的判断条件', () => {
+        state.setInterval({ from: '2017-08-04', months: 3 });
+        expect(state.calendar).to.have.lengthOf(3);
+      });
     });
     describe('setSelected 接受三个参数 date, nextSelected, shouldNotUpdate', () => {
       it('date 为必传参数，根据 state.selectType 设置不同的 state.selected', () => {
