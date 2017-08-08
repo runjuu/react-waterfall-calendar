@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/Runjuu/react-waterfall-calendar#readme",
   "dependencies": {
+    "func-pool": "^1.0.1",
     "jss": "^8.0.0",
     "jss-preset-default": "^3.0.0",
     "moment": "^2.18.1",

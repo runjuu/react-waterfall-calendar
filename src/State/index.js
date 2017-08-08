@@ -1,5 +1,5 @@
+import FuncPool from 'func-pool';
 import State from './State';
-import FuncPool from '../methods/FuncPool/';
 
 function initialize(target) {
   const state = new State();

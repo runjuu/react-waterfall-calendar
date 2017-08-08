@@ -9,7 +9,6 @@ import calculateMonthInterval from './calculateMonthInterval/test';
 import calculateDateInterval from './calculateDateInterval/test';
 import which from './which/test';
 import whichMonthShouldUpdate from './whichMonthShouldUpdate/test';
-import FuncPool from './FuncPool/test';
 
 describe('methods', () => {
   slice();
@@ -23,5 +22,4 @@ describe('methods', () => {
   calculateDateInterval();
   which();
   whichMonthShouldUpdate();
-  FuncPool();
 });
