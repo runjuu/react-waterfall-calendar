@@ -5,8 +5,6 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 export default {
   entry: {
     app: [
-      'webpack-dev-server/client?http://0.0.0.0:8080',
-      'webpack/hot/only-dev-server',
       'babel-polyfill',
       './app.jsx',
     ],
@@ -14,6 +12,7 @@ export default {
   },
   output: {
     path: path.join(__dirname, '/static'),
+    publicPath: './',
     filename: '[name].[hash].js',
   },
   resolve: {
