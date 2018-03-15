@@ -9,8 +9,8 @@
 [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 
 流式布局日历模块
-## Props
-```javascript
+# Props
+```jsx
     <Calendar
       interval
 
@@ -27,7 +27,7 @@
     />
 ```
 
-### interval
+## interval
 日历显示的月份区间
 
 ```javascript
@@ -41,14 +41,10 @@
 
 ⚠️ 当`months !== undefined`时，`to`将不起任何作用
 
----
-### selectType
-日期如何被选中的类型
-> 格式为 String 类型，接受以下三个值，默认为 `'SINGLE'`
 
-```javascript
-    const selectType = 'INTERVAL' || 'MULTIPLE' || 'SINGLE'
-```
+## selectType
+日期选择类型
+> 格式为 String 类型，接受以下三个值，默认为 `'SINGLE'`
 
 ##### 'INTERVAL'
 被选中的日期 是前后选择的两次日期间的所有日期
@@ -57,14 +53,14 @@
 ##### 'SINGLE'
 只有最后一个被选择的日期
 
-### classNames
+## classNames
 传入自定义样式的样式名
 
 ```javascript
     const { calendar, month, horizontal, date } = classNames;
 ```
 
-### dataAttribute
+## dataAttribute
 可对个别日期单独设置 data-* 属性
 
 ```javascript
@@ -72,16 +68,15 @@
     dataAttribute['2017-04-05'] = { attribute: 'attribute' }
 ```
 
-### defaultSelected
-在挂载日历组件时默认选中的日期
+## defaultSelected
+默认选中的日期
 
 ```javascript
     const defaultSelected = ['2017-02-06', '2017-02-07'];
 ```
----
-### dateFormat
 
-日期格式化
+## dateFormat
+日期显示格式
 
 > 默认为 `'D'`
 
@@ -89,9 +84,8 @@
     const dateFormat = 'D' || 'DD' || 'D日';
 ```
 
-### monthFormat
-
-月份格式化
+## monthFormat
+月份标题格式
 
 > 默认为 `'YYYY-MM'`
 
@@ -99,15 +93,13 @@
     const dateFormat = 'M' || 'MM' || 'M月';
 ```
 
----
-### onClick
-日期被点击时的回调方法
-
+## onClick
+点击日期时触发的回调方法
 ```javascript
     function onClick({ date, event, nextSelected, state }) {}
 ```
 
-#### return
+#### 调用 onClick 后的返回值
 ##### false *[boolean]*
 > 被选中的日期不会更新为 `nextSelected` 中的内容
 
@@ -115,7 +107,6 @@
 > 会根据 `onClick` 返回的 `nextSelected` 值更新
 > `nextSelected` 为 **符合 [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) 的 `String` 类型** 的**数组**
 
-
-### enableTouchTap
+## enableTouchTap
 当 `enableTouchTap = true` 时，`onClick`回调事件为 `onTouchTap`
 > 默认为 `false`
