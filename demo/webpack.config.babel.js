@@ -13,7 +13,7 @@ export default {
     vendor: ['react', 'react-dom'],
   },
   output: {
-    path: path.join(__dirname, '/build'),
+    path: path.join(__dirname, '/static'),
     filename: '[name].[hash].js',
   },
   resolve: {
@@ -55,7 +55,7 @@ export default {
     ],
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
+    new webpack.optimize.UglifyJsPlugin(),
     new HtmlWebpackPlugin({
       title: 'DEMO',
       template: './template.ejs',
