@@ -1,5 +1,4 @@
 # react-waterfall-calendar
-
 [![Greenkeeper badge](https://badges.greenkeeper.io/Runjuu/react-waterfall-calendar.svg)](https://greenkeeper.io/)
 [![Build Status](https://travis-ci.org/Runjuu/react-waterfall-calendar.svg?branch=master)](https://travis-ci.org/Runjuu/react-waterfall-calendar)
 [![Coverage Status](https://coveralls.io/repos/github/Runjuu/react-waterfall-calendar/badge.svg?branch=master)](https://coveralls.io/github/Runjuu/react-waterfall-calendar?branch=master)
@@ -8,7 +7,8 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md#pull-requests)
 [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 
-流式布局日历模块
+[![DEMO](https://i.imgur.com/sj0SHqn.gif)](https://runjuu.github.io/react-waterfall-calendar/demo/static/index.html)
+
 # Props
 ```jsx
     <Calendar
