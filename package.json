@@ -10,11 +10,6 @@
     "cover": "nyc mocha --compilers js:babel-core/register --recursive ./src/**/test.js*",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
-  "pre-commit": [
-    "build",
-    "cover",
-    "coverage"
-  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Runjuu/react-waterfall-calendar.git"
@@ -61,7 +56,6 @@
     "node-sass": "^4.5.3",
     "nyc": "^11.1.0",
     "postcss-loader": "^2.0.6",
-    "pre-commit": "^1.2.2",
     "precss": "^2.0.0",
     "react-test-renderer": "^15.6.1",
     "rollup-plugin-babel": "^3.0.2",
