@@ -22,7 +22,7 @@ class InfiniteScroll extends Component {
           <li>Tue</li>
           <li>Wed</li>
           <li>Thu</li>
-          <li>Fir</li>
+          <li>Fri</li>
           <li>Sat</li>
         </ul>
         <Calendar
