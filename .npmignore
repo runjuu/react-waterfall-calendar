@@ -1,9 +1,0 @@
-.*
-demo/
-src/
-.vscode／
-coverage/
-yarn.lock
-npm-debug.log
-yarn-error.log
-webpack.config.babel.js
