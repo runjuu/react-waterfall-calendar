@@ -10,6 +10,8 @@
 
 [![DEMO](https://i.imgur.com/Dkg7Shq.gif)](https://runjuu.github.io/react-waterfall-calendar/)
 
+[DEMO code](https://github.com/Runjuu/react-waterfall-calendar/tree/demo)
+
 # Props
 ```jsx
     <Calendar
