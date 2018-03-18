@@ -7,7 +7,8 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md#pull-requests)
 [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 
-[![DEMO](https://i.imgur.com/sj0SHqn.gif)](https://runjuu.github.io/react-waterfall-calendar/demo/static/index.html)
+
+[![DEMO](https://i.imgur.com/Dkg7Shq.gif)](https://runjuu.github.io/react-waterfall-calendar/)
 
 # Props
 ```jsx
