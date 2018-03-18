@@ -1,0 +1,64 @@
+.week-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    background: #fff;
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    margin: 0;
+    font-size: 1.3rem;
+    line-height: 3rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+.week-bar > li {
+    display: inline;
+    text-align: center;
+    flex: 1;
+}
+
+.calendar {
+    padding-top: 6rem;
+}
+
+.calendar .month {
+    font-size: 1.5rem;
+    height: 3rem;
+    letter-spacing: .2em;
+    font-weight: 100;
+    background: rgba(255, 255, 255, 0.98);
+}
+
+.date {
+    line-height: 4rem;
+    margin: 0.5rem 0;
+    font-size: 1.8rem;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+.date[data-which-month="PAST"],
+.date[data-which-month="FUTURE"] {
+    pointer-events: none;
+    visibility: hidden;
+}
+
+.date[data-selected] {
+    color: #fff;
+    background: rgba(255, 70, 61, 0.9);
+    border-radius: 0;
+}
+
+.date[data-first-selected] {
+    border-radius: 10rem 0 0 10rem;
+}
+
+.date[data-last-selected] {
+    border-radius: 0 10rem 10rem 0;
+}
+
+.date[data-selected].date[data-first-selected].date[data-last-selected] {
+    border-radius: 10rem;
+}
