@@ -8,7 +8,6 @@ import filterArrayOfSelected from '../methods/filterArrayOfSelected/';
 const whichMonthShouldBeingUpdated = whichMonthShouldUpdate();
 
 class State {
-
   constructor() {
     this.calendar = [];
     this.selected = {};
