@@ -1,17 +1,41 @@
 import React, { Component } from 'react';
 import './InfiniteScroll.css';
 import Calendar from 'react-waterfall-calendar';
-import State from './State';
+import _ from 'lodash';
+
+const monthStep = 48;
 
 class InfiniteScroll extends Component {
 
   constructor(props) {
     super(props);
 
-    this.state = new State(this);
+    this.state = {
+      interval: { months: monthStep },
+    };
   }
 
+  componentDidMount() {
+    document.addEventListener('scroll', _.throttle(
+      this.handlePageScroll.bind(this),
+      100
+    ));
+  }
 
+  makeMoreInterval() {
+    this.setState({
+      interval: {
+        months: this.state.interval.months + monthStep
+      },
+    });
+  }
+
+  handlePageScroll() {
+    const offset = window.innerHeight * 3;
+    if ((offset + window.scrollY) >= document.body.offsetHeight) {
+      this.makeMoreInterval();
+    }
+  }
 
   render() {
     return (
