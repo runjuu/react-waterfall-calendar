@@ -7,8 +7,7 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md#pull-requests)
 [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 
-#
-[<img src="https://i.imgur.com/Dkg7Shq.gif" height="400" align="right">](https://runjuu.github.io/react-waterfall-calendar/)
+[<img src="https://i.imgur.com/Dkg7Shq.gif" width="220">](https://runjuu.github.io/react-waterfall-calendar/)
 
 [DEMO Branch](https://github.com/Runjuu/react-waterfall-calendar/tree/demo)
 
