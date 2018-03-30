@@ -8,9 +8,10 @@
 [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 
 
-[![DEMO](https://i.imgur.com/Dkg7Shq.gif)](https://runjuu.github.io/react-waterfall-calendar/)
 
-[DEMO code](https://github.com/Runjuu/react-waterfall-calendar/tree/demo)
+[<img src="https://i.imgur.com/Dkg7Shq.gif" height="400" align="right">](https://runjuu.github.io/react-waterfall-calendar/)
+
+[DEMO Branch](https://github.com/Runjuu/react-waterfall-calendar/tree/demo)
 
 # Props
 ```jsx
