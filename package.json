@@ -55,7 +55,7 @@
     "mocha": "^3.5.3",
     "node-sass": "^4.8.2",
     "nyc": "^11.6.0",
-    "postcss-loader": "^2.1.1",
+    "postcss-loader": "^3.0.0",
     "precss": "^2.0.0",
     "react-test-renderer": "^15.6.2",
     "rollup-plugin-babel": "^3.0.2",
