@@ -58,7 +58,7 @@
     "postcss-loader": "^2.1.1",
     "precss": "^2.0.0",
     "react-test-renderer": "^15.6.2",
-    "rollup-plugin-babel": "^3.0.2",
+    "rollup-plugin-babel": "^4.0.1",
     "rollup-plugin-commonjs": "^8.4.1",
     "rollup-plugin-ignore": "^1.0.3",
     "rollup-plugin-node-resolve": "^3.2.0",
