@@ -61,7 +61,7 @@
     "rollup-plugin-babel": "^3.0.2",
     "rollup-plugin-commonjs": "^8.4.1",
     "rollup-plugin-ignore": "^1.0.3",
-    "rollup-plugin-node-resolve": "^3.2.0",
+    "rollup-plugin-node-resolve": "^4.2.3",
     "sass-loader": "^6.0.7",
     "sinon": "^5.0.0",
     "style-loader": "^0.18.2"
